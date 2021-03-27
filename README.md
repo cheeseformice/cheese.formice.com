@@ -1,20 +1,26 @@
-# cheese.formice.com
+# cheeseformice (cheese.formice.com)
 
-## Build Setup
+Website for cheese.formice.com
 
+## Install the dependencies
 ```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
+npm install
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+### Start the app in development mode (hot-code reloading, error reporting, etc.)
+```bash
+quasar dev
+```
+
+### Lint the files
+```bash
+npm run lint
+```
+
+### Build the app for production
+```bash
+quasar build
+```
+
+### Customize the configuration
+See [Configuring quasar.conf.js](https://v2.quasar.dev/quasar-cli/quasar-conf-js).
