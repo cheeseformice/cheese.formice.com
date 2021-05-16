@@ -148,19 +148,19 @@ export default class PlayerProfile extends mixins(Images) {
     const progress = this.player.period.shaman;
     return [
       {
-        icon: "http://transformice.com/images/x_transformice/x_divers/x_mc0.jpg",
+        icon: "https://cfmtest.tk/tfm/images/x_transformice/x_divers/x_mc0.jpg",
         title: this.$t("miceSavedNormal"),
         value: savesNormal,
         progress: progress.savesNormal,
       },
       {
-        icon: "http://transformice.com/images/x_transformice/x_divers/x_mc1.jpg",
+        icon: "https://cfmtest.tk/tfm/images/x_transformice/x_divers/x_mc1.jpg",
         title: this.$t("miceSavedHard"),
         value: savesHard,
         progress: progress.savesHard,
       },
       {
-        icon: "http://transformice.com/images/x_transformice/x_divers/x_mc2.jpg",
+        icon: "https://cfmtest.tk/tfm/images/x_transformice/x_divers/x_mc2.jpg",
         title: this.$t("miceSavedDivine"),
         value: savesDivine,
         progress: progress.savesDivine,
