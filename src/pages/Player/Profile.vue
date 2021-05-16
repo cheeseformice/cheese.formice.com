@@ -67,7 +67,14 @@
 
         <q-scroll-area horizontal visible style="height: 65px">
           <div class="row no-wrap q-gutter-sm">
-            <q-img v-for="(badge, i) in badges" :key="i" :src="badge" height="40px" width="40px" />
+            <q-img
+              v-for="(badge, i) in badges"
+              :key="i"
+              :src="badge"
+              height="40px"
+              width="40px"
+              spinner-size="32px"
+            />
           </div>
         </q-scroll-area>
       </div>
