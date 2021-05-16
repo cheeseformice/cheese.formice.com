@@ -9,7 +9,7 @@
       :avatar="getAvatar(player.id)"
       :tabs="tabs"
       :title="player.name"
-      img="http://transformice.com/images/x_transformice/x_evt/x_evt_03/0or8meuj/map-mongolfiere.jpg"
+      img="https://cfmtest.tk/tfm/images/x_transformice/x_evt/x_evt_03/0or8meuj/map-mongolfiere.jpg"
     />
     <div class="container q-py-md">
       <router-view v-slot="{ Component }">

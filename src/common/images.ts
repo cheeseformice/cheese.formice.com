@@ -1,6 +1,6 @@
 import { Player, API_BASE_URL } from "../api";
 
-const IMG_BASE_URL = "http://transformice.com/images";
+const IMG_BASE_URL = "https://cfmtest.tk/tfm/images";
 
 export const getBadge = (id: string | number) => {
   // removes counter from badge
