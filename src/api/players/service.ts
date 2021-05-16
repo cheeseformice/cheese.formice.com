@@ -52,7 +52,7 @@ export default class Players {
     });
   }
 
-  static async getChangeLogs<T extends PlayerChangelogTypes[]>(
+  static async getChangelogs<T extends PlayerChangelogTypes[]>(
     playerId: number | string,
     types: T
   ): Promise<AxiosResponse<PlayerChangelogs<T[number]>>> {

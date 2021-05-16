@@ -33,7 +33,7 @@ export default class PlayerModule extends VuexModule {
   @Action
   async getChangelogs() {
     if (!this.player) return;
-    const response = await PlayersService.getChangeLogs(this.player.id, [
+    const response = await PlayersService.getChangelogs(this.player.id, [
       T.Racing,
       T.Survivor,
       T.Defilante,
