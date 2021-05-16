@@ -1,12 +1,12 @@
 import { AxiosResponse } from "axios";
-import { axios, LeaderboardType, Pagination, SearchOptions } from "../";
+import { axios, LeaderboardType, Pagination, SearchOptions, PaginatedResponse } from "../";
 import { BaseTribe, Tribe, TribeLeaderboard } from "./interfaces";
 
 const BASE = "/tribes";
 
 export default class Tribes {
   /** Search tribes */
-  static async search(opt: Partial<SearchOptions>): Promise<AxiosResponse<BaseTribe[]>> {
+  static async search(opt: Partial<SearchOptions>): Promise<AxiosResponse<PaginatedResponse<BaseTribe>>> {
     opt = {
       limit: 5,
       page: 1,
@@ -25,7 +25,7 @@ export default class Tribes {
   static async getLeaderboard(
     order: LeaderboardType = "overall",
     pagination?: Partial<Pagination>
-  ): Promise<AxiosResponse<TribeLeaderboard[]>> {
+  ): Promise<AxiosResponse<PaginatedResponse<TribeLeaderboard>>> {
     pagination = {
       page: 1,
       limit: 50,

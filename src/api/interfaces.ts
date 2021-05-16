@@ -4,6 +4,11 @@ export interface SearchOptions {
   limit: number;
 }
 
+export interface PaginatedResponse<T> {
+  total: number;
+  page: T[];
+}
+
 export type LeaderboardType =
   | "rounds"
   | "cheese"
