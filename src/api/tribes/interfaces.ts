@@ -8,6 +8,21 @@ export interface Tribe extends BaseTribe {
   stats: Stats;
 }
 
+export interface TribeLeaderboard {
+  id: number;
+  name: string;
+  rounds: number;
+  cheese: number;
+  first: number;
+  bootcamp: number;
+  stats: number;
+  shaman: number;
+  survivor: number;
+  racing: number;
+  defilante: number;
+  overall: number;
+}
+
 export interface Stats {
   average: Average;
   total: Average;

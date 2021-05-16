@@ -65,6 +65,23 @@ export interface PlayerChangelogs<T extends number = any> {
   defilante: T extends PlayerChangelogTypes.Defilante ? Log<Defilante> : undefined;
 }
 
+export interface PlayerLeaderboard {
+  id: number;
+  name: string;
+  cfmRoles: string[] | null;
+  tfmRoles: string[] | null;
+  rounds: number;
+  cheese: number;
+  first: number;
+  bootcamp: number;
+  stats: number;
+  shaman: number;
+  survivor: number;
+  racing: number;
+  defilante: number;
+  overall: number;
+}
+
 type DateIndex = number;
 
 type Log<T> = {

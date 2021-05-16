@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
-import { axios, SearchOptions } from "../";
-import { BaseTribe, Tribe } from "./interfaces";
+import { axios, LeaderboardType, Pagination, SearchOptions } from "../";
+import { BaseTribe, Tribe, TribeLeaderboard } from "./interfaces";
 
 const BASE = "/tribes";
 
@@ -19,5 +19,25 @@ export default class Tribes {
   /** Get player by name / id */
   static async getById(tribeId: number | string): Promise<AxiosResponse<Tribe>> {
     return await axios.get(`${BASE}/${encodeURIComponent(tribeId)}`);
+  }
+
+  /** Get player leaderboard */
+  static async getLeaderboard(
+    order: LeaderboardType = "overall",
+    pagination?: Partial<Pagination>
+  ): Promise<AxiosResponse<TribeLeaderboard[]>> {
+    pagination = {
+      page: 1,
+      limit: 50,
+      ...pagination,
+    };
+    const { page, limit } = pagination;
+    return await axios.get(BASE, {
+      params: {
+        order,
+        page,
+        limit,
+      },
+    });
   }
 }
