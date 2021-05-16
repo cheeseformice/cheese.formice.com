@@ -156,7 +156,7 @@ export default class Leaderboard extends Vue {
     const service = tab === "player" ? PlayersService : TribesService;
     const response = await service.getLeaderboard(type.value, { page, limit });
 
-    this.leaderboard = response.data.map((l, i) => ({
+    this.leaderboard = response.data.page.map((l, i) => ({
       rank: (page - 1) * limit + i + 1,
       name: l.name,
       score: l[type.value],

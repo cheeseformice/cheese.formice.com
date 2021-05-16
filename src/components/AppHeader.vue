@@ -57,8 +57,8 @@ export default class AppHeader extends mixins(Images) {
 
     const [players, tribes] = await Promise.all([playersPromise, tribesPromise]);
     const results = [
-      ...players.data.map((p) => ({ ...p, type: "player" })),
-      ...tribes.data.map((p) => ({ ...p, type: "tribe" })),
+      ...players.data.page.map((p) => ({ ...p, type: "player" })),
+      ...tribes.data.page.map((p) => ({ ...p, type: "tribe" })),
     ];
 
     update(() => {
