@@ -28,24 +28,17 @@ import { getModule } from "vuex-module-decorators";
 import { CHero } from "src/components";
 import { PlayerModule } from "src/store";
 import { Images } from "src/common/mixins";
-// import { createMetaMixin } from "quasar";
+import useReactiveMeta from "./meta";
+import { setup } from "vue-class-component";
 
 @Options({ components: { CHero } })
 export default class PlayerPage extends mixins(Images) {
   @Prop() playerName!: string;
 
-  // meta = setup(function () {
-  //   const { setPlayer } = useReactiveMeta();
-  //   return { setPlayer };
-  // });
-
-  // Not Working
-  // get mixins() {
-  //   return [
-  //     createMetaMixin({
-  //     }),
-  //   ];
-  // }
+  meta = setup(function () {
+    const { setPlayer } = useReactiveMeta();
+    return { setPlayer };
+  });
 
   get player() {
     const playerModule = getModule(PlayerModule, this.$store);
@@ -69,7 +62,10 @@ export default class PlayerPage extends mixins(Images) {
     if (!this.player || this.playerName.toUpperCase() !== this.player?.name.toUpperCase()) {
       await this.onPlayerNameChange();
     }
-    if (this.player) await playerModule.getChangelogs();
+    if (this.player) {
+      this.meta.setPlayer(this.player);
+      await playerModule.getChangelogs();
+    }
   }
 
   @Watch("playerName")
@@ -78,14 +74,14 @@ export default class PlayerPage extends mixins(Images) {
     playerModule.setPlayer(null);
     await playerModule.getPlayer(this.playerName);
     if (!this.player) return await this.$router.push({ name: "home" });
-    // else this.meta.setPlayer(this.player);
+    else this.meta.setPlayer(this.player);
   }
 
   /** SSR */
   async serverPrefetch() {
     const playerModule = getModule(PlayerModule, this.$store);
     await playerModule.getPlayer(this.playerName);
-    // if (this.player) this.meta.setPlayer(this.player);
+    if (this.player) this.meta.setPlayer(this.player);
   }
 }
 </script>
