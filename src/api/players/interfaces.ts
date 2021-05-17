@@ -1,7 +1,8 @@
 export interface BasePlayer {
   id: number;
   name: string;
-  roles: string[];
+  cfmRoles: string[];
+  tfmRoles: string[];
 }
 
 export interface Player extends BasePlayer {
