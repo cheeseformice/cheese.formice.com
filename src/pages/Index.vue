@@ -1,7 +1,7 @@
 <template>
   <q-page padding class="container q-pt-lg">
     <div class="row q-col-gutter-md">
-      <div class="col-12 col-md-4 col-lg-2">
+      <div class="col-12 col-md-4">
         <q-table
           title="Last 10 seen players"
           dense
@@ -15,7 +15,7 @@
         />
       </div>
       
-      <div class="col-12 col-md-4 col-lg-2">
+      <div class="col-12 col-md-4">
         <q-table
           title="Last 10 seen tribes"
           dense
@@ -29,7 +29,7 @@
         />
       </div>
 
-      <div class="col-12 col-md-4 col-lg-2">
+      <div class="col-12 col-md-4">
         <q-table
           title="Top 10 players"
           dense
