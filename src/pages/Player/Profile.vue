@@ -7,6 +7,9 @@
           <svg width="90" viewBox="0 0 100 110">
             <image :href="look" width="90" />
           </svg>
+          <!-- Title -->
+          <br />
+          <span>«{{ title }}»</span>
         </div>
 
         <q-separator spaced inset />
@@ -99,6 +102,12 @@ export default class PlayerProfile extends mixins(Images) {
     const playerModule = getModule(PlayerModule, this.$store);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return playerModule.player!;
+  }
+
+  get title() {
+    const playerModule = getModule(PlayerModule, this.$store);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return playerModule.title!;
   }
 
   get sideItems() {
