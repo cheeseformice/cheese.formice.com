@@ -32,6 +32,15 @@ export default class Players {
     });
   }
 
+  /** Get last seen players */
+  static async getLastSeen(amount: number): Promise<AxiosResponse<BasePlayer[]>> {
+    return await axios.get(BASE, {
+      params: {
+        last: amount
+      }
+    });
+  }
+
   /** Get player leaderboard */
   static async getLeaderboard(
     order: LeaderboardType = "overall",

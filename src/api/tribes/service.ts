@@ -21,6 +21,15 @@ export default class Tribes {
     return await axios.get(`${BASE}/${encodeURIComponent(tribeId)}`);
   }
 
+  /** Get last seen players */
+  static async getLastSeen(amount: number): Promise<AxiosResponse<BaseTribe[]>> {
+    return await axios.get(BASE, {
+      params: {
+        last: amount
+      }
+    });
+  }
+
   /** Get player leaderboard */
   static async getLeaderboard(
     order: LeaderboardType = "overall",
