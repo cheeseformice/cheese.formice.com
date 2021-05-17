@@ -5,6 +5,4 @@ export interface FieldRequest {
     all: boolean;
 }
 
-export interface TranslationFields {
-    [field: string]: string;
-}
+export type TranslationFields = Record<string, string>
