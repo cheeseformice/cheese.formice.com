@@ -4,7 +4,7 @@ import { Player, PlayersService, TranslationsService, PlayerChangelogTypes as T,
 @Module({ namespaced: true, name: "player", stateFactory: true })
 export default class PlayerModule extends VuexModule {
   player: Player | null = null;
-  title: string | null = null;
+  title = "";
   changelogsRaw: PlayerChangelogs<T.Normal | T.Survivor | T.Racing | T.Defilante> | null = null;
 
   @Mutation
@@ -13,7 +13,7 @@ export default class PlayerModule extends VuexModule {
   }
 
   @Mutation
-  setTitle(title: string | null) {
+  setTitle(title: string) {
     this.title = title;
   }
 
@@ -25,7 +25,7 @@ export default class PlayerModule extends VuexModule {
   @Mutation
   resetState() {
     this.player = null;
-    this.title = null;
+    this.title = "";
     this.changelogsRaw = null;
   }
 
@@ -37,7 +37,7 @@ export default class PlayerModule extends VuexModule {
       await this.getTitle(response.data.title);
     } else {
       this.setPlayer(null);
-      this.setTitle(null);
+      this.setTitle("");
     }
     return response;
   }
@@ -48,7 +48,7 @@ export default class PlayerModule extends VuexModule {
       fields: [`T_${title}`]
     });
     // weirdly enough, axios returns the keys in lowercase...
-    this.setTitle(response.status === 200 ? response.data[`t_${title}`] : null);
+    this.setTitle(response.status === 200 ? response.data[`t_${title}`] : "");
     return response;
   }
 

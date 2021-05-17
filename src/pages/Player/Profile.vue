@@ -8,8 +8,7 @@
             <image :href="look" width="90" />
           </svg>
           <!-- Title -->
-          <br />
-          <span>«{{ title }}»</span>
+          <div>«{{ title }}»</div>
         </div>
 
         <q-separator spaced inset />
@@ -98,16 +97,17 @@ import { PlayerStats } from "./components";
   components: { PlayerStats },
 })
 export default class PlayerProfile extends mixins(Images) {
+  get module () {
+    return getModule(PlayerModule, this.$store);
+  }
+
   get player() {
-    const playerModule = getModule(PlayerModule, this.$store);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return playerModule.player!;
+    return this.module.player!;
   }
 
   get title() {
-    const playerModule = getModule(PlayerModule, this.$store);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return playerModule.title!;
+    return this.module.title;
   }
 
   get sideItems() {
