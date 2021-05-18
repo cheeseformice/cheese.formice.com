@@ -115,9 +115,9 @@ interface Racing {
 
 interface Shaman {
   cheese: number;
-  savesDivine: 23;
-  savesNormal: 6004;
-  savesHard: 2001;
+  savesDivine: number;
+  savesNormal: number;
+  savesHard: number;
   experience: number;
 }
 

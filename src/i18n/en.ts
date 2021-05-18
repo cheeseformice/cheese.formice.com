@@ -33,5 +33,7 @@ export default {
   killedMice: "Killed Mice",
   roundsSurvived: "Rounds Survived",
   pointsGathered: "Points Gathered",
-  sinceLastSevenDays: "+{value} since last 7 days",
+  totalMemberCount: "Total member count",
+  activeMemberCount: "Active member count",
+  sinceLastSevenDays: "{sign}{value} since last 7 days",
 };

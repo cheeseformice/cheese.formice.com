@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+import dayjs from "dayjs";
 import { axios, LeaderboardType, Pagination, SearchOptions, PaginatedResponse } from "../";
 import { BaseTribe, Tribe, TribeLeaderboard, TribeChangelogTypes, TribeChangelogs } from "./interfaces";
 
@@ -18,7 +19,9 @@ export default class Tribes {
 
   /** Get player by name / id */
   static async getById(tribeId: number | string): Promise<AxiosResponse<Tribe>> {
-    return await axios.get(`${BASE}/${encodeURIComponent(tribeId)}`);
+    return await axios.get(`${BASE}/${encodeURIComponent(tribeId)}`, {
+      params: { start: dayjs().subtract(7, "days").format("YYYY-MM-DD") },
+    });
   }
 
   /** Get last seen players */
