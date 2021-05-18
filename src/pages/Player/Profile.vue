@@ -114,7 +114,15 @@ export default class PlayerProfile extends mixins(Images) {
   get sideItems() {
     const { name, tribe, soulmate } = this.player;
     return [
-      { label: "Tribe", icon: "home", value: tribe?.name },
+      {
+        label: "Tribe",
+        icon: "home",
+        value: tribe?.name,
+        to: {
+          name: "tribe",
+          params: { tribeName: tribe?.name },
+        },
+      },
       {
         label: "Soulmate",
         icon: "favorite",
