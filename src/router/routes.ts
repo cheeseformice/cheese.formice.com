@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from "vue-router";
 import playerRoute from "src/pages/Player/routes";
+import tribeRoute from "src/pages/Tribe/routes";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -12,13 +13,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import("pages/Index.vue"),
       },
       playerRoute,
-      {
-        path: "t/:tribeName",
-        name: "tribe",
-        component: () => import("pages/Tribe.vue"),
-        props: true,
-        children: [],
-      },
+      tribeRoute,
       {
         path: "login",
         name: "login",

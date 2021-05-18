@@ -6,6 +6,13 @@ export interface BaseTribe {
 export interface Tribe extends BaseTribe {
   members: Members;
   stats: Stats;
+  period: Stats & {
+    start: string;
+    end: string;
+
+    members: number;
+    active: number;
+  };
 }
 
 export enum TribeChangelogTypes {
@@ -88,8 +95,9 @@ export interface Racing {
 
 export interface Shaman {
   cheese: number;
-  saves: number[];
-  experience: number;
+  savesDivine: number;
+  savesNormal: number;
+  savesHard: number;
 }
 
 export interface Survivor {
