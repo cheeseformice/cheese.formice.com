@@ -22,12 +22,8 @@ export default class Tribes {
   }
 
   /** Get last seen players */
-  static async getLastSeen(amount: number): Promise<AxiosResponse<BaseTribe[]>> {
-    return await axios.get(BASE, {
-      params: {
-        last: amount
-      }
-    });
+  static async getLastSeen(last: number): Promise<AxiosResponse<BaseTribe[]>> {
+    return await axios.get(BASE, { params: { last } });
   }
 
   /** Get player leaderboard */
