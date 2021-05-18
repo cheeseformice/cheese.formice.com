@@ -36,14 +36,13 @@ export enum PlayerChangelogTypes {
   Soulmate = 2,
   Tribe = 4,
   Look = 8,
-  Activity = 16,
-  Badge = 32,
-  Title = 64,
-  Shaman = 128,
-  Normal = 256,
-  Survivor = 512,
-  Racing = 1024,
-  Defilante = 2048,
+  Badge = 16,
+  Title = 32,
+  Shaman = 64,
+  Normal = 128,
+  Survivor = 256,
+  Racing = 512,
+  Defilante = 1024,
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
