@@ -4,7 +4,7 @@ export interface BaseTribe {
 }
 
 export interface Tribe extends BaseTribe {
-  members: number;
+  members: Members;
   stats: Stats;
 }
 
@@ -53,12 +53,12 @@ export interface TribeLeaderboard {
   overall: number;
 }
 
-export interface Stats {
-  average: Average;
-  total: Average;
+export interface Members {
+  total: number;
+  active: number;
 }
 
-export interface Average {
+export interface Stats {
   shaman: Shaman;
   normal: Normal;
   survivor: Survivor;
