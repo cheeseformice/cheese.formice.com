@@ -2,50 +2,66 @@
   <q-page padding class="container q-pt-lg">
     <div class="row q-col-gutter-md">
       <div class="col-12 col-md-4">
-        <q-table
-          title="Last 10 seen players"
-          dense
-          hide-header
-          hide-bottom
-          :columns="lastSeenColumns"
-          :rows="lastPlayers"
-          :rows-per-page-options="[0]"
-          :v-model:pagination="{ page: 1, rowsPerPage: 10 }"
-        />
+        <q-list dense bordered padding class="rounded-borders">
+          <q-item key="title">
+            <q-item-section class="q-table__title">
+              Last 10 seen players
+            </q-item-section>
+          </q-item>
+          <q-item
+            v-for="player in lastPlayers"
+            clickable
+            v-ripple
+            :key="player.name"
+            :to="player.route"
+          >
+            <q-item-section>
+              {{ player.name }}
+            </q-item-section>
+          </q-item>
+        </q-list>
       </div>
       
       <div class="col-12 col-md-4">
-        <q-table
-          title="Last 10 seen tribes"
-          dense
-          hide-header
-          hide-bottom
-          :columns="lastSeenColumns"
-          :rows="lastTribes"
-          :rows-per-page-options="[0]"
-          :v-model:pagination="{ page: 1, rowsPerPage: 10 }"
-        />
+        <q-list dense bordered padding class="rounded-borders">
+          <q-item key="title">
+            <q-item-section class="q-table__title">
+              Last 10 seen tribes
+            </q-item-section>
+          </q-item>
+          <q-item
+            v-for="tribe in lastTribes"
+            clickable
+            v-ripple
+            :key="tribe.name"
+            :to="tribe.route"
+          >
+            <q-item-section>
+              {{ tribe.name }}
+            </q-item-section>
+          </q-item>
+        </q-list>
       </div>
 
       <div class="col-12 col-md-4">
-        <q-table
-          title="Top 10 players"
-          dense
-          hide-bottom
-          :columns="leaderboardColumns"
-          :rows="leaderboard"
-          :rows-per-page-options="[0]"
-          :v-model:pagination="{ page: 1, rowsPerPage: 10 }"
-        >
-          <template v-slot:top-right>
-            <q-btn
-              color="secondary"
-              label="Extend"
-              no-caps
-              outline
-            />
-          </template>
-        </q-table>
+        <q-list dense bordered padding class="rounded-borders">
+          <q-item key="title">
+            <q-item-section class="q-table__title">
+              Top 10 players
+            </q-item-section>
+          </q-item>
+          <q-item
+            v-for="player in leaderboard"
+            clickable
+            v-ripple
+            :key="player.name"
+            :to="player.route"
+          >
+            <q-item-section>
+              {{ player.name }}
+            </q-item-section>
+          </q-item>
+        </q-list>
       </div>
 
       <div class="col-12">
@@ -85,19 +101,23 @@ import { QTable } from "quasar";
 import { Vue } from "vue-class-component";
 import { PlayersService, TribesService } from "src/api";
 
-interface lastSeenRow {
-  name: string
+interface Route {
+  name: "player" | "tribe";
+  params: {
+    playerName?: string;
+    tribeName?: string;
+  };
 }
 
-interface LeaderboardRow {
+interface Row {
   name: string;
-  score: number;
+  route: Route;
 }
 
 export default class PageIndex extends Vue {
-  lastPlayers: lastSeenRow[] = [];
-  lastTribes: lastSeenRow[] = [];
-  leaderboard: LeaderboardRow[] = [];
+  lastPlayers: Row[] = [];
+  lastTribes: Row[] = [];
+  leaderboard: Row[] = [];
 
   get lastSeenColumns(): QTable["columns"] {
     return [
@@ -213,7 +233,11 @@ export default class PageIndex extends Vue {
     const response = await PlayersService.getLastSeen(10);
 
     this.lastPlayers = response.data.map((l) => ({
-      name: l.name
+      name: l.name,
+      route: {
+        name: "player",
+        params: { playerName: l.name }
+      }
     }));
   }
 
@@ -221,7 +245,11 @@ export default class PageIndex extends Vue {
     const response = await TribesService.getLastSeen(10);
 
     this.lastTribes = response.data.map((l) => ({
-      name: l.name
+      name: l.name,
+      route: {
+        name: "tribe",
+        params: { tribeName: l.name }
+      }
     }));
   }
 
@@ -230,7 +258,10 @@ export default class PageIndex extends Vue {
 
     this.leaderboard = response.data.page.map((l) => ({
       name: l.name,
-      score: l.overall,
+      route: {
+        name: "player",
+        params: { playerName: l.name }
+      }
     }));
   }
 }
