@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { axios, LeaderboardType, Pagination, SearchOptions, PaginatedResponse } from "../";
-import { BaseTribe, Tribe, TribeLeaderboard } from "./interfaces";
+import { BaseTribe, Tribe, TribeLeaderboard, TribeChangelogTypes, TribeChangelogs } from "./interfaces";
 
 const BASE = "/tribes";
 
@@ -44,5 +44,13 @@ export default class Tribes {
         limit,
       },
     });
+  }
+
+  static async getChangelogs<T extends TribeChangelogTypes[]>(
+    tribeId: number | string,
+    types: T
+  ): Promise<AxiosResponse<TribeChangelogs<T[number]>>> {
+    const summedTypes = types.reduce((b, c) => b + c, 0);
+    return await axios.get(`${BASE}/${tribeId}/changelogs/${summedTypes}`);
   }
 }
