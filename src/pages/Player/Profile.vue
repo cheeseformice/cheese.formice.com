@@ -25,7 +25,7 @@
             <q-item-section>
               <div class="row items-center">
                 <div class="col-auto">
-              -    <q-icon :name="item.icon" color="primary" size="24px" class="q-mr-sm">
+                  <q-icon :name="item.icon" color="primary" size="24px" class="q-mr-sm">
                     <q-tooltip anchor="bottom middle" self="center middle">
                       {{ item.label }}
                     </q-tooltip>
