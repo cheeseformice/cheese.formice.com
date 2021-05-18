@@ -11,7 +11,6 @@
           :rows="lastPlayers"
           :rows-per-page-options="[0]"
           :v-model:pagination="{ page: 1, rowsPerPage: 10 }"
-          class="q-mt-lg"
         />
       </div>
       
@@ -25,7 +24,6 @@
           :rows="lastTribes"
           :rows-per-page-options="[0]"
           :v-model:pagination="{ page: 1, rowsPerPage: 10 }"
-          class="q-mt-lg"
         />
       </div>
 
@@ -38,7 +36,6 @@
           :rows="leaderboard"
           :rows-per-page-options="[0]"
           :v-model:pagination="{ page: 1, rowsPerPage: 10 }"
-          class="q-mt-lg"
         >
           <template v-slot:top-right>
             <q-btn
@@ -60,7 +57,6 @@
           :rows="serverStatus"
           :rows-per-page-options="[0]"
           :v-model:pagination="{ page: 1, rowsPerPage: 10 }"
-          class="q-mt-lg"
         >
           <template v-slot:top-right>
             <q-btn
