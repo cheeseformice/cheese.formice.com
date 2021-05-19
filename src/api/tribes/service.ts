@@ -2,6 +2,8 @@ import { AxiosResponse } from "axios";
 import dayjs from "dayjs";
 import { axios, LeaderboardType, Pagination, SearchOptions, PaginatedResponse } from "../";
 import { BaseTribe, Tribe, TribeLeaderboard, TribeChangelogTypes, TribeChangelogs } from "./interfaces";
+import { BasePlayer, PlayerLeaderboard } from "../players/interfaces";
+import { LeaderboardPeriod } from "../interfaces";
 
 const BASE = "/tribes";
 
@@ -55,5 +57,29 @@ export default class Tribes {
   ): Promise<AxiosResponse<TribeChangelogs<T[number]>>> {
     const summedTypes = types.reduce((b, c) => b + c, 0);
     return await axios.get(`${BASE}/${tribeId}/changelogs/${summedTypes}`);
+  }
+
+  static async getMembers(
+    tribeId: number | string,
+    search = "",
+    order: LeaderboardType | "" = "",
+    period: LeaderboardPeriod | "" = "",
+    pagination?: Partial<Pagination>
+  ): Promise<AxiosResponse<PaginatedResponse<BasePlayer> | PaginatedResponse<PlayerLeaderboard>>> {
+    pagination = {
+      page: 1,
+      limit: 50,
+      ...pagination,
+    };
+    const { page, limit } = pagination;
+    return await axios.get(`${BASE}/${tribeId}/members`, {
+      params: {
+        search,
+        order,
+        period,
+        page,
+        limit,
+      },
+    });
   }
 }

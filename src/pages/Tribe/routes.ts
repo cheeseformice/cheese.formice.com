@@ -19,7 +19,7 @@ export default <RouteRecordRaw>{
       component: () => import("pages/Tribe/Profile.vue"),
     },
     {
-      path: "normal",
+      path: "members",
       name: "tribeMembers",
       component: () => import("src/pages/Tribe/Members.vue"),
     },

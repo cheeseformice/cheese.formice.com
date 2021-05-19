@@ -1,8 +1,8 @@
 <template>
-  <q-avatar square>
+  <q-avatar square :size="size">
     <img
       :src="src"
-      :onerror="`this.onerror=null;this.src='https://avatars.atelier801.com/0/0.jpg';`"
+      :onerror="`this.onerror=null;this.src='${this.default}';`"
       :alt="id"
     />
   </q-avatar>
@@ -15,9 +15,20 @@ import { Images } from "src/common/mixins";
 export default class CAvatar extends mixins(Images) {
   @Prop({ required: true }) id!: number;
   @Prop({ default: false }) min!: boolean;
+  @Prop({ default: false }) tribe!: boolean;
+  @Prop({ default: "" }) size!: string;
+
+  get default() {
+    if (!this.tribe) {
+      // avatar 0 doesn't have a min version...
+      return this.getAvatar(0, false, false);
+    } else {
+      return this.getImage("x_tribulle2/maison-tribu.png");
+    }
+  }
 
   get src() {
-    return this.getAvatar(this.id, this.min);
+    return this.getAvatar(this.id, this.min, this.tribe);
   }
 }
 </script>
