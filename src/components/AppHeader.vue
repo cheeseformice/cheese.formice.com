@@ -31,8 +31,10 @@
         <template #option="{ opt }">
           <q-item clickable v-ripple :to="opt.route">
             <q-item-section avatar>
-              <c-avatar v-if="opt.type === 'player'" :id="opt.id" />
-              <img v-else :src="getImage('x_tribulle2/maison-tribu.png')" :alt="opt.name" />
+              <c-avatar
+                :id="opt.id"
+                :tribe="opt.type === 'tribe'"
+              />
             </q-item-section>
             <q-item-section>{{ opt.name }}</q-item-section>
           </q-item>

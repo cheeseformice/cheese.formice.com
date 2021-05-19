@@ -53,6 +53,20 @@ import { Images } from "src/common/mixins";
 import { TribeModule } from "src/store";
 import { TribeStats } from "./components";
 
+interface SideItems {
+  label: string;
+  icon: string;
+  isLink?: boolean;
+  value: string;
+  to?: {
+    name?: "player" | "tribe";
+    params: {
+      playerName?: string;
+      tribeName?: string;
+    }
+  };
+}
+
 @Options({
   components: { TribeStats },
 })
@@ -66,7 +80,7 @@ export default class TribeProfile extends mixins(Images) {
     return this.module.tribe!;
   }
 
-  get sideItems() {
+  get sideItems(): SideItems[] {
     const { id } = this.tribe;
     return [
       {

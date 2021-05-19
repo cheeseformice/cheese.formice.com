@@ -6,7 +6,8 @@
   </template>
   <template v-else>
     <c-hero
-      :avatar="getAvatar(tribe.id, false, true)"
+      :id="tribe.id"
+      :tribe="true"
       :tabs="tabs"
       :title="tribe.name"
       img="https://cfmtest.tk/tfm/images/x_transformice/x_evt/x_evt_03/0or8meuj/map-mongolfiere.jpg"

@@ -6,7 +6,7 @@
   </template>
   <template v-else>
     <c-hero
-      :avatar="getAvatar(player.id)"
+      :id="player.id"
       :tabs="tabs"
       :title="player.name"
       img="https://cfmtest.tk/tfm/images/x_transformice/x_evt/x_evt_03/0or8meuj/map-mongolfiere.jpg"

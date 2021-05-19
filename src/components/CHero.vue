@@ -2,9 +2,11 @@
   <q-parallax :src="img" :height="225">
     <div class="container">
       <div class="row top-hero q-gutter-x-md items-center">
-        <q-avatar square size="128px">
-          <img :src="avatar" />
-        </q-avatar>
+        <c-avatar
+          size="128px"
+          :id="id"
+          :tribe="tribe"
+        />
         <div class="name text-weight-medium text-white text-h3">
           {{ title }}
         </div>
@@ -21,11 +23,14 @@
 </template>
 
 <script lang="ts">
-import { Prop, Vue } from "vue-property-decorator";
+import { Options, Prop, Vue } from "vue-property-decorator";
 import { RouteLocationRaw } from "vue-router";
+import { CAvatar } from "src/components";
 
+@Options({ components: { CAvatar } })
 export default class Hero extends Vue {
-  @Prop({ default: "" }) avatar!: string;
+  @Prop({ default: 0 }) id!: number;
+  @Prop({ default: false }) tribe!: boolean;
   @Prop({ default: "" }) title!: string;
   @Prop({ default: "" }) img!: string;
   @Prop({ default: [] }) tabs!: { label: string; to: RouteLocationRaw }[];
