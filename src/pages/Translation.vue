@@ -28,6 +28,16 @@ import { Vue } from "vue-property-decorator";
 import i18n from "src/i18n";
 import { QTable } from "quasar";
 
+interface TranslationFields {
+  [key: string]: string | TranslationFields;
+}
+
+interface FlatTranslationField {
+  key: string;
+  en: string;
+  translation: string;
+}
+
 export default class Translation extends Vue {
   get tableColumns(): QTable["columns"] {
     return [
@@ -52,17 +62,36 @@ export default class Translation extends Vue {
     ];
   }
 
-  get tableData() {
-    const data: { key: string; en: string; translation: string }[] = [];
-    for (let [key, value] of Object.entries(i18n.en)) {
-      data.push({
-        key,
-        en: value,
-        translation: "",
-      });
+  flattenDictionary(dict: TranslationFields): FlatTranslationField[] {
+    const data: FlatTranslationField[] = [];
+
+    for (let [key, value] of Object.entries(dict)) {
+      if (typeof value === "string") {
+        data.push({
+          key,
+          en: value,
+          translation: ""
+        });
+
+      } else {
+        const child = this.flattenDictionary(value);
+
+        for (let index = 0; index < child.length; index++) {
+          const { key: _key, en, translation } = child[index];
+          data.push({
+            key: `${key}.${_key}`,
+            en,
+            translation
+          });
+        }
+      }
     }
 
     return data;
+  }
+
+  get tableData() {
+    return this.flattenDictionary(i18n.en);
   }
 }
 </script>
