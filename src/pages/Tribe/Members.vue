@@ -1,5 +1,36 @@
 <template>
   <div class="col-12 col-lg-10 q-gutter-y-md">
+    <div class="row items-center q-gutter-y-md">
+      <div class="col-12">
+        <div class="q-col-gutter-md" :class="$q.screen.gt.sm ? 'row float-right' : ''">
+          <q-input
+            outlined
+            dense
+            type="text"
+            v-model="search"
+            :placeholder="$t('search')"
+          />
+
+          <q-select
+            outlined
+            dense
+            v-model="lookup.period"
+            :options="periodOptions"
+            label="Period"
+            :class="$q.screen.gt.sm ? 'selector' : ''"
+          />
+          <q-select
+            outlined
+            dense
+            v-model="lookup.sort"
+            :options="sortOptions"
+            label="Leaderboard"
+            :class="$q.screen.gt.sm ? 'selector' : ''"
+          />
+        </div>
+      </div>
+    </div>
+
     <div class="q-gutter-y-sm">
       <div class="q-py-md flex flex-center">
         <q-pagination
@@ -18,7 +49,7 @@
           :id="player.id"
           :name="player.name"
           :pos="(itemsPerPage * (lookup.page - 1)) + index + 1"
-          :sort="lookup.sort ? lookup.sort.label : null"
+          :sort="lookup.sort ? lookup.sort.value : null"
           :stat="lookup.sort ? player[lookup.sort.value] : null"
         />
       </div>
@@ -46,8 +77,7 @@ import { TribeModule } from "src/store";
 import { TribeMember } from "./components";
 
 interface LookupOptions {
-  search?: string;
-  sort?: { label: string; value: LeaderboardType };
+  sort?: { label: string; value: LeaderboardType | "" };
   period?: { label: string; value: LeaderboardPeriod };
   page: number;
 }
@@ -56,6 +86,10 @@ interface LookupOptions {
   components: { TribeMember },
 })
 export default class TribeProfile extends mixins(Images) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  searchCheckInterval?: any;
+  search = "";
+  searchChanged = false;
   lookup: LookupOptions = {
     page: 1
   };
@@ -72,19 +106,103 @@ export default class TribeProfile extends mixins(Images) {
     return this.module.tribe!;
   }
 
+  get periodOptions(): LookupOptions["period"][] {
+    const periods: LeaderboardPeriod[] = [
+      "overall",
+      "daily",
+      "weekly",
+      "monthly"
+    ];
+    const options: LookupOptions["period"][] = [];
+
+    for (let period of periods) {
+      options.push({
+        label: this.$t(`periods.${period}`),
+        value: period,
+      });
+    }
+
+    return options;
+  }
+
+  get sortOptions(): LookupOptions["sort"][] {
+    const sortNames: LeaderboardType[] = [
+      "rounds",
+      "cheese",
+      "first",
+      "bootcamp",
+      "stats",
+      "shaman",
+      "survivor",
+      "racing",
+      "defilante",
+      "overall",
+    ];
+    const options: LookupOptions["sort"][] = [
+      {
+        label: this.$t("sorts.none"),
+        value: "",
+      }
+    ];
+
+    for (let name of sortNames) {
+      options.push({
+        label: this.$t(`sorts.${name}`),
+        value: name,
+      });
+    }
+
+    return options;
+  }
+
+  resetLeaderboard() {
+    this.lookup.sort = {
+      label: this.$t("sorts.none"),
+      value: "",
+    };
+    this.lookup.period = {
+      label: this.$t("periods.overall"),
+      value: "overall"
+    };
+  }
+
+  @Watch("search")
+  onSearchChange() {
+    // search and leaderboard are incompatible
+    if (!!this.lookup.sort?.value) {
+      this.resetLeaderboard();
+    }
+    this.searchChanged = true;
+  }
+
   @Watch("lookup", { deep: true })
   onOptionsChange() {
+    // search and leaderboard are incompatible
+    if (!!this.search) {
+      this.search = "";
+    }
     void this.fetchMembers();
   }
 
   mounted() {
+    this.searchCheckInterval = setInterval(() => {
+      if (this.searchChanged) {
+        this.searchChanged = false;
+        void this.fetchMembers();
+      }
+    }, 500);
+    this.resetLeaderboard();
     void this.fetchMembers();
+  }
+
+  unmounted() {
+    clearInterval(this.searchCheckInterval);
   }
 
   async fetchMembers() {
     const response = await TribesService.getMembers(
       this.tribe.id,
-      this.lookup.search ?? "",
+      this.search,
       this.lookup.sort ? this.lookup.sort.value : "",
       this.lookup.period ? this.lookup.period.value : "",
       {

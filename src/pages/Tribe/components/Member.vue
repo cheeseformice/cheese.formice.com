@@ -15,13 +15,10 @@
 
         <q-item-section class="q-ml-md">
           <q-item-label>{{ pos }}. <span class="text-bold">{{ name }}</span></q-item-label>
-          <q-item-label
-            v-if="!!sort"
-          >
-            <span class="text-bold">
-              {{ stat }}
-            </span>
-            {{ sort }}
+          <q-item-label v-if="!!stat">
+            <span
+              v-html="$t(`statValue.${sort}`, { stat: `<strong>${stat}</strong>` })"
+            ></span>
           </q-item-label>
         </q-item-section>
       </q-item>
