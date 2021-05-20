@@ -12,14 +12,20 @@
 import { Vue } from "vue-class-component";
 
 export default class GithubRedirect extends Vue {
+  redirectInterval?: number;
+
   get redirect() {
     return "https://github.com/cheeseformice";
   }
 
   mounted() {
-    window.setTimeout(() => {
+    this.redirectInterval = window.setTimeout(() => {
       window.location.replace(this.redirect);
     }, 3000);
+  }
+
+  unmounted() {
+    window.clearInterval(this.redirectInterval);
   }
 }
 </script>
