@@ -2,7 +2,7 @@
   <div class="col-12 bg-dark text-white q-pa-lg row">
     <div class="col-12 col-md-3 text-h6">
       <!-- A community of Transformice addicts -->
-      <img src="img/logo.png" height="100px" />
+      <img src="img/logo.png" style="height:100px;" />
     </div>
     <div class="col-12 col-md-1 q-pa-lg">
       <!-- Separator -->
