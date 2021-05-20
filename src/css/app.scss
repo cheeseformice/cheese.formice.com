@@ -5,6 +5,10 @@ $sm-breakpoint: 1024px;
 $md-breakpoint: 1439px;
 $lg-breakpoint: 1920px;
 
+a {
+	text-decoration: none;
+}
+
 .container,
 .container-sm,
 .container-md,
