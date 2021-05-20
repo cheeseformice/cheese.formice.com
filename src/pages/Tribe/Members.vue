@@ -84,8 +84,7 @@ interface LookupOptions {
   components: { TribeMember },
 })
 export default class TribeProfile extends mixins(Images) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  searchCheckInterval?: any;
+  searchCheckInterval?: number;
   search = "";
   searchChanged = false;
   lookup: LookupOptions = {
@@ -187,7 +186,7 @@ export default class TribeProfile extends mixins(Images) {
   }
 
   mounted() {
-    this.searchCheckInterval = setInterval(() => {
+    this.searchCheckInterval = window.setInterval(() => {
       if (this.searchChanged) {
         this.searchChanged = false;
         void this.fetchMembers();
@@ -198,7 +197,7 @@ export default class TribeProfile extends mixins(Images) {
   }
 
   unmounted() {
-    clearInterval(this.searchCheckInterval);
+    window.clearInterval(this.searchCheckInterval);
   }
 
   async fetchMembers() {
