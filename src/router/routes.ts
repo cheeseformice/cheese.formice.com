@@ -15,6 +15,11 @@ const routes: RouteRecordRaw[] = [
       playerRoute,
       tribeRoute,
       {
+        path: "github",
+        name: "github",
+        component: () => import("pages/GithubRedirect.vue"),
+      },
+      {
         path: "login",
         name: "login",
         component: () => import("src/pages/Login/index.vue"),
