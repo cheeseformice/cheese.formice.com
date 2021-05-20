@@ -1,5 +1,9 @@
 <template>
   <q-page padding class="container q-pt-lg">
+    <q-card flat class="q-py-md text-center">
+      <span class="text-h6">Welcome to CheeseForMice!</span>
+    </q-card>
+
     <div class="row q-col-gutter-md">
       <div class="col-12 col-md-4">
         <q-list dense bordered padding class="rounded-borders">
