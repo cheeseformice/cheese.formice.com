@@ -2,7 +2,7 @@
   <div class="col-12 bg-dark text-white q-pa-lg row">
     <div class="col-12 col-md-3 text-h6">
       <!-- A community of Transformice addicts -->
-      <img src="img/logo.png" />
+      <img src="img/logo.png" height="100px" />
     </div>
     <div class="col-12 col-md-1 q-pa-lg">
       <!-- Separator -->
@@ -53,15 +53,13 @@ export default class AppFooter extends Vue {
         ]
       },
       {
-        title: "Contribute",
+        title: "Information",
         items: [
           {
-            label: "Translation",
-            to: { name: "translation" },
+            label: "Frequently Asked Questions",
           },
           {
-            label: "Source code",
-            to: { name: "github" },
+            label: "Server status",
           },
         ]
       },
