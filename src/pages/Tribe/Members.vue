@@ -36,9 +36,8 @@
         <q-pagination
           v-model="lookup.page"
           outline
-          :max="total"
+          :max="totalPages"
           :max-pages="7"
-          :boundary-numbers="false"
         />
       </div>
 
@@ -58,9 +57,8 @@
         <q-pagination
           v-model="lookup.page"
           outline
-          :max="total"
+          :max="totalPages"
           :max-pages="7"
-          :boundary-numbers="false"
         />
       </div>
     </div>
@@ -99,6 +97,10 @@ export default class TribeProfile extends mixins(Images) {
 
   get module () {
     return getModule(TribeModule, this.$store);
+  }
+
+  get totalPages() {
+    return Math.ceil(this.total / this.itemsPerPage);
   }
 
   get tribe() {
