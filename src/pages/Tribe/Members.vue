@@ -165,7 +165,7 @@ export default class TribeProfile extends mixins(Images) {
   @Watch("search")
   onSearchChange() {
     // search and leaderboard are incompatible
-    if (!!this.lookup.sort?.value) {
+    if (!!this.lookup.sort?.value && !!this.search) {
       this.resetLeaderboard();
     }
     this.searchChanged = true;
@@ -174,7 +174,7 @@ export default class TribeProfile extends mixins(Images) {
   @Watch("lookup", { deep: true })
   onOptionsChange() {
     // search and leaderboard are incompatible
-    if (!!this.search) {
+    if (!!this.lookup.sort?.value && !!this.search) {
       this.search = "";
     }
     void this.fetchMembers();
