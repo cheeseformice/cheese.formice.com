@@ -6,7 +6,7 @@
   </template>
   <div v-show="changelogsRaw">
     <template v-if="!changelogs.length"> Changelogs Empty :( </template>
-    <!-- <canvas class="q-mx-auto q-pb-lg" style="max-width: 800px" ref="chart" /> -->
+    <canvas class="q-mx-auto q-pb-lg" style="max-width: 800px" ref="chart" />
 
     <q-table
       flat
@@ -70,22 +70,82 @@ export default class Changelogs extends Vue {
     return playerModule.changelogsRaw;
   }
 
-  get changelogs() {
-    const logs = this.changelogsRaw?.[this.type];
-    if (!logs) return [];
+  fillChangelogGap(
+    logs: Record<string, number | string>[], name: string,
+    start: number, end: number,
+    value: number
+  ) {
+    for (let i = start; i > end; i--) {
+      logs[i][name] = value;
+      logs[i][`${name}Increase`] = 0;
+    }
+  }
 
-    return Array.from(Array(this.changelogsRaw?.dates.length).keys()).map((i) => {
-      const obj: Record<string, number | string> = {};
-      for (const key of Object.keys(logs)) {
-        const k = key as keyof typeof logs;
-        if (!Array.isArray(logs[k])) continue;
-        const value = logs[k][i][1];
-        obj[k] = value;
-        if (typeof value === "number") obj[`${key}Increase`] = value - +logs[k][i + 1]?.[1] || 0;
+  get changelogs() {
+    const dates = this.changelogsRaw?.dates;
+    const logs = this.changelogsRaw?.[this.type];
+    if (!logs || !dates) return [];
+
+    const normalizedLogs: Record<string, number | string>[] = [];
+    for (let date of dates) {
+      normalizedLogs.push({
+        date: new Date(date).toLocaleString(),
+      });
+    }
+
+    for (let key in logs) {
+      if (key === "public") { continue; }
+
+      const statName = key as keyof typeof logs;
+      if (!this.tableCols[this.type].includes(statName)) {
+        continue;
       }
-      obj.date = new Date(this.changelogsRaw?.dates[i] || "").toLocaleString();
-      return obj;
-    });
+
+      const statLogs = logs[statName];
+
+      let expectedDateIndex = statLogs[ statLogs.length - 1 ][0];
+      if (expectedDateIndex < dates.length - 1) {
+        this.fillChangelogGap(
+          normalizedLogs, statName,
+          dates.length - 1, expectedDateIndex,
+          0
+        );
+      }
+
+      for (let i = statLogs.length - 1; i >= 0; i--) {
+        const [dateIndex, stat] = statLogs[i];
+        const lastValue = statLogs[i + 1]?.[1] || 0;
+
+        if (typeof stat === "string" || typeof lastValue == "string") {
+          continue;
+        }
+        
+        if (dateIndex < expectedDateIndex) {
+          this.fillChangelogGap(
+            normalizedLogs, statName,
+            expectedDateIndex, dateIndex,
+            lastValue
+          );
+        }
+
+        normalizedLogs[dateIndex][statName] = stat;
+        normalizedLogs[dateIndex][`${statName}Increase`] = stat - lastValue;
+        expectedDateIndex = dateIndex - 1;
+      }
+
+      if (expectedDateIndex !== -1) {
+        const value = statLogs[0][1];
+        if (typeof value === "string") { continue; }
+
+        this.fillChangelogGap(
+          normalizedLogs, statName,
+          expectedDateIndex, -1,
+          value
+        );
+      }
+    }
+
+    return normalizedLogs;
   }
 
   @Watch("changelogs")
