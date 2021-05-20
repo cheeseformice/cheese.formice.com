@@ -128,6 +128,7 @@ export default class TribeProfile extends mixins(Images) {
 
   get sortOptions(): LookupOptions["sort"][] {
     const sortNames: LeaderboardType[] = [
+      "overall",
       "rounds",
       "cheese",
       "first",
@@ -137,23 +138,17 @@ export default class TribeProfile extends mixins(Images) {
       "survivor",
       "racing",
       "defilante",
-      "overall",
     ];
-    const options: LookupOptions["sort"][] = [
+    return [
       {
         label: this.$t("sorts.none"),
         value: "",
-      }
+      },
+      ...sortNames.map((n) => ({
+        label: this.$t(`sorts.${n}`),
+        value: n,
+      })),
     ];
-
-    for (let name of sortNames) {
-      options.push({
-        label: this.$t(`sorts.${name}`),
-        value: name,
-      });
-    }
-
-    return options;
   }
 
   resetLeaderboard() {
@@ -204,8 +199,8 @@ export default class TribeProfile extends mixins(Images) {
     const response = await TribesService.getMembers(
       this.tribe.id,
       this.search,
-      this.lookup.sort ? this.lookup.sort.value : "",
-      this.lookup.period ? this.lookup.period.value : "",
+      this.lookup.sort?.value || "",
+      this.lookup.period?.value || "",
       {
         page: this.lookup.page,
         limit: this.itemsPerPage
