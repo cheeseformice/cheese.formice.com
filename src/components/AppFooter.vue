@@ -60,6 +60,7 @@ export default class AppFooter extends Vue {
           },
           {
             label: "Server status",
+            to: { name: "status" },
           },
         ]
       },

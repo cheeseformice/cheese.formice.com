@@ -1,3 +1,4 @@
+export * from "./healthcheck";
 export * from "./players";
 export * from "./translations";
 export * from "./tribes";

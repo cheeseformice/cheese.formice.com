@@ -84,6 +84,7 @@
               label="Extend"
               no-caps
               outline
+              :to="{name: 'status'}"
             />
           </template>
           <template v-slot:body-cell-status="props">
