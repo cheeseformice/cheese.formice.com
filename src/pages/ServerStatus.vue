@@ -33,11 +33,32 @@ export default class ServerStatus extends Vue {
     const ctx = chart?.getContext("2d");
     if (!ctx) return;
 
+    ctx.clearRect(0, 0, chart.width, chart.height);
+
     const labels = [];
     let date: number = Date.now();
     for (let index = this.reports.length - 1; index >= 0; index--) {
       date -= this.interval * 30000;
-      labels.unshift(new Date(date).toLocaleString());
+      labels.unshift(new Date(date));
+    }
+
+    const total: number[] = [];
+    for (let report of this.reports) {
+      let totalStat = 0,
+          count = 0;
+      for (let service of this.services) {
+        const serviceReport = report[service];
+        if (serviceReport === null) { continue; }
+
+        totalStat += serviceReport[property];
+        count += 1;
+      }
+
+      if (property === "ping") {
+        total.push(Math.ceil(totalStat / count));
+      } else {
+        total.push(totalStat);
+      }
     }
 
     new Chart(ctx, {
@@ -45,21 +66,44 @@ export default class ServerStatus extends Vue {
       data: {
         labels: labels,
         datasets: Object.keys(this.chartColor).map((service) => {
+          let label, data;
+          if (service === "total") {
+            if (property === "ping") {
+              label = "Average";
+            } else {
+              label = "Total";
+            }
+            data = total;
+          } else {
+            label = service.charAt(0).toUpperCase() + service.slice(1);
+            data = this.reports.map((report) => report[service]?.[property] || 0);
+          }
+
           return {
-            label: service.charAt(0).toUpperCase() + service.slice(1),
-            data: this.reports.map((report) => report[service]?.[property] || 0),
+            label,
+            data,
             borderColor: this.chartColor[service],
             backgroundColor: chroma(this.chartColor[service]).alpha(0.2).hex(),
             borderWidth: 2,
-          };
+          }
         }),
       },
       options: {
+        tooltips: {
+          mode: "index",
+          intersect: false
+        },
+        hover: {
+          mode: "index",
+          intersect: false
+        },
         aspectRatio: 4,
         scales: {
           yAxes: [
             {
               ticks: {
+                autoSkip: true,
+                maxTicksLimit: 5,
                 suggestedMax: max,
                 suggestedMin: 0,
                 precision: 0,
@@ -71,6 +115,16 @@ export default class ServerStatus extends Vue {
           ],
           xAxes: [
             {
+              type: "time",
+              time: {
+                displayFormats: {
+                  hour: "HH:mm"
+                }
+              },
+              ticks: {
+                autoSkip: true,
+                maxTicksLimit: 10,
+              },
               gridLines: {
                 display: false,
               },
@@ -80,6 +134,10 @@ export default class ServerStatus extends Vue {
         elements: {
           line: {
             tension: 0,
+            fill: false,
+          },
+          point: {
+            radius: 0
           },
         },
       },
@@ -159,10 +217,11 @@ export default class ServerStatus extends Vue {
     this.chartColor = {};
     const colors = chroma.scale(["#003F5C", "#FFA600"])
                           .mode("lch")
-                          .colors(reports.services.length);
+                          .colors(reports.services.length + 1);
+    this.chartColor["total"] = colors[0];
     for (let i = 0; i < reports.services.length; i++) {
       // Assign a color for each service
-      this.chartColor[ reports.services[i] ] = colors[i];
+      this.chartColor[ reports.services[i] ] = colors[i + 1];
     }
     
     this.drawCharts();
