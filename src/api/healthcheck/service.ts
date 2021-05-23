@@ -17,6 +17,9 @@ interface healthcheckCallbackType {
   (report: HealthcheckReport): void;
 }
 
+let lastListenerId = 0;
+let activeListeners = 0;
+const listeners: Record<number, healthcheckCallbackType> = {};
 let ws: Websocket | null;
 let listening = false;
 
@@ -61,11 +64,31 @@ function decompressReport(report: CompressedHealthcheckReport): HealthcheckRepor
 }
 
 export default class Healthcheck {
-  static get listening() {
-    return listening;
+  static addListener(callback: healthcheckCallbackType): number {
+    activeListeners += 1;
+    lastListenerId += 1;
+
+    listeners[lastListenerId] = callback;
+
+    if (activeListeners === 1) {
+      Healthcheck.startListening();
+    }
+
+    return lastListenerId;
   }
 
-  static listenReports(callback: healthcheckCallbackType): void {
+  static removeListener(id: number): void {
+    delete listeners[id];
+    activeListeners -= 1;
+
+    if (activeListeners === 0) {
+      Healthcheck.stopListening();
+    }
+  }
+
+  static startListening(): void {
+    if (listening) return;
+
     listening = true;
 
     ws = new WebsocketBuilder(WS_BASE_URL + BASE)
@@ -75,12 +98,17 @@ export default class Healthcheck {
           return;
         }
 
-        callback(decompressReport(JSON.parse(ev.data)));
+        const report = decompressReport(JSON.parse(ev.data));
+        for (const callback of Object.values(listeners)) {
+          callback(report);
+        }
       })
       .build();
   }
 
   static stopListening(): void {
+    if (!listening) return;
+
     listening = false;
     ws?.close();
     ws = null;
