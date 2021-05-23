@@ -2,7 +2,7 @@
   <q-page padding class="container q-pt-lg text-center">
     <current-server-status
       :services="services"
-      :startHidden="false"
+      :startHidden="true"
     />
 
     <div

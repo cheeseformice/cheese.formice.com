@@ -69,33 +69,10 @@
       </div>
 
       <div class="col-12">
-        <q-table
-          title="Server status"
-          bordered
-          hide-bottom
-          :columns="serverColumns"
-          :rows="serverStatus"
-          :rows-per-page-options="[0]"
-          :v-model:pagination="{ page: 1, rowsPerPage: 10 }"
-        >
-          <template v-slot:top-right>
-            <q-btn
-              color="secondary"
-              label="Extend"
-              no-caps
-              outline
-              :to="{name: 'status'}"
-            />
-          </template>
-          <template v-slot:body-cell-status="props">
-            <q-td
-              :props="props"
-              :class="statusColor(props.row.status)"
-            >
-              {{ props.row.status }}
-            </q-td>
-          </template>
-        </q-table>
+        <current-server-status
+          :services="services"
+          :startHidden="false"
+        />
       </div>
     </div>
   </q-page>
@@ -103,7 +80,8 @@
 
 <script lang="ts">
 import { QTable } from "quasar";
-import { Vue } from "vue-class-component";
+import { Options, Vue } from "vue-class-component";
+import { CurrentServerStatus } from "src/components";
 import { PlayersService, TribesService } from "src/api";
 
 interface Route {
@@ -119,10 +97,22 @@ interface Row {
   route: Route;
 }
 
+@Options({ components: { CurrentServerStatus }})
 export default class PageIndex extends Vue {
   lastPlayers: Row[] = [];
   lastTribes: Row[] = [];
   leaderboard: Row[] = [];
+
+  get services(): string[] {
+    return [
+      "changelogs",
+      "profile",
+      "lookup",
+      "auth",
+      "dressroom",
+      "router",
+    ];
+  }
 
   get lastSeenColumns(): QTable["columns"] {
     return [
