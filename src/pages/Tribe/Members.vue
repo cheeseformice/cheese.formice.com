@@ -16,7 +16,7 @@
             dense
             v-model="lookup.period"
             :options="periodOptions"
-            label="Period"
+            :label="$t('period')"
             :class="$q.screen.gt.sm ? 'selector' : ''"
           />
           <q-select
@@ -24,7 +24,7 @@
             dense
             v-model="lookup.sort"
             :options="sortOptions"
-            label="Leaderboard"
+            :label="$t('leaderboard')"
             :class="$q.screen.gt.sm ? 'selector' : ''"
           />
         </div>
@@ -114,16 +114,10 @@ export default class TribeProfile extends mixins(Images) {
       "weekly",
       "monthly"
     ];
-    const options: LookupOptions["period"][] = [];
-
-    for (let period of periods) {
-      options.push({
-        label: this.$t(`periods.${period}`),
-        value: period,
-      });
-    }
-
-    return options;
+    return periods.map((period) => ({
+      label: this.$t(`periods.${period}`),
+      value: period,
+    }));
   }
 
   get sortOptions(): LookupOptions["sort"][] {

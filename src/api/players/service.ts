@@ -1,6 +1,13 @@
 import { AxiosResponse } from "axios";
 import dayjs from "dayjs";
-import { axios, LeaderboardType, Pagination, SearchOptions, PaginatedResponse } from "../";
+import {
+  axios,
+  LeaderboardType,
+  LeaderboardPeriod,
+  Pagination,
+  SearchOptions,
+  PaginatedResponse,
+} from "../";
 import {
   BasePlayer,
   Player,
@@ -40,6 +47,7 @@ export default class Players {
   /** Get player leaderboard */
   static async getLeaderboard(
     order: LeaderboardType = "overall",
+    period: LeaderboardPeriod = "overall",
     pagination?: Partial<Pagination>
   ): Promise<AxiosResponse<PaginatedResponse<PlayerLeaderboard>>> {
     pagination = {
@@ -51,6 +59,7 @@ export default class Players {
     return await axios.get(BASE, {
       params: {
         order,
+        period,
         page,
         limit,
       },

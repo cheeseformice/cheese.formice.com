@@ -1,8 +1,5 @@
 export default {
   home: "Home",
-  leaderboard: "Leaderboard",
-  playerLeaderboards: "Player Leaderboards",
-  tribeLeaderboards: "Tribe Leaderboards",
   translation: "Translation",
 
   login: "Login",
@@ -21,8 +18,12 @@ export default {
   search: "Search",
 
   // Leaderboards
+  period: "Period",
+  leaderboard: "Leaderboard",
+  playerLeaderboards: "Player Leaderboards",
+  tribeLeaderboards: "Tribe Leaderboards",
   periods: {
-    overall: "Overall",
+    overall: "All time",
     daily: "Daily",
     weekly: "Weekly",
     monthly: "Monthly",
