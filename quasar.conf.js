@@ -121,8 +121,8 @@ module.exports = configure(function (/* ctx */) {
       },
 
       manifest: {
-        name: "cheeseformice",
-        short_name: "cheeseformice",
+        name: "CheeseForMice",
+        short_name: "CFM",
         description: "Website for cheese.formice.com",
         display: "standalone",
         orientation: "portrait",

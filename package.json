@@ -2,7 +2,7 @@
   "name": "cheese.formice.com",
   "version": "0.0.1",
   "description": "Website for cheese.formice.com",
-  "productName": "cheeseformice",
+  "productName": "CheeseForMice",
   "author": "SuspiciousLookingOwl",
   "private": true,
   "scripts": {
