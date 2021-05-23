@@ -1,94 +1,164 @@
 <template>
   <q-page padding class="container q-pt-lg text-center">
-    <canvas class="q-mx-auto q-pb-lg" style="max-width: 800px" ref="pingChart" />
-    <canvas class="q-mx-auto q-pb-lg" style="max-width: 800px" ref="successChart" />
-    <canvas class="q-mx-auto q-pb-lg" style="max-width: 800px" ref="errorChart" />
+    <div
+      v-for="property in properties"
+      :key="property"
+      class="col-12 q-my-lg"
+    >
+      <q-card flat bordered>
+        <q-item>
+          <q-item-section>
+            <q-item-label class="text-h6">{{ chartNames[property] }}</q-item-label>
+            <q-item-label>
+              <canvas
+                class="q-mx-auto q-pb-lg"
+                style="max-width: 800px"
+                :ref="`${property}Canvas`"
+              />
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-card>
+    </div>
   </q-page>
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import Chart from "chart.js";
 import chroma from "chroma-js";
 import { HealthcheckReport, HealthcheckService, HealthcheckProperty } from "src/api";
 import { Vue, Ref } from "vue-property-decorator";
 
+function isSingleReport(input: HealthcheckReport | HealthcheckReport[]): input is HealthcheckReport {
+  return input.length === undefined;
+}
+
+function capitalize(name: string): string {
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+function generateChartLabels(interval: number, amount: number): Date[] {
+  const labels: Date[] = [];
+  let date: number = Date.now();
+  // this returns the last minute that is a multiple of the interval
+  date -= date % (interval * 30000);
+  for (let index = 0; index < amount; index++) {
+    labels.unshift(new Date(date));
+    date -= interval * 30000;
+  }
+
+  return labels;
+}
+
+function generateAverage(
+  services: string[],
+  property: HealthcheckProperty,
+  reports: HealthcheckReport[]
+): number[] {
+  return reports.map((report) => {
+    let count = 0,
+        total = 0;
+
+    for (let service of services) {
+      const serviceReport = report[service];
+      if (serviceReport === null) { continue; }
+
+      count += 1;
+      total += serviceReport[property];
+    }
+
+    return Math.ceil(total / count);
+  });
+}
+
+function generateSum(
+  services: string[],
+  property: HealthcheckProperty,
+  reports: HealthcheckReport[],
+): number[] {
+  return reports.map((report) => {
+    let total = 0;
+
+    for (let service of services)  {
+      const serviceReport = report[service];
+      if (serviceReport === null) { continue; }
+
+      total += serviceReport[property];
+    }
+
+    return total;
+  });
+}
+
 export default class ServerStatus extends Vue {
-  @Ref() readonly pingChart!: HTMLCanvasElement;
-  @Ref() readonly successChart!: HTMLCanvasElement;
-  @Ref() readonly errorChart!: HTMLCanvasElement;
+  @Ref() readonly pingCanvas!: HTMLCanvasElement;
+  @Ref() readonly successCanvas!: HTMLCanvasElement;
+  @Ref() readonly errorsCanvas!: HTMLCanvasElement;
+
+  charts: Partial<Record<HealthcheckProperty, Chart>> = {};
 
   // A report is received every ~30 seconds
   // interval of 10 reports, so 5 minutes per interval
   interval = 10;
+  maxReports = 24 * 60 * 60 / (this.interval * 30);
+
   services: string[] = [];
+  generalColor = "#003F5C";
   chartColor: Record<string, string> = {};
-  reports: HealthcheckReport[] = [];
   forInterval: HealthcheckReport[] = [];
 
-  drawChart(
-    property: HealthcheckProperty,
-    chart: HTMLCanvasElement,
-    max?: number,
-  ) {
-    const ctx = chart?.getContext("2d");
-    if (!ctx) return;
+  get properties(): HealthcheckProperty[] {
+    return ["ping", "success", "errors"];
+  }
 
-    ctx.clearRect(0, 0, chart.width, chart.height);
+  get chartNames(): Record<HealthcheckProperty, string> {
+    return {
+      "ping": "Ping",
+      "success": "Successful responses",
+      "errors": "Errors",
+    };
+  }
 
-    const labels = [];
-    let date: number = Date.now();
-    for (let index = this.reports.length - 1; index >= 0; index--) {
-      date -= this.interval * 30000;
-      labels.unshift(new Date(date));
+  createChart(canvas: HTMLCanvasElement, generalName: string, suggestedMax?: number): Chart {
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      throw new Error("couldn't get canvas context")
     }
 
-    const total: number[] = [];
-    for (let report of this.reports) {
-      let totalStat = 0,
-          count = 0;
-      for (let service of this.services) {
-        const serviceReport = report[service];
-        if (serviceReport === null) { continue; }
-
-        totalStat += serviceReport[property];
-        count += 1;
-      }
-
-      if (property === "ping") {
-        total.push(Math.ceil(totalStat / count));
-      } else {
-        total.push(totalStat);
-      }
-    }
-
-    new Chart(ctx, {
+    let chart: Chart;
+    chart = new Chart(ctx, {
       type: "line",
       data: {
-        labels: labels,
-        datasets: Object.keys(this.chartColor).map((service) => {
-          let label, data;
-          if (service === "total") {
-            if (property === "ping") {
-              label = "Average";
-            } else {
-              label = "Total";
-            }
-            data = total;
-          } else {
-            label = service.charAt(0).toUpperCase() + service.slice(1);
-            data = this.reports.map((report) => report[service]?.[property] || 0);
-          }
-
-          return {
-            label,
-            data,
+        labels: [],
+        datasets: [
+          {
+            label: capitalize(generalName),
+            hidden: canvas === this.successCanvas,
+            data: [],
+            borderColor: this.generalColor,
+            backgroundColor: chroma(this.generalColor).alpha(0.2).hex(),
+            borderWidth: 2,
+          },
+          ...Object.keys(this.chartColor).map((service) => ({
+            label: capitalize(service),
+            data: [],
+            hidden: canvas === this.successCanvas && service === "lookup",
             borderColor: this.chartColor[service],
             backgroundColor: chroma(this.chartColor[service]).alpha(0.2).hex(),
             borderWidth: 2,
-          }
-        }),
+          }))
+        ],
       },
       options: {
+        onResize: (newSize) => {
+          chart.options.legend!.display = newSize.width >= 700;
+          chart.update();
+        },
+        legend: {
+          display: canvas.width >= 700,
+        },
         tooltips: {
           mode: "index",
           intersect: false
@@ -104,7 +174,7 @@ export default class ServerStatus extends Vue {
               ticks: {
                 autoSkip: true,
                 maxTicksLimit: 5,
-                suggestedMax: max,
+                suggestedMax,
                 suggestedMin: 0,
                 precision: 0,
               },
@@ -142,6 +212,59 @@ export default class ServerStatus extends Vue {
         },
       },
     });
+    return chart;
+  }
+
+  updateChart(name: HealthcheckProperty, reports: HealthcheckReport[]) {
+    const chart: Chart = this.charts[name]!;
+
+    const labels: Date[] = generateChartLabels(this.interval, reports.length);
+    let general: number[],
+        generalName: string;
+    if (name === "ping") {
+      general = generateAverage(this.services, name, reports);
+      generalName = "average";
+    } else {
+      general = generateSum(this.services, name, reports);
+      generalName = "total";
+    }
+    
+    const chartLabels = chart.data.labels!;
+    chartLabels.splice(chartLabels.length, 0, ...labels);
+    if (chartLabels.length > this.maxReports) {
+      chartLabels.splice(0, chartLabels.length - this.maxReports);
+    }
+
+    chart.data.datasets?.forEach((dataset) => {
+      const data = dataset.data!;
+      const label = dataset.label!.toLowerCase();
+
+      if (label === generalName) {
+        data.splice(data.length, 0, ...general);
+      } else {
+        data.splice(data.length, 0, ...reports.map((report) => report[label]?.[name] || 0));
+      }
+
+      if (data.length > this.maxReports) {
+        data.splice(0, data.length - this.maxReports);
+      }
+    });
+
+    chart.options.legend!.display = (chart.canvas?.width || 0) >= 700;
+    chart.update();
+  }
+
+  updateCharts(input: HealthcheckReport | HealthcheckReport[]) {
+    let reports: HealthcheckReport[];
+    if (isSingleReport(input)) {
+      reports = [input];
+    } else {
+      reports = input;
+    }
+
+    for (let name of Object.keys(this.charts)) {
+      this.updateChart(name as HealthcheckProperty, reports);
+    }
   }
 
   mergeReports(reports: HealthcheckReport[]): HealthcheckReport {
@@ -181,21 +304,9 @@ export default class ServerStatus extends Vue {
       return;
     }
 
-    this.reports.push(this.mergeReports(this.forInterval.splice(0, this.interval)));
-
-    // Up to last 24 hours of data
-    const maxReports = 24 * 60 * 60 / (this.interval * 30);
-    if (this.reports.length > maxReports) {
-      this.reports.splice(0, this.reports.length - maxReports);
-    }
-
-    this.drawCharts();
-  }
-
-  drawCharts() {
-    this.drawChart("ping", this.pingChart, 50);
-    this.drawChart("success", this.successChart);
-    this.drawChart("errors", this.errorChart);
+    this.updateCharts(
+      this.mergeReports(this.forInterval.splice(0, this.interval))
+    );
   }
 
   mounted() {
@@ -211,20 +322,23 @@ export default class ServerStatus extends Vue {
   async fetchReports() {
     const reports = await HealthcheckService.getPastReports(this.interval / 10);
     this.services = reports.services;
-    this.reports = reports.data;
     this.forInterval = reports.forInterval;
 
     this.chartColor = {};
-    const colors = chroma.scale(["#003F5C", "#FFA600"])
+    const colors = chroma.scale(["#374C80", "#FFA600"])
                           .mode("lch")
-                          .colors(reports.services.length + 1);
-    this.chartColor["total"] = colors[0];
+                          .colors(reports.services.length);
     for (let i = 0; i < reports.services.length; i++) {
       // Assign a color for each service
-      this.chartColor[ reports.services[i] ] = colors[i + 1];
+      this.chartColor[ reports.services[i] ] = colors[i];
     }
-    
-    this.drawCharts();
+
+    this.charts = {
+      ping: this.createChart(this.pingCanvas, "average", 50),
+      success: this.createChart(this.successCanvas, "total", 50),
+      errors: this.createChart(this.errorsCanvas, "total", 50),
+    }
+    this.updateCharts(reports.data);
 
     if (!HealthcheckService.listening) {
       HealthcheckService.listenReports(
