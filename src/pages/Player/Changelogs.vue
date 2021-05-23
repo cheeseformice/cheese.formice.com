@@ -6,7 +6,7 @@
   </template>
   <div v-show="changelogsRaw">
     <template v-if="!changelogs.length"> Changelogs Empty :( </template>
-    <canvas class="q-mx-auto q-pb-lg" style="max-width: 800px" ref="chart" />
+    <canvas class="q-mx-auto q-pb-lg" style="max-width: 800px" ref="canvas" />
 
     <q-table
       flat
@@ -41,7 +41,8 @@ import chroma from "chroma-js";
 import { PlayerModule } from "src/store";
 
 export default class Changelogs extends Vue {
-  @Ref() readonly chart!: HTMLCanvasElement;
+  @Ref() readonly canvas!: HTMLCanvasElement;
+  chart?: Chart;
 
   @Prop() type!: "racing" | "survivor" | "defilante" | "normal";
 
@@ -129,7 +130,11 @@ export default class Changelogs extends Vue {
         }
 
         normalizedLogs[dateIndex][statName] = stat;
-        normalizedLogs[dateIndex][`${statName}Increase`] = stat - lastValue;
+        if (i === statLogs.length - 1) {
+          normalizedLogs[dateIndex][`${statName}Increase`] = 0;
+        } else {
+          normalizedLogs[dateIndex][`${statName}Increase`] = stat - lastValue;
+        }
         expectedDateIndex = dateIndex - 1;
       }
 
@@ -148,37 +153,22 @@ export default class Changelogs extends Vue {
     return normalizedLogs;
   }
 
-  @Watch("changelogs")
-  onChangelogsUpdate() {
-    const ctx = this.chart?.getContext("2d");
+  createChart() {
+    const ctx = this.canvas?.getContext("2d");
     if (!ctx || !this.changelogs.length) return;
 
-    const changelogs = this.changelogs.slice().reverse();
-    const keys: string[] = [];
-    for (const [key, value] of Object.entries(changelogs[0])) {
-      if (typeof value === "number" && !key.endsWith("Increase")) keys.push(key);
-    }
-
-    new Chart(ctx, {
+    this.chart = new Chart(ctx, {
       type: "line",
       data: {
-        labels: changelogs.map((c) => new Date(c.date).toLocaleDateString()),
-        datasets: keys.map((k, i) => {
-          return {
-            label: k.charAt(0).toUpperCase() + k.slice(1),
-            data: changelogs.map((c) => +c[k]),
-            borderColor: this.chartColor[i],
-            backgroundColor: chroma(this.chartColor[i]).alpha(0.2).hex(),
-            borderWidth: 2,
-          };
-        }),
+        labels: [],
+        datasets: [],
       },
       options: {
         scales: {
           yAxes: [
             {
               ticks: {
-                stepSize: 1,
+                suggestedMin: 0,
               },
               gridLines: {
                 display: false,
@@ -195,6 +185,39 @@ export default class Changelogs extends Vue {
         },
       },
     });
+  }
+
+  mounted() {
+    this.onChangelogsUpdate();
+  }
+
+  @Watch("changelogs")
+  onChangelogsUpdate() {
+    if (this.changelogs.length === 0) { return; }
+
+    const changelogs = this.changelogs.slice().reverse();
+    const keys: string[] = [];
+    for (const [key, value] of Object.entries(changelogs[0])) {
+      if (typeof value === "number" && !key.endsWith("Increase")) keys.push(key);
+    }
+
+    if (this.chart === undefined) {
+      this.createChart();
+      if (this.chart === undefined) { return; }
+    }
+
+    this.chart.data.labels = changelogs.map((c) => new Date(c.date).toLocaleDateString());
+    this.chart.data.datasets = keys.map((k, i) => {
+      return {
+        label: k.charAt(0).toUpperCase() + k.slice(1),
+        data: changelogs.map((c) => +c[k]),
+        borderColor: this.chartColor[i],
+        backgroundColor: chroma(this.chartColor[i]).alpha(0.2).hex(),
+        borderWidth: 2,
+      };
+    });
+
+    this.chart.update();
   }
 }
 </script>
