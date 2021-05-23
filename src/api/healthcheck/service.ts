@@ -86,6 +86,12 @@ export default class Healthcheck {
     ws = null;
   }
 
+  static async getCurrentStatus(): Promise<HealthcheckReport> {
+    const response: AxiosResponse<CompressedHealthcheckReport> = await axios.get(`${BASE}/current`);
+
+    return decompressReport(response.data);
+  }
+
   static async getPastReports(interval: number): Promise<HistoricalHealthcheckReport> {
     const response: AxiosResponse<CompressedHistoricalHealthcheckReport> = await axios.get(
       `${BASE}/past`,

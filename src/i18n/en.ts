@@ -53,7 +53,7 @@ export default {
     overall: "Overall score: {stat}",
   },
 
-  // For stats"
+  // For stats
   miceSavedNormal: "Mice Saved (Normal)",
   miceSavedHard: "Mice Saved (Hard)",
   miceSavedDivine: "Mice Saved (Divine)",
@@ -70,4 +70,25 @@ export default {
   totalMemberCount: "Total member count",
   activeMemberCount: "Active member count",
   sinceLastSevenDays: "{sign}{value} since last 7 days",
+
+  // Server healthcheck
+  help: {
+    api: "The API is responsible for the functionality of the website",
+    changelogs: "Service responsible of tracking the progress of players & tribes",
+    profile: "Service responsible of showing the profile of players & tribes",
+    auth: "Service responsible of the website authentication",
+    router: "Service responsible of handling requests",
+    lookup: "Service responsible of leaderboards and searching players",
+    dressroom: "Service responsible of drawing players' outfits"
+  },
+  status: {
+    operational: "Operational",
+    partialOutage: "Partial outage",
+    majorOutage: "Major outage",
+  },
+  chart: {
+    ping: "Ping",
+    success: "Successful responses",
+    errors: "Errors",
+  },
 };
