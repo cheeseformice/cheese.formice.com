@@ -1,9 +1,15 @@
 import { AxiosResponse } from "axios";
 import dayjs from "dayjs";
-import { axios, LeaderboardType, Pagination, SearchOptions, PaginatedResponse } from "../";
+import {
+  axios,
+  LeaderboardType,
+  LeaderboardPeriod,
+  Pagination,
+  SearchOptions,
+  PaginatedResponse,
+} from "../";
 import { BaseTribe, Tribe, TribeLeaderboard, TribeChangelogTypes, TribeChangelogs } from "./interfaces";
 import { BasePlayer, PlayerLeaderboard } from "../players/interfaces";
-import { LeaderboardPeriod } from "../interfaces";
 
 const BASE = "/tribes";
 
@@ -34,6 +40,7 @@ export default class Tribes {
   /** Get player leaderboard */
   static async getLeaderboard(
     order: LeaderboardType = "overall",
+    period: LeaderboardPeriod = "overall",
     pagination?: Partial<Pagination>
   ): Promise<AxiosResponse<PaginatedResponse<TribeLeaderboard>>> {
     pagination = {
@@ -45,6 +52,7 @@ export default class Tribes {
     return await axios.get(BASE, {
       params: {
         order,
+        period,
         page,
         limit,
       },

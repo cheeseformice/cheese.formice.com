@@ -16,7 +16,7 @@
             dense
             v-model="leaderboardOptions.period"
             :options="periodOptions"
-            label="Period"
+            :label="$t('period')"
             :class="$q.screen.gt.sm ? 'selector' : ''"
           />
           <q-select
@@ -24,7 +24,7 @@
             dense
             v-model="leaderboardOptions.type"
             :options="typeOptions"
-            label="Leaderboard"
+            :label="$t('leaderboard')"
             :class="$q.screen.gt.sm ? 'selector' : ''"
           />
         </div>
@@ -84,11 +84,11 @@ export default class Leaderboard extends Vue {
   leaderboardOptions: LeaderboardOptions = {
     tab: "player",
     period: {
-      label: "All time",
+      label: "",
       value: "overall",
     },
     type: {
-      label: "Overall",
+      label: "",
       value: "overall",
     },
     page: 1,
@@ -119,42 +119,58 @@ export default class Leaderboard extends Vue {
     ];
   }
 
-  // TODO: Add more periods
   get periodOptions(): LeaderboardOptions["period"][] {
-    return [
-      {
-        label: "Overall",
-        value: "overall",
-      },
+    const periods: LeaderboardPeriod[] = [
+      "overall",
+      "daily",
+      "weekly",
+      "monthly"
     ];
+    return periods.map((period) => ({
+      label: this.$t(`periods.${period}`),
+      value: period,
+    }));
   }
 
-  // TODO: Add more types
   get typeOptions(): LeaderboardOptions["type"][] {
-    return [
-      {
-        label: "Racing",
-        value: "racing",
-      },
+    const sortNames: LeaderboardType[] = [
+      "overall",
+      "rounds",
+      "cheese",
+      "first",
+      "bootcamp",
+      "stats",
+      "shaman",
+      "survivor",
+      "racing",
+      "defilante",
     ];
+    return sortNames.map((n) => ({
+      label: this.$t(`sorts.${n}`),
+      value: n,
+    }));
   }
 
   @Watch("leaderboardOptions", { deep: true })
   onOptionsChange() {
+    console.log("change");
     void this.fetchLeaderboard();
     window.scrollTo(0, 0);
   }
 
   mounted() {
+    this.leaderboardOptions.period.label = this.$t("periods.overall");
+    this.leaderboardOptions.type.label = this.$t("sorts.overall");
+
     void this.fetchLeaderboard();
   }
 
   async fetchLeaderboard() {
     const limit = 50;
-    const { page, tab, type } = this.leaderboardOptions;
+    const { page, tab, type, period } = this.leaderboardOptions;
 
     const service = tab === "player" ? PlayersService : TribesService;
-    const response = await service.getLeaderboard(type.value, { page, limit });
+    const response = await service.getLeaderboard(type.value, period.value, { page, limit });
 
     this.leaderboard = response.data.page.map((l, i) => ({
       rank: (page - 1) * limit + i + 1,
