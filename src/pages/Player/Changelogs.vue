@@ -23,7 +23,7 @@
             v-if="typeof value === 'number' && row[`${col.name}Increase`] > 0"
             class="text-positive text-overline q-ml-sm"
           >
-            {{ row[`${col.name}Increase`] }}<q-icon name="upgrade" size="16px" />
+            {{ row[`${col.name}Increase`] }}<q-icon name="arrow_upward" size="16px" />
           </span>
         </q-td>
       </template>
