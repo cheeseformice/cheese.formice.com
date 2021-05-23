@@ -1,4 +1,6 @@
 export default {
+  languageName: "English",
+
   home: "Home",
   translation: "Translation",
 
