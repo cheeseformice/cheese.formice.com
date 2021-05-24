@@ -6,7 +6,7 @@
   "author": "SuspiciousLookingOwl",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.ts,.vue ./",
+    "lint": "eslint . --fix && prettier --write .",
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev -m ssr"
   },
@@ -37,7 +37,8 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-vue": "^7.0.0"
+    "eslint-plugin-vue": "^7.0.0",
+    "prettier": "^2.3.0"
   },
   "browserslist": [
     "last 10 Chrome versions",
