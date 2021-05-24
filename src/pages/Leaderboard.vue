@@ -148,7 +148,6 @@ export default class Leaderboard extends Vue {
 
   @Watch("leaderboardOptions", { deep: true })
   onOptionsChange() {
-    console.log("change");
     void this.fetchLeaderboard();
     window.scrollTo(0, 0);
   }
