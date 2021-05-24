@@ -256,20 +256,17 @@ export default class Translation extends Vue {
     this.showWork = true;
   }
 
-  copyResult() {
-    copyToClipboard(this.result)
-      .then(() => {
-        this.copyState = 1;
-        setTimeout(() => {
-          this.copyState = 0;
-        }, 1500);
-      })
-      .catch(() => {
-        this.copyState = 2;
-        setTimeout(() => {
-          this.copyState = 0;
-        }, 1500);
-      });
+  async copyResult() {
+    try {
+      await copyToClipboard(this.result);
+      this.copyState = 1;
+      await new Promise((r) => setTimeout(r, 1500));
+      this.copyState = 0;
+    } catch (err) {
+      this.copyState = 2;
+      await new Promise((r) => setTimeout(r, 1500));
+      this.copyState = 0;
+    }
   }
 }
 </script>
