@@ -100,6 +100,7 @@ export default class AppFooter extends Vue {
   @Watch("language")
   onLanguageChange() {
     this.$i18n.locale = this.language;
+    window.localStorage.setItem("language", this.language);
   }
 }
 </script>

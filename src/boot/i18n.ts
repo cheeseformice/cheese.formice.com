@@ -3,8 +3,9 @@ import { createI18n } from "vue-i18n";
 
 import messages from "src/i18n";
 
+const userLanguage = window.localStorage.getItem("language") || window.navigator.language;
 const i18n = createI18n({
-  locale: "en",
+  locale: userLanguage || "en",
   fallbackLocal: "en",
   messages,
 });
