@@ -97,6 +97,10 @@ export default class AppFooter extends Vue {
     return options;
   }
 
+  mounted() {
+    this.language = this.$i18n.locale;
+  }
+
   @Watch("language")
   onLanguageChange() {
     this.$i18n.locale = this.language;
