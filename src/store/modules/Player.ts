@@ -11,6 +11,7 @@ import {
 export default class PlayerModule extends VuexModule {
   player: Player | null = null;
   title = "";
+  lang = "";
   changelogsRaw: PlayerChangelogs<T.Normal | T.Survivor | T.Racing | T.Defilante> | null = null;
 
   @Mutation
@@ -35,12 +36,17 @@ export default class PlayerModule extends VuexModule {
     this.changelogsRaw = null;
   }
 
+  @Mutation
+  setLanguage(lang: string) {
+    this.lang = lang;
+  }
+
   @Action
-  async getPlayer(name: string, lang?: string) {
+  async getPlayer(name: string) {
     const response = await PlayersService.getById(name);
     if (response.status === 200) {
       this.setPlayer(response.data);
-      await this.getTitle(response.data.title, lang);
+      await this.getTitle(response.data.title);
     } else {
       this.setPlayer(null);
       this.setTitle("");
@@ -49,13 +55,17 @@ export default class PlayerModule extends VuexModule {
   }
 
   @Action
-  async getTitle(title: number, lang?: string) {
+  async getTitle(title: number) {
     const response = await TranslationsService.fetchFields({
       fields: [`T_${title}`],
-      language: lang,
+      language: this.lang,
     });
     // weirdly enough, axios returns the keys in lowercase...
-    this.setTitle(response.status === 200 ? response.data[`t_${title}`] : "");
+    this.setTitle(
+      response.status === 200 ?
+      TranslationsService.withGender(response.data[`t_${title}`], "male") :
+      ""
+    );
     return response;
   }
 

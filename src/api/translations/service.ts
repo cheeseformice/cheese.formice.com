@@ -12,6 +12,13 @@ export default class Translations {
       all: opt.all,
     };
 
+    console.log("got", opt.language);
+
     return await axios.get(`${BASE}/${opt.language || "en"}`, { params });
+  }
+
+  static withGender(text: string, gender: "male" | "female") {
+    const option = gender === "male" ? "$1" : "$2";
+    return text.replace(/\((.*?)\|(.*?)\)/g, option);
   }
 }

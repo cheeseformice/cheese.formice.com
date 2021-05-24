@@ -73,7 +73,8 @@ export default class PlayerPage extends mixins(Images) {
   async onPlayerNameChange() {
     const playerModule = getModule(PlayerModule, this.$store);
     playerModule.setPlayer(null);
-    await playerModule.getPlayer(this.playerName, this.$i18n.locale);
+    playerModule.setLanguage(this.$i18n.locale);
+    await playerModule.getPlayer(this.playerName);
     if (!this.player) return await this.$router.push({ name: "home" });
     else this.meta.setPlayer(this.player);
   }
@@ -81,7 +82,8 @@ export default class PlayerPage extends mixins(Images) {
   /** SSR */
   async serverPrefetch() {
     const playerModule = getModule(PlayerModule, this.$store);
-    await playerModule.getPlayer(this.playerName, this.$i18n.locale);
+    playerModule.setLanguage(this.$i18n.locale);
+    await playerModule.getPlayer(this.playerName);
     if (this.player) this.meta.setPlayer(this.player);
   }
 }
