@@ -25,6 +25,9 @@ export default {
   contactUs: "Contact Us",
   information: "Information",
   preference: "Preference",
+  sourceCode: "Source Code",
+  faq: "Frequently Asked Questions",
+  serverStatus: "Server Status",
 
   // Leaderboards
   period: "Period",

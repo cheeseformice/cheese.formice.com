@@ -63,11 +63,11 @@ export default class AppFooter extends Vue {
         title: this.$t("contribute"),
         items: [
           {
-            label: "Translation",
+            label: this.$t("translation"),
             to: { name: "translation" },
           },
           {
-            label: "Source code",
+            label: this.$t("sourceCode"),
             to: { name: "github" },
           },
         ],
@@ -85,10 +85,10 @@ export default class AppFooter extends Vue {
         title: this.$t("information"),
         items: [
           {
-            label: "Frequently Asked Questions",
+            label: this.$t("faq"),
           },
           {
-            label: "Server status",
+            label: this.$t("serverStatus"),
             to: { name: "status" },
           },
         ],
