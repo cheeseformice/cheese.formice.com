@@ -3,6 +3,7 @@ export default {
 
   home: "Home",
   translation: "Translation",
+  language: "Language",
 
   login: "Login",
   register: "Register",

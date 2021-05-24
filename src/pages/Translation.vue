@@ -47,7 +47,7 @@
           dense
           v-model="selectedLanguage"
           :options="validLanguages"
-          :label="Language"
+          :label="$t('language')"
           :class="$q.screen.gt.sm ? 'selector' : ''"
         />
       </div>
