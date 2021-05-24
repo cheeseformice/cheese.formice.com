@@ -11,9 +11,6 @@ export default class Translations {
       start: opt.start,
       all: opt.all,
     };
-
-    console.log("got", opt.language);
-
     return await axios.get(`${BASE}/${opt.language || "en"}`, { params });
   }
 
