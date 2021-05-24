@@ -60,7 +60,7 @@ export default class AppFooter extends Vue {
   }
 
   get sections(): FooterSectionInfo[] {
-    return [
+    const options: FooterSectionInfo[] = [
       {
         title: "Contribute",
         items: [
@@ -95,10 +95,11 @@ export default class AppFooter extends Vue {
           },
         ],
       },
-      {
-        title: "Preference",
-      },
     ];
+
+    const preference: FooterSectionInfo = { title: "Preference" };
+    this.$q.screen.lt.sm ? options.unshift(preference) : options.push(preference);
+    return options;
   }
 
   @Watch("language")
