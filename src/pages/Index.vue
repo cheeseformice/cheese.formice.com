@@ -1,12 +1,12 @@
 <template>
   <q-page padding class="container q-pt-lg">
-    <q-card flat class="q-py-md text-center">
+    <q-card flat class="q-py-md text-center transparent">
       <span class="text-h6">{{ $t("welcome") }}</span>
     </q-card>
 
     <div class="row q-col-gutter-md">
       <div class="col-12 col-md-4">
-        <q-list dense bordered padding class="rounded-borders">
+        <q-list dense bordered padding class="rounded-borders bg-white">
           <q-item key="title">
             <q-item-section class="q-table__title">{{ $t("lastTenPlayers") }}</q-item-section>
           </q-item>
@@ -25,7 +25,7 @@
       </div>
 
       <div class="col-12 col-md-4">
-        <q-list dense bordered padding class="rounded-borders">
+        <q-list dense bordered padding class="rounded-borders bg-white">
           <q-item key="title">
             <q-item-section class="q-table__title">{{ $t("lastTenTribes") }}</q-item-section>
           </q-item>
@@ -44,7 +44,7 @@
       </div>
 
       <div class="col-12 col-md-4">
-        <q-list dense bordered padding class="rounded-borders">
+        <q-list dense bordered padding class="rounded-borders bg-white">
           <q-item key="title">
             <q-item-section class="q-table__title">{{ $t("topTenPlayers") }}</q-item-section>
           </q-item>
