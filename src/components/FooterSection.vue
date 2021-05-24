@@ -1,5 +1,5 @@
 <template>
-  <div class="col-6 col-md-2 q-pb-md">
+  <div class="col-12 col-sm-6 col-md-2 q-pb-md">
     <div class="text-grey q-px-sm text-uppercase text-bold">{{ title }}</div>
     <slot :name="title">
       <q-list dense class="q-px-sm">
