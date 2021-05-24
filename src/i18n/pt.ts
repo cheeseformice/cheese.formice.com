@@ -71,7 +71,7 @@ export default {
     dressroom: "Serviço responsável pelo desenho dos visuais",
   },
   status: {
-    operational: "Operacional",
+    operational: "Operando",
     partialOutage: "Interrupção parcial",
     majorOutage: "Grande interrupção",
   },
