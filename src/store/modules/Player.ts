@@ -62,9 +62,9 @@ export default class PlayerModule extends VuexModule {
     });
     // weirdly enough, axios returns the keys in lowercase...
     this.setTitle(
-      response.status === 200 ?
-      TranslationsService.withGender(response.data[`t_${title}`], "male") :
-      ""
+      response.status === 200
+        ? TranslationsService.withGender(response.data[`t_${title}`], "male")
+        : ""
     );
     return response;
   }
