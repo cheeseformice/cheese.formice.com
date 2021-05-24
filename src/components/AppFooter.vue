@@ -10,10 +10,11 @@
     <footer-section
       v-for="section in sections"
       :key="section.title"
+      :label="section.label"
       :title="section.title"
       :items="section.items"
     >
-      <template v-slot:Preference>
+      <template v-slot:preference>
         <q-list dense class="q-px-sm">
           <q-item style="padding-left: 0; padding-right: 0">
             <q-select
@@ -40,6 +41,7 @@ import FooterSection, { FooterItem } from "./FooterSection.vue";
 
 interface FooterSectionInfo {
   title: string;
+  label?: string;
   items?: FooterItem[];
 }
 
@@ -92,7 +94,7 @@ export default class AppFooter extends Vue {
       },
     ];
 
-    const preference: FooterSectionInfo = { title: this.$t("preference") };
+    const preference: FooterSectionInfo = { title: this.$t("preference"), label: "preference" };
     this.$q.screen.lt.sm ? options.unshift(preference) : options.push(preference);
     return options;
   }

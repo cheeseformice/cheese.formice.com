@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 col-sm-6 col-md-2 q-pb-md">
     <div class="text-grey q-px-sm text-uppercase text-bold">{{ title }}</div>
-    <slot :name="title">
+    <slot :name="label">
       <q-list dense class="q-px-sm">
         <q-item v-for="item in items" :key="item.label" style="padding-left: 0; padding-right: 0">
           <q-item-section>
@@ -35,6 +35,7 @@ export interface FooterItem {
 
 export default class FooterSection extends Vue {
   @Prop({}) title!: string;
+  @Prop({}) label!: string;
   @Prop({ default: () => [] }) items!: FooterItem[];
 }
 </script>
