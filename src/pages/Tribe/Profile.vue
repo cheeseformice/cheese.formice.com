@@ -39,7 +39,11 @@
         <tribe-stats :title="$t('normal')" :stats="normalStats" />
         <tribe-stats :title="$t('racing')" :stats="racingStats" />
         <tribe-stats :title="$t('survivor')" :stats="survivorStats" />
-        <tribe-stats col="col-12 col-sm-6 col-md-4" :title="$t('defilante')" :stats="defilanteStats" />
+        <tribe-stats
+          col="col-12 col-sm-6 col-md-4"
+          :title="$t('defilante')"
+          :stats="defilanteStats"
+        />
       </div>
     </div>
   </div>
@@ -63,7 +67,7 @@ interface SideItems {
     params: {
       playerName?: string;
       tribeName?: string;
-    }
+    };
   };
 }
 
@@ -71,7 +75,7 @@ interface SideItems {
   components: { TribeStats },
 })
 export default class TribeProfile extends mixins(Images) {
-  get module () {
+  get module() {
     return getModule(TribeModule, this.$store);
   }
 
@@ -108,7 +112,7 @@ export default class TribeProfile extends mixins(Images) {
         value: active,
         progress: progress.active,
       },
-    ]
+    ];
   }
 
   get shamanStats() {

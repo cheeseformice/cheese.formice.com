@@ -5,7 +5,7 @@
   >
     <div class="col-12 col-md-3 text-h6">
       <!-- A community of Transformice addicts -->
-      <img src="img/logo.png" style="height:100px;" />
+      <img src="img/logo.png" style="height: 100px" />
     </div>
     <div class="col-12 col-md-1 q-pa-lg">
       <!-- Separator -->
@@ -44,7 +44,7 @@ export default class AppFooter extends Vue {
             label: "Source code",
             to: { name: "github" },
           },
-        ]
+        ],
       },
       {
         title: "Contact us",
@@ -53,7 +53,7 @@ export default class AppFooter extends Vue {
             label: "Discord",
             link: "https://discord.gg/xeRNaKTKxN",
           },
-        ]
+        ],
       },
       {
         title: "Information",
@@ -65,7 +65,7 @@ export default class AppFooter extends Vue {
             label: "Server status",
             to: { name: "status" },
           },
-        ]
+        ],
       },
       {
         title: "Contribute",
@@ -78,7 +78,7 @@ export default class AppFooter extends Vue {
             label: "Source code",
             to: { name: "github" },
           },
-        ]
+        ],
       },
     ];
   }

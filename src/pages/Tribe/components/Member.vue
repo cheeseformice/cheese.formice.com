@@ -4,7 +4,7 @@
       <q-item
         :to="{
           name: 'player',
-          params: { playerName: name }
+          params: { playerName: name },
         }"
       >
         <q-item-section avatar>
@@ -14,11 +14,11 @@
         <q-separator vertical size="2px" />
 
         <q-item-section class="q-ml-md">
-          <q-item-label>{{ pos }}. <span class="text-bold">{{ name }}</span></q-item-label>
+          <q-item-label
+            >{{ pos }}. <span class="text-bold">{{ name }}</span></q-item-label
+          >
           <q-item-label v-if="!!stat">
-            <span
-              v-html="$t(`statValue.${sort}`, { stat: `<strong>${stat}</strong>` })"
-            ></span>
+            <span v-html="$t(`statValue.${sort}`, { stat: `<strong>${stat}</strong>` })"></span>
           </q-item-label>
         </q-item-section>
       </q-item>

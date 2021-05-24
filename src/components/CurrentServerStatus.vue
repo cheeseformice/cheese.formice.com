@@ -5,12 +5,14 @@
         <q-item-section>
           <q-item-label class="text-left text-h6">
             <div class="row">
-              <div class="col-auto">
-                API services
-              </div>
+              <div class="col-auto">API services</div>
               <div class="col">
                 <q-icon name="help_outline" color="primary" size="1rem" class="q-ml-sm">
-                  <q-tooltip anchor="top middle" content-style="font-size: 1rem;" self="center middle">
+                  <q-tooltip
+                    anchor="top middle"
+                    content-style="font-size: 1rem;"
+                    self="center middle"
+                  >
                     {{ $t("help.api") }}
                   </q-tooltip>
                 </q-icon>
@@ -19,19 +21,13 @@
           </q-item-label>
         </q-item-section>
         <q-item-section>
-          <q-item-label
-            class="text-right"
-            :class="statusClass[ apiStatus ]"
-          >
+          <q-item-label class="text-right" :class="statusClass[apiStatus]">
             {{ $t(`status.${apiStatus}`) }}
           </q-item-label>
         </q-item-section>
       </q-item>
       <div ref="servicesDropdown" class="hidden">
-        <q-item
-          v-for="service in services"
-          :key="service"
-        >
+        <q-item v-for="service in services" :key="service">
           <q-item-section class="q-pl-md text-left">
             <div class="row">
               <div class="col-auto">
@@ -39,7 +35,11 @@
               </div>
               <div class="col" v-if="$te(`help.${service}`)">
                 <q-icon name="help_outline" color="primary" size="1em" class="q-ml-sm">
-                  <q-tooltip anchor="top middle" content-style="font-size: 1rem;" self="center middle">
+                  <q-tooltip
+                    anchor="top middle"
+                    content-style="font-size: 1rem;"
+                    self="center middle"
+                  >
                     {{ $t(`help.${service}`) }}
                   </q-tooltip>
                 </q-icon>
@@ -47,10 +47,7 @@
             </div>
           </q-item-section>
           <q-item-section>
-            <q-item-label
-              class="text-right"
-              :class="statusClass[ status[service] ]"
-            >
+            <q-item-label class="text-right" :class="statusClass[status[service]]">
               {{ $t(`status.${status[service]}`) }}
             </q-item-label>
           </q-item-section>
@@ -73,16 +70,16 @@ export default class CurrentServerStatus extends Vue {
   @Ref() readonly servicesDropdown!: HTMLDivElement;
 
   statusClass: Record<ServiceStatus, string> = {
-    "operational": "text-positive",
-    "partialOutage": "text-warning",
-    "majorOutage": "text-negative",
+    operational: "text-positive",
+    partialOutage: "text-warning",
+    majorOutage: "text-negative",
   };
   status: Record<string, ServiceStatus> = {};
   websocketListener?: number;
 
   get apiStatus(): ServiceStatus {
     let partial = 0,
-        major = 0;
+      major = 0;
 
     for (let service of this.services) {
       const serviceStatus = this.status[service];
@@ -139,21 +136,18 @@ export default class CurrentServerStatus extends Vue {
   }
 
   unmounted() {
-    if (this.websocketListener) { // ids start at 1 so no problem in checking as bool
+    if (this.websocketListener) {
+      // ids start at 1 so no problem in checking as bool
       HealthcheckService.removeListener(this.websocketListener);
       this.websocketListener = undefined;
     }
   }
 
   async fetchStatus() {
-    this.writeAPIStatus(
-      await HealthcheckService.getCurrentStatus()
-    )
+    this.writeAPIStatus(await HealthcheckService.getCurrentStatus());
 
     if (!this.websocketListener) {
-      this.websocketListener = HealthcheckService.addListener(
-        this.writeAPIStatus.bind(this)
-      );
+      this.websocketListener = HealthcheckService.addListener(this.writeAPIStatus.bind(this));
     }
   }
 }

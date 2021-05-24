@@ -2,11 +2,7 @@
   <q-parallax :src="img" :height="225">
     <div class="container">
       <div class="row top-hero q-gutter-x-md items-center">
-        <c-avatar
-          size="128px"
-          :id="id"
-          :tribe="tribe"
-        />
+        <c-avatar size="128px" :id="id" :tribe="tribe" />
         <div class="name text-weight-medium text-white text-h3">
           {{ title }}
         </div>

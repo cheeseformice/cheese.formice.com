@@ -20,7 +20,9 @@ const BASE = "/players";
 
 export default class Players {
   /** Search players */
-  static async search(opt: Partial<SearchOptions>): Promise<AxiosResponse<PaginatedResponse<BasePlayer>>> {
+  static async search(
+    opt: Partial<SearchOptions>
+  ): Promise<AxiosResponse<PaginatedResponse<BasePlayer>>> {
     opt = {
       limit: 5,
       page: 1,

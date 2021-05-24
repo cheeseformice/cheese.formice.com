@@ -3,13 +3,7 @@
     <div class="row items-center q-gutter-y-md">
       <div class="col-12">
         <div class="q-col-gutter-md" :class="$q.screen.gt.sm ? 'row float-right' : ''">
-          <q-input
-            outlined
-            dense
-            type="text"
-            v-model="search"
-            :placeholder="$t('search')"
-          />
+          <q-input outlined dense type="text" v-model="search" :placeholder="$t('search')" />
 
           <q-select
             outlined
@@ -33,12 +27,7 @@
 
     <div class="q-gutter-y-sm">
       <div class="q-py-md flex flex-center">
-        <q-pagination
-          v-model="lookup.page"
-          outline
-          :max="totalPages"
-          :max-pages="7"
-        />
+        <q-pagination v-model="lookup.page" outline :max="totalPages" :max-pages="7" />
       </div>
 
       <div class="row">
@@ -47,19 +36,14 @@
           :key="player.id"
           :id="player.id"
           :name="player.name"
-          :pos="(itemsPerPage * (lookup.page - 1)) + index + 1"
+          :pos="itemsPerPage * (lookup.page - 1) + index + 1"
           :sort="lookup.sort ? lookup.sort.value : null"
           :stat="lookup.sort ? player[lookup.sort.value] : null"
         />
       </div>
 
       <div class="q-py-md flex flex-center">
-        <q-pagination
-          v-model="lookup.page"
-          outline
-          :max="totalPages"
-          :max-pages="7"
-        />
+        <q-pagination v-model="lookup.page" outline :max="totalPages" :max-pages="7" />
       </div>
     </div>
   </div>
@@ -70,7 +54,13 @@ import { mixins, Options, Watch } from "vue-property-decorator";
 import { getModule } from "vuex-module-decorators";
 
 import { Images } from "src/common/mixins";
-import { PlayerLeaderboard, BasePlayer, TribesService, LeaderboardType, LeaderboardPeriod } from "src/api";
+import {
+  PlayerLeaderboard,
+  BasePlayer,
+  TribesService,
+  LeaderboardType,
+  LeaderboardPeriod,
+} from "src/api";
 import { TribeModule } from "src/store";
 import { TribeMember } from "./components";
 
@@ -88,13 +78,13 @@ export default class TribeProfile extends mixins(Images) {
   search = "";
   searchChanged = false;
   lookup: LookupOptions = {
-    page: 1
+    page: 1,
   };
   members: BasePlayer[] | PlayerLeaderboard[] = [];
   itemsPerPage = 50;
   total = 0;
 
-  get module () {
+  get module() {
     return getModule(TribeModule, this.$store);
   }
 
@@ -108,12 +98,7 @@ export default class TribeProfile extends mixins(Images) {
   }
 
   get periodOptions(): LookupOptions["period"][] {
-    const periods: LeaderboardPeriod[] = [
-      "overall",
-      "daily",
-      "weekly",
-      "monthly"
-    ];
+    const periods: LeaderboardPeriod[] = ["overall", "daily", "weekly", "monthly"];
     return periods.map((period) => ({
       label: this.$t(`periods.${period}`),
       value: period,
@@ -152,7 +137,7 @@ export default class TribeProfile extends mixins(Images) {
     };
     this.lookup.period = {
       label: this.$t("periods.overall"),
-      value: "overall"
+      value: "overall",
     };
   }
 
@@ -197,7 +182,7 @@ export default class TribeProfile extends mixins(Images) {
       this.lookup.period?.value || "",
       {
         page: this.lookup.page,
-        limit: this.itemsPerPage
+        limit: this.itemsPerPage,
       }
     );
     this.members = response.data.page;

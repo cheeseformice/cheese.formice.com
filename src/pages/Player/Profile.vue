@@ -15,8 +15,20 @@
 
         <!-- Roles -->
         <q-card-section class="q-py-sm q-gutter-xs" v-if="player.cfmRoles || player.tfmRoles">
-          <q-badge v-for="role in player.cfmRoles" outline color="primary" :key="'cfm-' + role" :label="'cfm-' + role" />
-          <q-badge v-for="role in player.tfmRoles" outline color="secondary" :key="role" :label="role" />
+          <q-badge
+            v-for="role in player.cfmRoles"
+            outline
+            color="primary"
+            :key="'cfm-' + role"
+            :label="'cfm-' + role"
+          />
+          <q-badge
+            v-for="role in player.tfmRoles"
+            outline
+            color="secondary"
+            :key="role"
+            :label="role"
+          />
         </q-card-section>
 
         <!-- Basic Information -->
@@ -98,7 +110,7 @@ import { PlayerStats } from "./components";
   components: { PlayerStats },
 })
 export default class PlayerProfile extends mixins(Images) {
-  get module () {
+  get module() {
     return getModule(PlayerModule, this.$store);
   }
 

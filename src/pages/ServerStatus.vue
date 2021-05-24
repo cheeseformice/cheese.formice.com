@@ -1,15 +1,8 @@
 <template>
   <q-page padding class="container q-pt-lg text-center">
-    <current-server-status
-      :services="services"
-      :startHidden="true"
-    />
+    <current-server-status :services="services" :startHidden="true" />
 
-    <div
-      v-for="property in properties"
-      :key="property"
-      class="col-12 q-my-lg"
-    >
+    <div v-for="property in properties" :key="property" class="col-12 q-my-lg">
       <q-card flat bordered>
         <q-item>
           <q-item-section>
@@ -37,7 +30,9 @@ import { CurrentServerStatus } from "src/components";
 import { HealthcheckReport, HealthcheckService, HealthcheckProperty } from "src/api";
 import { Vue, Ref, Options } from "vue-property-decorator";
 
-function isSingleReport(input: HealthcheckReport | HealthcheckReport[]): input is HealthcheckReport {
+function isSingleReport(
+  input: HealthcheckReport | HealthcheckReport[]
+): input is HealthcheckReport {
   return input.length === undefined;
 }
 
@@ -65,11 +60,13 @@ function generateAverage(
 ): number[] {
   return reports.map((report) => {
     let count = 0,
-        total = 0;
+      total = 0;
 
     for (let service of services) {
       const serviceReport = report[service];
-      if (serviceReport === null) { continue; }
+      if (serviceReport === null) {
+        continue;
+      }
 
       count += 1;
       total += serviceReport[property];
@@ -82,14 +79,16 @@ function generateAverage(
 function generateSum(
   services: string[],
   property: HealthcheckProperty,
-  reports: HealthcheckReport[],
+  reports: HealthcheckReport[]
 ): number[] {
   return reports.map((report) => {
     let total = 0;
 
-    for (let service of services)  {
+    for (let service of services) {
       const serviceReport = report[service];
-      if (serviceReport === null) { continue; }
+      if (serviceReport === null) {
+        continue;
+      }
 
       total += serviceReport[property];
     }
@@ -109,7 +108,7 @@ export default class ServerStatus extends Vue {
   // A report is received every ~30 seconds
   // interval of 10 reports, so 5 minutes per interval
   interval = 10;
-  maxReports = 24 * 60 * 60 / (this.interval * 30);
+  maxReports = (24 * 60 * 60) / (this.interval * 30);
 
   websocketListener?: number;
   services: string[] = [];
@@ -124,7 +123,7 @@ export default class ServerStatus extends Vue {
   createChart(canvas: HTMLCanvasElement, generalName: string, suggestedMax?: number): Chart {
     const ctx = canvas.getContext("2d");
     if (!ctx) {
-      throw new Error("couldn't get canvas context")
+      throw new Error("couldn't get canvas context");
     }
 
     let chart: Chart;
@@ -148,7 +147,7 @@ export default class ServerStatus extends Vue {
             borderColor: this.chartColor[service],
             backgroundColor: chroma(this.chartColor[service]).alpha(0.2).hex(),
             borderWidth: 2,
-          }))
+          })),
         ],
       },
       options: {
@@ -161,11 +160,11 @@ export default class ServerStatus extends Vue {
         },
         tooltips: {
           mode: "index",
-          intersect: false
+          intersect: false,
         },
         hover: {
           mode: "index",
-          intersect: false
+          intersect: false,
         },
         aspectRatio: 4,
         scales: {
@@ -188,8 +187,8 @@ export default class ServerStatus extends Vue {
               type: "time",
               time: {
                 displayFormats: {
-                  hour: "HH:mm"
-                }
+                  hour: "HH:mm",
+                },
               },
               ticks: {
                 autoSkip: true,
@@ -207,7 +206,7 @@ export default class ServerStatus extends Vue {
             fill: false,
           },
           point: {
-            radius: 0
+            radius: 0,
           },
         },
       },
@@ -219,8 +218,7 @@ export default class ServerStatus extends Vue {
     const chart: Chart = this.charts[name]!;
 
     const labels: Date[] = generateChartLabels(this.interval, reports.length);
-    let general: number[],
-        generalName: string;
+    let general: number[], generalName: string;
     if (name === "ping") {
       general = generateAverage(this.services, name, reports);
       generalName = "average";
@@ -228,7 +226,7 @@ export default class ServerStatus extends Vue {
       general = generateSum(this.services, name, reports);
       generalName = "total";
     }
-    
+
     const chartLabels = chart.data.labels!;
     chartLabels.splice(chartLabels.length, 0, ...labels);
     if (chartLabels.length > this.maxReports) {
@@ -272,13 +270,15 @@ export default class ServerStatus extends Vue {
 
     for (let service of this.services) {
       let count = 0,
-          ping = 0,
-          success = 0,
-          errors = 0;
-      
+        ping = 0,
+        success = 0,
+        errors = 0;
+
       for (let report of reports) {
         const serviceReport = report[service];
-        if (serviceReport === null) { continue; }
+        if (serviceReport === null) {
+          continue;
+        }
 
         count += 1;
         ping += serviceReport.ping;
@@ -304,9 +304,7 @@ export default class ServerStatus extends Vue {
       return;
     }
 
-    this.updateCharts(
-      this.mergeReports(this.forInterval.splice(0, this.interval))
-    );
+    this.updateCharts(this.mergeReports(this.forInterval.splice(0, this.interval)));
   }
 
   mounted() {
@@ -314,7 +312,8 @@ export default class ServerStatus extends Vue {
   }
 
   unmounted() {
-    if (this.websocketListener) { // ids start at 1, so no problem in checking as a bool
+    if (this.websocketListener) {
+      // ids start at 1, so no problem in checking as a bool
       HealthcheckService.removeListener(this.websocketListener);
       this.websocketListener = undefined;
     }
@@ -327,19 +326,17 @@ export default class ServerStatus extends Vue {
     this.forInterval = reports.forInterval;
 
     this.chartColor = {};
-    const colors = chroma.scale(["#374C80", "#FFA600"])
-                          .mode("lch")
-                          .colors(reports.services.length);
+    const colors = chroma.scale(["#374C80", "#FFA600"]).mode("lch").colors(reports.services.length);
     for (let i = 0; i < reports.services.length; i++) {
       // Assign a color for each service
-      this.chartColor[ reports.services[i] ] = colors[i];
+      this.chartColor[reports.services[i]] = colors[i];
     }
 
     this.charts = {
       ping: this.createChart(this.pingCanvas, "average", 50),
       success: this.createChart(this.successCanvas, "total"),
       errors: this.createChart(this.errorsCanvas, "total"),
-    }
+    };
     this.updateCharts(reports.data);
 
     if (!this.websocketListener) {

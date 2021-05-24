@@ -72,8 +72,10 @@ export default class Changelogs extends Vue {
   }
 
   fillChangelogGap(
-    logs: Record<string, number | string>[], name: string,
-    start: number, end: number,
+    logs: Record<string, number | string>[],
+    name: string,
+    start: number,
+    end: number,
     value: number
   ) {
     for (let i = start; i > end; i--) {
@@ -95,7 +97,9 @@ export default class Changelogs extends Vue {
     }
 
     for (let key in logs) {
-      if (key === "public") { continue; }
+      if (key === "public") {
+        continue;
+      }
 
       const statName = key as keyof typeof logs;
       if (!this.tableCols[this.type].includes(statName)) {
@@ -104,13 +108,9 @@ export default class Changelogs extends Vue {
 
       const statLogs = logs[statName];
 
-      let expectedDateIndex = statLogs[ statLogs.length - 1 ][0];
+      let expectedDateIndex = statLogs[statLogs.length - 1][0];
       if (expectedDateIndex < dates.length - 1) {
-        this.fillChangelogGap(
-          normalizedLogs, statName,
-          dates.length - 1, expectedDateIndex,
-          0
-        );
+        this.fillChangelogGap(normalizedLogs, statName, dates.length - 1, expectedDateIndex, 0);
       }
 
       for (let i = statLogs.length - 1; i >= 0; i--) {
@@ -120,13 +120,9 @@ export default class Changelogs extends Vue {
         if (typeof stat === "string" || typeof lastValue == "string") {
           continue;
         }
-        
+
         if (dateIndex < expectedDateIndex) {
-          this.fillChangelogGap(
-            normalizedLogs, statName,
-            expectedDateIndex, dateIndex,
-            lastValue
-          );
+          this.fillChangelogGap(normalizedLogs, statName, expectedDateIndex, dateIndex, lastValue);
         }
 
         normalizedLogs[dateIndex][statName] = stat;
@@ -140,13 +136,11 @@ export default class Changelogs extends Vue {
 
       if (expectedDateIndex !== -1) {
         const value = statLogs[0][1];
-        if (typeof value === "string") { continue; }
+        if (typeof value === "string") {
+          continue;
+        }
 
-        this.fillChangelogGap(
-          normalizedLogs, statName,
-          expectedDateIndex, -1,
-          value
-        );
+        this.fillChangelogGap(normalizedLogs, statName, expectedDateIndex, -1, value);
       }
     }
 
@@ -193,7 +187,9 @@ export default class Changelogs extends Vue {
 
   @Watch("changelogs")
   onChangelogsUpdate() {
-    if (this.changelogs.length === 0) { return; }
+    if (this.changelogs.length === 0) {
+      return;
+    }
 
     const changelogs = this.changelogs.slice().reverse();
     const keys: string[] = [];
@@ -203,7 +199,9 @@ export default class Changelogs extends Vue {
 
     if (this.chart === undefined) {
       this.createChart();
-      if (this.chart === undefined) { return; }
+      if (this.chart === undefined) {
+        return;
+      }
     }
 
     this.chart.data.labels = changelogs.map((c) => new Date(c.date).toLocaleDateString());

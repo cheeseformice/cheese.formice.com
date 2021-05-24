@@ -32,5 +32,7 @@ export const getLook: getLook = (playerOrLook: Player | string) => {
  */
 export const getAvatar = (id: number, min = false, tribe = false) => {
   const lastId = id % 10000;
-  return `https://${tribe ? "logostribu" : "avatars"}.atelier801.com/${lastId}/${id}${min ? "_50" : ""}.jpg`;
+  return `https://${tribe ? "logostribu" : "avatars"}.atelier801.com/${lastId}/${id}${
+    min ? "_50" : ""
+  }.jpg`;
 };

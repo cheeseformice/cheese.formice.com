@@ -31,10 +31,7 @@
         <template #option="{ opt }">
           <q-item clickable v-ripple :to="opt.route">
             <q-item-section avatar>
-              <c-avatar
-                :id="opt.id"
-                :tribe="opt.type === 'tribe'"
-              />
+              <c-avatar :id="opt.id" :tribe="opt.type === 'tribe'" />
             </q-item-section>
             <q-item-section>{{ opt.name }}</q-item-section>
           </q-item>

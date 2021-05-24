@@ -1,8 +1,4 @@
-export const HealthcheckProperties = [
-  "ping",
-  "success",
-  "errors",
-] as const;
+export const HealthcheckProperties = ["ping", "success", "errors"] as const;
 export type HealthcheckProperty = typeof HealthcheckProperties[number];
 
 export type ServiceReport = Record<HealthcheckProperty, number>;
@@ -19,7 +15,7 @@ export interface HistoricalHealthcheckReport {
   services: string[];
   data: HealthcheckReport[];
   forInterval: HealthcheckReport[];
-};
+}
 
 export interface CompressedHistoricalHealthcheckReport {
   services: string[];

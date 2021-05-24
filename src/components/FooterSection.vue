@@ -1,14 +1,8 @@
 <template>
   <div class="col-6 col-md-2 q-pb-md">
-    <div
-      class="text-grey q-px-sm text-uppercase text-bold"
-    >{{ title }}</div>
+    <div class="text-grey q-px-sm text-uppercase text-bold">{{ title }}</div>
     <q-list dense class="q-px-sm">
-      <q-item
-        v-for="item in items"
-        :key="item.label"
-        style="padding-left:0; padding-right:0;"
-      >
+      <q-item v-for="item in items" :key="item.label" style="padding-left: 0; padding-right: 0">
         <q-item-section>
           <template v-if="item.link">
             <a :href="item.link" target="_blank" class="text-white">{{ item.label }}</a>

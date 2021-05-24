@@ -30,8 +30,8 @@ function decompressReports(
   return reports.map((data) => {
     return decompressReport({
       services,
-      data
-    })
+      data,
+    });
   });
 }
 
@@ -43,7 +43,6 @@ function decompressReport(report: CompressedHealthcheckReport): HealthcheckRepor
     const compressedService = report.data[i];
     if (compressedService === null) {
       decompressedReport[service] = null;
-
     } else {
       const decompressedService: ServiceReport = {
         ping: 0,
@@ -52,7 +51,7 @@ function decompressReport(report: CompressedHealthcheckReport): HealthcheckRepor
       };
 
       for (let j = 0; j < HealthcheckProperties.length; j++) {
-        decompressedService[ HealthcheckProperties[j] ] = compressedService[j];
+        decompressedService[HealthcheckProperties[j]] = compressedService[j];
       }
 
       decompressedReport[service] = decompressedService;

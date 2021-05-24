@@ -8,9 +8,7 @@
       <div class="col-12 col-md-4">
         <q-list dense bordered padding class="rounded-borders">
           <q-item key="title">
-            <q-item-section class="q-table__title">
-              Last 10 seen players
-            </q-item-section>
+            <q-item-section class="q-table__title"> Last 10 seen players </q-item-section>
           </q-item>
           <q-item
             v-for="player in lastPlayers"
@@ -25,13 +23,11 @@
           </q-item>
         </q-list>
       </div>
-      
+
       <div class="col-12 col-md-4">
         <q-list dense bordered padding class="rounded-borders">
           <q-item key="title">
-            <q-item-section class="q-table__title">
-              Last 10 seen tribes
-            </q-item-section>
+            <q-item-section class="q-table__title"> Last 10 seen tribes </q-item-section>
           </q-item>
           <q-item
             v-for="tribe in lastTribes"
@@ -50,9 +46,7 @@
       <div class="col-12 col-md-4">
         <q-list dense bordered padding class="rounded-borders">
           <q-item key="title">
-            <q-item-section class="q-table__title">
-              Top 10 players
-            </q-item-section>
+            <q-item-section class="q-table__title"> Top 10 players </q-item-section>
           </q-item>
           <q-item
             v-for="player in leaderboard"
@@ -69,10 +63,7 @@
       </div>
 
       <div class="col-12">
-        <current-server-status
-          :services="services"
-          :startHidden="false"
-        />
+        <current-server-status :services="services" :startHidden="false" />
       </div>
     </div>
   </q-page>
@@ -97,21 +88,14 @@ interface Row {
   route: Route;
 }
 
-@Options({ components: { CurrentServerStatus }})
+@Options({ components: { CurrentServerStatus } })
 export default class PageIndex extends Vue {
   lastPlayers: Row[] = [];
   lastTribes: Row[] = [];
   leaderboard: Row[] = [];
 
   get services(): string[] {
-    return [
-      "changelogs",
-      "profile",
-      "lookup",
-      "auth",
-      "dressroom",
-      "router",
-    ];
+    return ["changelogs", "profile", "lookup", "auth", "dressroom", "router"];
   }
 
   get lastSeenColumns(): QTable["columns"] {
@@ -121,8 +105,8 @@ export default class PageIndex extends Vue {
         label: "Name",
         field: "name",
         align: "left",
-      }
-    ]
+      },
+    ];
   }
 
   get leaderboardColumns(): QTable["columns"] {
@@ -138,8 +122,8 @@ export default class PageIndex extends Vue {
         label: "Score",
         field: "score",
         align: "left",
-      }
-    ]
+      },
+    ];
   }
 
   get serverColumns(): QTable["columns"] {
@@ -161,8 +145,8 @@ export default class PageIndex extends Vue {
         label: "Workers",
         field: "workers",
         align: "left",
-      }
-    ]
+      },
+    ];
   }
 
   statusColor(status: string): string {
@@ -183,39 +167,39 @@ export default class PageIndex extends Vue {
       {
         service: "CFM API",
         status: "Partial outage",
-        workers: "9/12"
+        workers: "9/12",
       },
       {
         service: "CFM website",
         status: "Operational",
-        workers: "2/2"
+        workers: "2/2",
       },
       {
         service: "Forum bot",
         status: "Operational",
-        workers: "1/1"
+        workers: "1/1",
       },
       {
         service: "Game bot",
         status: "Outage",
-        workers: "0/1"
+        workers: "0/1",
       },
       {
         service: "Game servers",
         status: "Operational",
-        workers: "6/6"
+        workers: "6/6",
       },
       {
         service: "Forum",
         status: "Operational",
-        workers: "1/1"
+        workers: "1/1",
       },
       {
         service: "Community Platform",
         status: "Operational",
-        workers: "1/1"
+        workers: "1/1",
       },
-    ]
+    ];
   }
 
   mounted() {
@@ -231,8 +215,8 @@ export default class PageIndex extends Vue {
       name: l.name,
       route: {
         name: "player",
-        params: { playerName: l.name }
-      }
+        params: { playerName: l.name },
+      },
     }));
   }
 
@@ -243,20 +227,23 @@ export default class PageIndex extends Vue {
       name: l.name,
       route: {
         name: "tribe",
-        params: { tribeName: l.name }
-      }
+        params: { tribeName: l.name },
+      },
     }));
   }
 
   async fetchLeaderboard() {
-    const response = await PlayersService.getLeaderboard("overall", "overall", { page: 1, limit: 10 });
+    const response = await PlayersService.getLeaderboard("overall", "overall", {
+      page: 1,
+      limit: 10,
+    });
 
     this.leaderboard = response.data.page.map((l) => ({
       name: l.name,
       route: {
         name: "player",
-        params: { playerName: l.name }
-      }
+        params: { playerName: l.name },
+      },
     }));
   }
 }

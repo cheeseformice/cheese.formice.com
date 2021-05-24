@@ -82,7 +82,7 @@ export default {
     auth: "Service responsible of the website authentication",
     router: "Service responsible of handling requests",
     lookup: "Service responsible of leaderboards and searching players",
-    dressroom: "Service responsible of drawing players' outfits"
+    dressroom: "Service responsible of drawing players' outfits",
   },
   status: {
     operational: "Operational",

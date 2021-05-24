@@ -8,14 +8,22 @@ import {
   SearchOptions,
   PaginatedResponse,
 } from "../";
-import { BaseTribe, Tribe, TribeLeaderboard, TribeChangelogTypes, TribeChangelogs } from "./interfaces";
+import {
+  BaseTribe,
+  Tribe,
+  TribeLeaderboard,
+  TribeChangelogTypes,
+  TribeChangelogs,
+} from "./interfaces";
 import { BasePlayer, PlayerLeaderboard } from "../players/interfaces";
 
 const BASE = "/tribes";
 
 export default class Tribes {
   /** Search tribes */
-  static async search(opt: Partial<SearchOptions>): Promise<AxiosResponse<PaginatedResponse<BaseTribe>>> {
+  static async search(
+    opt: Partial<SearchOptions>
+  ): Promise<AxiosResponse<PaginatedResponse<BaseTribe>>> {
     opt = {
       limit: 5,
       page: 1,

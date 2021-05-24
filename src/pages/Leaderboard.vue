@@ -120,12 +120,7 @@ export default class Leaderboard extends Vue {
   }
 
   get periodOptions(): LeaderboardOptions["period"][] {
-    const periods: LeaderboardPeriod[] = [
-      "overall",
-      "daily",
-      "weekly",
-      "monthly"
-    ];
+    const periods: LeaderboardPeriod[] = ["overall", "daily", "weekly", "monthly"];
     return periods.map((period) => ({
       label: this.$t(`periods.${period}`),
       value: period,

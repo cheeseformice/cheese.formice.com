@@ -1,10 +1,6 @@
 <template>
   <q-avatar square :size="size">
-    <img
-      :src="src"
-      :onerror="`this.onerror=null;this.src='${this.default}';`"
-      :alt="id"
-    />
+    <img :src="src" :onerror="`this.onerror=null;this.src='${this.default}';`" :alt="id" />
   </q-avatar>
 </template>
 

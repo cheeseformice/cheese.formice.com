@@ -1,5 +1,11 @@
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators";
-import { Player, PlayersService, TranslationsService, PlayerChangelogTypes as T, PlayerChangelogs } from "src/api";
+import {
+  Player,
+  PlayersService,
+  TranslationsService,
+  PlayerChangelogTypes as T,
+  PlayerChangelogs,
+} from "src/api";
 
 @Module({ namespaced: true, name: "player", stateFactory: true })
 export default class PlayerModule extends VuexModule {
@@ -45,7 +51,7 @@ export default class PlayerModule extends VuexModule {
   @Action
   async getTitle(title: number) {
     const response = await TranslationsService.fetchFields({
-      fields: [`T_${title}`]
+      fields: [`T_${title}`],
     });
     // weirdly enough, axios returns the keys in lowercase...
     this.setTitle(response.status === 200 ? response.data[`t_${title}`] : "");

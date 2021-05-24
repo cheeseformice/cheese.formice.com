@@ -16,12 +16,14 @@
             <q-item-section class="q-ml-md">
               <q-item-label>{{ s.title }}</q-item-label>
               <q-item-label class="text-h6">{{ s.value }}</q-item-label>
-              <q-item-label caption :class="s.progress >= 0 ? 'text-green': 'text-red'">
+              <q-item-label caption :class="s.progress >= 0 ? 'text-green' : 'text-red'">
                 <template v-if="s.progress !== 0">
-                  {{ $t("sinceLastSevenDays", {
-                      sign: s.progress >= 0 ? '+' : '',
-                      value: s.progress
-                    }) }}
+                  {{
+                    $t("sinceLastSevenDays", {
+                      sign: s.progress >= 0 ? "+" : "",
+                      value: s.progress,
+                    })
+                  }}
                 </template>
                 <wbr />
               </q-item-label>

@@ -36,13 +36,7 @@
 
     <div class="row q-mb-md">
       <div class="col-3">
-        <q-btn
-          color="secondary"
-          label="Export"
-          no-caps
-          outline
-          @click="exportTranslation()"
-        />
+        <q-btn color="secondary" label="Export" no-caps outline @click="exportTranslation()" />
       </div>
       <div class="col-3 col-md-5">
         <!-- Separator -->
@@ -87,13 +81,7 @@
     </q-table>
 
     <div class="q-mt-md">
-      <q-btn
-        color="secondary"
-        label="Export"
-        no-caps
-        outline
-        @click="exportTranslation()"
-      />
+      <q-btn color="secondary" label="Export" no-caps outline @click="exportTranslation()" />
     </div>
   </q-page>
 </template>
@@ -161,9 +149,8 @@ export default class Translation extends Vue {
         data.push({
           key,
           en: value,
-          translation: ""
+          translation: "",
         });
-
       } else {
         const child = this.flattenDictionary(value);
 
@@ -172,7 +159,7 @@ export default class Translation extends Vue {
           data.push({
             key: `${key}.${_key}`,
             en,
-            translation
+            translation,
           });
         }
       }
@@ -192,7 +179,7 @@ export default class Translation extends Vue {
       ...Object.entries(i18n).map(([code, language]) => ({
         label: language.languageName,
         value: code,
-      }))
+      })),
     ];
   }
 
@@ -213,7 +200,7 @@ export default class Translation extends Vue {
       let target: TranslationFields | undefined = language;
 
       for (let index = 0; index < access.length - 1; index++) {
-        const tmp: string | TranslationFields | undefined = target[ access[index] ];
+        const tmp: string | TranslationFields | undefined = target[access[index]];
 
         if (tmp === undefined) {
           target = tmp;
@@ -230,12 +217,12 @@ export default class Translation extends Vue {
         field.translation = "";
         continue;
       }
-      const translation = target[ access[ access.length - 1] ];
+      const translation = target[access[access.length - 1]];
 
       if (typeof translation !== "string") {
         field.translation = "";
       } else {
-        field.translation = target[ access[ access.length - 1] ] as string;
+        field.translation = target[access[access.length - 1]] as string;
       }
     }
   }
@@ -262,7 +249,7 @@ export default class Translation extends Vue {
         target = target[key] as TranslationFields;
       }
 
-      target[ access[ access.length - 1] ] = field.translation;
+      target[access[access.length - 1]] = field.translation;
     }
 
     this.result = JSON.stringify(result);
@@ -273,11 +260,15 @@ export default class Translation extends Vue {
     copyToClipboard(this.result)
       .then(() => {
         this.copyState = 1;
-        setTimeout(() => {this.copyState = 0}, 1500);
+        setTimeout(() => {
+          this.copyState = 0;
+        }, 1500);
       })
       .catch(() => {
         this.copyState = 2;
-        setTimeout(() => {this.copyState = 0}, 1500);
+        setTimeout(() => {
+          this.copyState = 0;
+        }, 1500);
       });
   }
 }
