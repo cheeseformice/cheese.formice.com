@@ -48,7 +48,21 @@
       :rows-per-page-options="[0]"
       :v-model:pagination="{ page: 1, rowsPerPage: 0 }"
       class="q-mt-lg"
-    />
+    >
+      <template v-slot:body-cell-name="props">
+        <q-td :props="props">
+          <router-link
+            :to="{
+              name: leaderboardOptions.tab,
+              params: { playerName: props.value, tribeName: props.value },
+            }"
+            class="text-dark"
+          >
+            {{ props.value }}
+          </router-link>
+        </q-td>
+      </template>
+    </q-table>
 
     <div class="q-py-md flex flex-center">
       <q-pagination
