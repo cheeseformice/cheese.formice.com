@@ -119,4 +119,54 @@ export default {
     success: "Successful responses",
     errors: "Errors",
   },
+
+  questions: {
+    update: {
+      title: "How often does this update?",
+      answer: "Everyday at 14:00 UTC.",
+    },
+    leaderboard: {
+      title: "How are the leadearboards calculated?",
+      answer:
+        "Everyday, right after the stats update, we calculate different scores.<br>" +
+        "<b>Normal</b> score is obtained using your cheese gathered, firsts and rounds played.<br>" +
+        "Any other score just takes into consideration their own statistics.<br>" +
+        "<b>Overall</b> score is obtained using all the other generated scores.",
+    },
+    moduleStats: {
+      title: "Do module stats count?",
+      answer: "Currently, no. But there is a plan to make them count in the near future.",
+    },
+    suggestion: {
+      title: "I have a suggestion / bug report",
+      answer: "Please report it in our {open}discord server{close}.",
+    },
+    dislikeLeaderboard: {
+      title: "I don't like the leaderboards",
+      answer:
+        "We are currently in the beta version, so they will be tweaked around later down the road.<br>" +
+        "If you have any suggestion or specific feedback about how to improve them, " +
+        "please head over to our {open}discord server{close}.",
+    },
+    weirdTribeStats: {
+      title: "My tribe stats are weird",
+      answer:
+        "Tribe stats are calculated by dividing the total of the stat over the " +
+        "square root of the amount of members in the tribe.<br>" +
+        "This means, they may fluctuate a lot when a member joins or leaves the tribe.",
+    },
+    activeMembers: {
+      title: "What is considered an 'active tribe member'?",
+      answer:
+        "An active tribe member is someone who has connected to the game in the previous 24 hours.",
+    },
+    contribute: {
+      title: "How can I contribute?",
+      answer:
+        "This is an open-source project and we accept any kind of contribution.<br>" +
+        "If you know how to code, you can {ghopen}go to our github{close}.<br>" +
+        "If you want to translate the site, you can use our {tropen}translation panel{close}.<br>" +
+        "If you want to contribute in any other way, please let us know via {dopen}discord{close}.",
+    },
+  },
 };

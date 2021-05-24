@@ -20,6 +20,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("pages/ServerStatus.vue"),
       },
       {
+        path: "faq",
+        name: "faq",
+        component: () => import("pages/FAQ.vue"),
+      },
+      {
         path: "github",
         name: "github",
         component: () => import("pages/GithubRedirect.vue"),

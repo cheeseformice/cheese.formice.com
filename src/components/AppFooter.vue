@@ -85,6 +85,7 @@ export default class AppFooter extends Vue {
         items: [
           {
             label: this.$t("faq"),
+            to: { name: "faq" },
           },
           {
             label: this.$t("serverStatus"),
