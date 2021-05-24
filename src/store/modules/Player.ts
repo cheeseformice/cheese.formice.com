@@ -36,11 +36,11 @@ export default class PlayerModule extends VuexModule {
   }
 
   @Action
-  async getPlayer(name: string) {
+  async getPlayer(name: string, lang?: string) {
     const response = await PlayersService.getById(name);
     if (response.status === 200) {
       this.setPlayer(response.data);
-      await this.getTitle(response.data.title);
+      await this.getTitle(response.data.title, lang);
     } else {
       this.setPlayer(null);
       this.setTitle("");
@@ -49,9 +49,10 @@ export default class PlayerModule extends VuexModule {
   }
 
   @Action
-  async getTitle(title: number) {
+  async getTitle(title: number, lang?: string) {
     const response = await TranslationsService.fetchFields({
       fields: [`T_${title}`],
+      language: lang,
     });
     // weirdly enough, axios returns the keys in lowercase...
     this.setTitle(response.status === 200 ? response.data[`t_${title}`] : "");

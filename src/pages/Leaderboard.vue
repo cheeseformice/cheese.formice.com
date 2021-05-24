@@ -1,12 +1,12 @@
 <template>
   <q-page class="container q-pt-md">
-    <div class="text-center text-h4">Leaderboard</div>
+    <div class="text-center text-h4">{{ $t("leaderboard") }}</div>
 
     <div class="row items-center q-gutter-y-md">
       <div class="col-12 col-md-6">
         <q-tabs v-model="leaderboardOptions.tab" align="left" class="text-secondary">
-          <q-tab name="player" label="player" />
-          <q-tab name="tribe" label="tribe" />
+          <q-tab name="player" :label="$t('player')" />
+          <q-tab name="tribe" :label="$t('tribe')" />
         </q-tabs>
       </div>
       <div class="col-12 col-md-6">
@@ -114,19 +114,19 @@ export default class Leaderboard extends Vue {
     return [
       {
         name: "rank",
-        label: "Rank",
+        label: this.$t("rank"),
         field: "rank",
         align: "center",
       },
       {
         name: "name",
-        label: "Name",
+        label: this.$t("name"),
         field: "name",
         align: "left",
       },
       {
         name: "score",
-        label: "Score",
+        label: this.$t("score"),
         field: "score",
         align: "left",
       },

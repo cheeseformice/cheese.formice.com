@@ -5,10 +5,18 @@ export default {
   translation: "Translation",
   language: "Language",
 
+  welcome: "Welcome to CheeseForMice!",
+  lastTenPlayers: "Last 10 seen players",
+  lastTenTribes: "Last 10 seen tribes",
+  topTenPlayers: "Top 10 players",
+
   login: "Login",
   register: "Register",
   username: "Username",
   password: "Password",
+
+  nothingHere: "Oops. Nothing here...",
+  redirect: "If you are not being redirected, {open}click here{close}",
 
   members: "Members",
   normal: "Normal",
@@ -33,6 +41,11 @@ export default {
   // Leaderboards
   period: "Period",
   leaderboard: "Leaderboard",
+  player: "Player",
+  tribe: "Tribe",
+  rank: "Rank",
+  name: "Name",
+  score: "Score",
   playerLeaderboards: "Player Leaderboards",
   tribeLeaderboards: "Tribe Leaderboards",
   periods: {
@@ -68,6 +81,7 @@ export default {
   },
 
   // For stats
+  level: "Level {level}",
   miceSavedNormal: "Mice Saved (Normal)",
   miceSavedHard: "Mice Saved (Hard)",
   miceSavedDivine: "Mice Saved (Divine)",

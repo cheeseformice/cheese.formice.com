@@ -64,7 +64,7 @@
     <div class="col-12 col-lg-10 q-gutter-y-md">
       <!-- Stats -->
       <div class="q-gutter-y-xs text-center">
-        <div class="text-h5">Level {{ experience.level }}</div>
+        <div class="text-h5">{{ $t("level", { level: experience.level }) }}</div>
         <q-linear-progress :value="experience.percentage" color="cyan-4" size="xl" />
         <div class="text-caption">{{ experience.current }} / {{ experience.needed }}</div>
       </div>

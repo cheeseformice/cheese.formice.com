@@ -1,14 +1,14 @@
 <template>
   <q-page padding class="container q-pt-lg">
     <q-card flat class="q-py-md text-center">
-      <span class="text-h6">Welcome to CheeseForMice!</span>
+      <span class="text-h6">{{ $t("welcome") }}</span>
     </q-card>
 
     <div class="row q-col-gutter-md">
       <div class="col-12 col-md-4">
         <q-list dense bordered padding class="rounded-borders">
           <q-item key="title">
-            <q-item-section class="q-table__title"> Last 10 seen players </q-item-section>
+            <q-item-section class="q-table__title">{{ $t("lastTenPlayers") }}</q-item-section>
           </q-item>
           <q-item
             v-for="player in lastPlayers"
@@ -27,7 +27,7 @@
       <div class="col-12 col-md-4">
         <q-list dense bordered padding class="rounded-borders">
           <q-item key="title">
-            <q-item-section class="q-table__title"> Last 10 seen tribes </q-item-section>
+            <q-item-section class="q-table__title">{{ $t("lastTenTribes") }}</q-item-section>
           </q-item>
           <q-item
             v-for="tribe in lastTribes"
@@ -46,7 +46,7 @@
       <div class="col-12 col-md-4">
         <q-list dense bordered padding class="rounded-borders">
           <q-item key="title">
-            <q-item-section class="q-table__title"> Top 10 players </q-item-section>
+            <q-item-section class="q-table__title">{{ $t("topTenPlayers") }}</q-item-section>
           </q-item>
           <q-item
             v-for="player in leaderboard"
@@ -122,82 +122,6 @@ export default class PageIndex extends Vue {
         label: "Score",
         field: "score",
         align: "left",
-      },
-    ];
-  }
-
-  get serverColumns(): QTable["columns"] {
-    return [
-      {
-        name: "service",
-        label: "Service",
-        field: "service",
-        align: "left",
-      },
-      {
-        name: "status",
-        label: "Status",
-        field: "status",
-        align: "left",
-      },
-      {
-        name: "workers",
-        label: "Workers",
-        field: "workers",
-        align: "left",
-      },
-    ];
-  }
-
-  statusColor(status: string): string {
-    switch (status.toLowerCase()) {
-      case "operational":
-        return "text-positive";
-      case "partial outage":
-        return "text-warning";
-      case "outage":
-        return "text-negative";
-      default:
-        return "";
-    }
-  }
-
-  get serverStatus() {
-    return [
-      {
-        service: "CFM API",
-        status: "Partial outage",
-        workers: "9/12",
-      },
-      {
-        service: "CFM website",
-        status: "Operational",
-        workers: "2/2",
-      },
-      {
-        service: "Forum bot",
-        status: "Operational",
-        workers: "1/1",
-      },
-      {
-        service: "Game bot",
-        status: "Outage",
-        workers: "0/1",
-      },
-      {
-        service: "Game servers",
-        status: "Operational",
-        workers: "6/6",
-      },
-      {
-        service: "Forum",
-        status: "Operational",
-        workers: "1/1",
-      },
-      {
-        service: "Community Platform",
-        status: "Operational",
-        workers: "1/1",
       },
     ];
   }
