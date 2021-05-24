@@ -62,7 +62,7 @@ export default class AppFooter extends Vue {
   get sections(): FooterSectionInfo[] {
     const options: FooterSectionInfo[] = [
       {
-        title: "Contribute",
+        title: this.$t("contribute"),
         items: [
           {
             label: "Translation",
@@ -75,7 +75,7 @@ export default class AppFooter extends Vue {
         ],
       },
       {
-        title: "Contact us",
+        title: this.$t("contactUs"),
         items: [
           {
             label: "Discord",
@@ -84,7 +84,7 @@ export default class AppFooter extends Vue {
         ],
       },
       {
-        title: "Information",
+        title: this.$t("information"),
         items: [
           {
             label: "Frequently Asked Questions",
@@ -97,7 +97,7 @@ export default class AppFooter extends Vue {
       },
     ];
 
-    const preference: FooterSectionInfo = { title: "Preference" };
+    const preference: FooterSectionInfo = { title: this.$t("preference") };
     this.$q.screen.lt.sm ? options.unshift(preference) : options.push(preference);
     return options;
   }

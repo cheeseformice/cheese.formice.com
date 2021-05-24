@@ -19,6 +19,12 @@ export default {
   badges: "Badges",
   search: "Search",
 
+  // footer
+  contribute: "Contribute",
+  contactUs: "Contact Us",
+  information: "Information",
+  preference: "Preference",
+
   // Leaderboards
   period: "Period",
   leaderboard: "Leaderboard",
