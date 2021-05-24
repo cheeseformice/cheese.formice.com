@@ -35,6 +35,7 @@ export default class TribeModule extends VuexModule {
     if (!this.tribe) return;
     const response = await TribesService.getChangelogs(this.tribe.id, [
       T.Racing,
+      T.Shaman,
       T.Survivor,
       T.Defilante,
       T.Normal,

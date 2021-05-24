@@ -12,6 +12,7 @@ export default {
 
   members: "Members",
   normal: "Normal",
+  shaman: "Shaman",
   profile: "Profile",
   racing: "Racing",
   survivor: "Survivor",

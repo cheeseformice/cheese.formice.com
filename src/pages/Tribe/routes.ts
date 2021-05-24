@@ -1,5 +1,7 @@
 import { RouteRecordRaw } from "vue-router";
 
+const changelogs = ["Normal", "Shaman", "Racing", "Survivor", "Defilante"];
+
 export default <RouteRecordRaw>{
   path: "t/:tribeName",
   component: () => import("pages/Tribe/index.vue"),
@@ -23,29 +25,14 @@ export default <RouteRecordRaw>{
       name: "tribeMembers",
       component: () => import("src/pages/Tribe/Members.vue"),
     },
-    {
-      path: "normal",
-      name: "tribeNormal",
-      component: () => import("src/pages/Tribe/Changelogs.vue"),
-      props: { type: "normal" },
-    },
-    {
-      path: "racing",
-      name: "tribeRacing",
-      component: () => import("src/pages/Tribe/Changelogs.vue"),
-      props: { type: "racing" },
-    },
-    {
-      path: "survivor",
-      name: "tribeSurvivor",
-      component: () => import("src/pages/Tribe/Changelogs.vue"),
-      props: { type: "survivor" },
-    },
-    {
-      path: "defilante",
-      name: "tribeDefilante",
-      component: () => import("src/pages/Tribe/Changelogs.vue"),
-      props: { type: "defilante" },
-    },
+    ...changelogs.map((c) => {
+      const type = c.toLowerCase();
+      return {
+        path: type,
+        name: `tribe${c}`,
+        component: () => import("./Changelogs.vue"),
+        props: { type },
+      };
+    }),
   ],
 };

@@ -1,5 +1,7 @@
 import { RouteRecordRaw } from "vue-router";
 
+const changelogs = ["Normal", "Shaman", "Racing", "Survivor", "Defilante"];
+
 export default <RouteRecordRaw>{
   path: "p/:playerName",
   component: () => import("pages/Player/index.vue"),
@@ -20,29 +22,14 @@ export default <RouteRecordRaw>{
       alias: "profile",
       component: () => import("pages/Player/Profile.vue"),
     },
-    {
-      path: "normal",
-      name: "playerNormal",
-      component: () => import("src/pages/Player/Changelogs.vue"),
-      props: { type: "normal" },
-    },
-    {
-      path: "racing",
-      name: "playerRacing",
-      component: () => import("src/pages/Player/Changelogs.vue"),
-      props: { type: "racing" },
-    },
-    {
-      path: "survivor",
-      name: "playerSurvivor",
-      component: () => import("src/pages/Player/Changelogs.vue"),
-      props: { type: "survivor" },
-    },
-    {
-      path: "defilante",
-      name: "playerDefilante",
-      component: () => import("src/pages/Player/Changelogs.vue"),
-      props: { type: "defilante" },
-    },
+    ...changelogs.map((c) => {
+      const type = c.toLowerCase();
+      return {
+        path: type,
+        name: `player${c}`,
+        component: () => import("./Changelogs.vue"),
+        props: { type },
+      };
+    }),
   ],
 };

@@ -51,6 +51,7 @@ export default class PlayerPage extends mixins(Images) {
     return [
       { label: this.$t("profile"), to: { name: "player", params: { playerName } } },
       { label: this.$t("normal"), to: { name: "playerNormal", params: { playerName } } },
+      { label: this.$t("shaman"), to: { name: "playerShaman", params: { playerName } } },
       { label: this.$t("racing"), to: { name: "playerRacing", params: { playerName } } },
       { label: this.$t("survivor"), to: { name: "playerSurvivor", params: { playerName } } },
       { label: this.$t("defilante"), to: { name: "playerDefilante", params: { playerName } } },

@@ -64,6 +64,7 @@ export default class PlayerModule extends VuexModule {
     if (!this.player) return;
     const response = await PlayersService.getChangelogs(this.player.id, [
       T.Racing,
+      T.Shaman,
       T.Survivor,
       T.Defilante,
       T.Normal,
