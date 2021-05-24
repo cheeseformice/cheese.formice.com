@@ -24,6 +24,7 @@ export default class CAvatar extends mixins(Images) {
   }
 
   get src() {
+    return this.default;
     return this.getAvatar(this.id, this.min, this.tribe);
   }
 }
