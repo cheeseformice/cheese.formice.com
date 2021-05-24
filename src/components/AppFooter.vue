@@ -51,11 +51,9 @@ export default class AppFooter extends Vue {
   language = "en";
 
   get languageOptions() {
-    const languages = Object.keys(i18n) as Array<keyof typeof i18n>;
-
-    return languages.map((l) => ({
-      value: l,
-      label: i18n[l].languageName,
+    return Object.entries(i18n).map(([value, language]) => ({
+      value,
+      label: language.languageName,
     }));
   }
 
