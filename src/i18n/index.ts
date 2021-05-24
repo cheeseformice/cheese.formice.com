@@ -4,8 +4,9 @@ import es from "./es";
 import fr from "./fr";
 
 export default {
+  br,
   en,
   es,
   fr,
-  br,
+  pt: br,
 };
