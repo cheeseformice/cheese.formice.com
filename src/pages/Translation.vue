@@ -119,6 +119,7 @@
             dense
             type="text"
             placeholder="Translation"
+            :input-class="props.row.translation.length === 0 ? 'text-negative' : ''"
             v-model="props.row.translation"
             v-if="props.row.en.length < 35"
           />
@@ -246,7 +247,7 @@ export default class Translation extends Vue {
   isValidHTML(html: string): boolean {
     var doc = document.createElement("div");
     doc.innerHTML = html;
-    return doc.innerHTML === html;
+    return doc.innerHTML === html.replace(/&/g, "&amp;");
   }
 
   mounted() {
