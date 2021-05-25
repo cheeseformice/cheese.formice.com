@@ -9,4 +9,5 @@ export default {
   es,
   fr,
   pt,
+  ru,
 };
