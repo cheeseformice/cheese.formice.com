@@ -34,9 +34,40 @@
       </q-card>
     </q-dialog>
 
+    <q-dialog v-model="showImport">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Import translations</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input
+            outlined
+            dense
+            v-model="importInput"
+            type="text"
+            placeholder="Exported translation"
+          />
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn outline no-caps label="Import" color="secondary" @click="importTranslation()" />
+          <q-btn outline no-caps label="Cancel" color="secondary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
     <div class="row q-mb-md">
       <div class="col-3">
-        <q-btn color="secondary" label="Export" no-caps outline @click="exportTranslation()" />
+        <q-btn
+          color="secondary"
+          label="Export"
+          class="q-mr-md"
+          no-caps
+          outline
+          @click="exportTranslation()"
+        />
+        <q-btn color="secondary" label="Import" no-caps outline @click="showImport = true;" />
       </div>
       <div class="col-3 col-md-5">
         <!-- Separator -->
@@ -171,8 +202,10 @@ export default class Translation extends Vue {
     value: "",
   };
   showWork = false;
+  showImport = false;
   copyState = 0;
   emptyKeys = 0;
+  importInput = "";
   result = "";
 
   get tableColumns(): QTable["columns"] {
@@ -305,6 +338,39 @@ export default class Translation extends Vue {
     }
   }
 
+  importTranslation() {
+    const fields: TranslationFields = JSON.parse(this.importInput) as TranslationFields;
+
+    for (let field of this.tableData) {
+      const access = field.key.split(".");
+      let target: null | TranslationFields = fields;
+
+      for (let index = 0; index < access.length - 1; index++) {
+        const key = access[index];
+        if (!target[key] || typeof target === "string") {
+          target = null;
+          break;
+        }
+
+        target = target[key] as TranslationFields;
+      }
+
+      if (target === null) {
+        field.translation = "";
+        continue;
+      }
+
+      const text = target[access[access.length - 1]];
+      if (typeof text !== "string") {
+        field.translation = "";
+      } else {
+        field.translation = text.replace(/<br>/g, "\n");
+      }
+    }
+
+    this.showImport = false;
+  }
+
   exportTranslation() {
     const result: TranslationFields = {};
     this.emptyKeys = 0;
@@ -316,7 +382,7 @@ export default class Translation extends Vue {
       }
 
       const access = field.key.split(".");
-      let target: string | TranslationFields = result;
+      let target: TranslationFields = result;
 
       for (let index = 0; index < access.length - 1; index++) {
         const key = access[index];
