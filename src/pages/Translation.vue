@@ -67,7 +67,7 @@
           outline
           @click="exportTranslation()"
         />
-        <q-btn color="secondary" label="Import" no-caps outline @click="showImport = true;" />
+        <q-btn color="secondary" label="Import" no-caps outline @click="showImport = true" />
       </div>
       <div class="col-3 col-md-5">
         <!-- Separator -->
