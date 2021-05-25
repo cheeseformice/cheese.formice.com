@@ -5,12 +5,7 @@
     </div>
   </template>
   <template v-else>
-    <c-hero
-      :id="player.id"
-      :tabs="tabs"
-      :title="player.name"
-      img="https://cfmtest.tk/tfm/images/x_transformice/x_evt/x_evt_03/0or8meuj/map-mongolfiere.jpg"
-    />
+    <c-hero :id="player.id" :tabs="tabs" :title="player.name" :img="banner" />
     <div class="container q-py-md">
       <router-view v-slot="{ Component }">
         <!-- <keep-alive> -->
@@ -30,6 +25,7 @@ import { PlayerModule } from "src/store";
 import { Images } from "src/common/mixins";
 import useReactiveMeta from "./meta";
 import { setup } from "vue-class-component";
+import { DOMAIN } from "src/common/vars";
 
 @Options({ components: { CHero } })
 export default class PlayerPage extends mixins(Images) {
@@ -39,6 +35,10 @@ export default class PlayerPage extends mixins(Images) {
     const { setPlayer } = useReactiveMeta();
     return { setPlayer };
   });
+
+  get banner() {
+    return `https://${DOMAIN}/tfm/images/x_transformice/x_evt/x_evt_03/0or8meuj/map-mongolfiere.jpg`;
+  }
 
   get player() {
     const playerModule = getModule(PlayerModule, this.$store);

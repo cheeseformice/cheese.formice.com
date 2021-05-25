@@ -5,13 +5,7 @@
     </div>
   </template>
   <template v-else>
-    <c-hero
-      :id="tribe.id"
-      :tribe="true"
-      :tabs="tabs"
-      :title="tribe.name"
-      img="https://cfmtest.tk/tfm/images/x_transformice/x_evt/x_evt_03/0or8meuj/map-mongolfiere.jpg"
-    />
+    <c-hero :id="tribe.id" :tribe="true" :tabs="tabs" :title="tribe.name" :img="banner" />
     <div class="container q-py-md">
       <router-view v-slot="{ Component }">
         <!-- <keep-alive> -->
@@ -31,6 +25,7 @@ import { TribeModule } from "src/store";
 import { Images } from "src/common/mixins";
 import useReactiveMeta from "./meta";
 import { setup } from "vue-class-component";
+import { DOMAIN } from "src/common/vars";
 
 @Options({ components: { CHero } })
 export default class TribePage extends mixins(Images) {
@@ -40,6 +35,10 @@ export default class TribePage extends mixins(Images) {
     const { setTribe } = useReactiveMeta();
     return { setTribe };
   });
+
+  get banner() {
+    return `https://${DOMAIN}/tfm/images/x_transformice/x_evt/x_evt_03/0or8meuj/map-mongolfiere.jpg`;
+  }
 
   get tribe() {
     const tribeModule = getModule(TribeModule, this.$store);

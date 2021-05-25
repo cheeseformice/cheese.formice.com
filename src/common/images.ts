@@ -1,6 +1,7 @@
 import { Player, API_BASE_URL } from "../api";
+import { DOMAIN } from "src/common/vars";
 
-const IMG_BASE_URL = "https://cfmtest.tk/tfm/images";
+const IMG_BASE_URL = `https://${DOMAIN}/tfm/images`;
 
 export const getBadge = (id: string | number) => {
   // removes counter from badge

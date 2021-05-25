@@ -2,6 +2,7 @@ import { reactive } from "vue";
 import { useMeta } from "quasar";
 
 import { Player } from "src/api";
+import { DOMAIN } from "src/common/vars";
 
 export default function useReactiveMeta() {
   const player = reactive({
@@ -32,7 +33,7 @@ export default function useReactiveMeta() {
         },
         ogImage: {
           property: "og:image",
-          content: `https://cfmtest.tk/api/dressroom/mouse/${player.look}`,
+          content: `https://${DOMAIN}/api/dressroom/mouse/${player.look}`,
         },
       },
     };
