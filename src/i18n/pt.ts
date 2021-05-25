@@ -3,10 +3,16 @@ export default {
   home: "Início",
   translation: "Tradução",
   language: "Idioma",
+  welcome: "Bem-vindo ao CheeseForMice!",
+  lastTenPlayers: "Últimos 10 jogadores vistos",
+  lastTenTribes: "Últimas 10 tribos vistas",
+  topTenPlayers: "Jogadores top 10",
   login: "Login",
   register: "Registrar",
   username: "Nome de usuário",
   password: "Senha",
+  nothingHere: "Oops. Não há nada aqui...",
+  redirect: "Se você não for redirecionado, {open} clique aqui {close}",
   members: "Membros",
   normal: "Normal",
   shaman: "Shaman",
@@ -19,13 +25,18 @@ export default {
   search: "Pesquisar",
   contribute: "Contribuir",
   contactUs: "Entre em Contato",
-  information: "Informação",
+  information: "Informações",
   preference: "Preferências",
   sourceCode: "Código Fonte",
-  faq: "Perguntas Frequêntes",
+  faq: "Perguntas Frequentes",
   serverStatus: "Status do Servidor",
   period: "Período",
   leaderboard: "Ranking",
+  player: "Jogador",
+  tribe: "Tribo",
+  rank: "Posição no ranking",
+  name: "Nome",
+  score: "Pontuação",
   playerLeaderboards: "Melhores jogadores",
   tribeLeaderboards: "Melhores tribos",
   periods: { overall: "De todos os tempos", daily: "Diário", weekly: "Semanal", monthly: "Mensal" },
@@ -54,6 +65,7 @@ export default {
     defilante: "Pontuação de defilante: {stat}",
     overall: "Pontuação geral: {stat}",
   },
+  level: "Nível {level}",
   miceSavedNormal: "Ratos salvos (Normal)",
   miceSavedHard: "Ratos salvos (Difícil)",
   miceSavedDivine: "Ratos salvos (Divino)",
@@ -77,12 +89,51 @@ export default {
     auth: "Serviço responsável pela autenticação do site",
     router: "Serviço responsável por atender solicitações",
     lookup: "Serviço responsável pelo ranking e pesquisa de jogadores",
-    dressroom: "Serviço responsável pelo desenho dos visuais",
+    dressroom: "Serviço responsável pelo desenho dos visuais dos jogadores",
   },
   status: {
     operational: "Operando",
     partialOutage: "Interrupção parcial",
     majorOutage: "Grande interrupção",
   },
-  chart: { ping: "Ping", success: "Respostas bem sucedidas", errors: "Erros" },
+  chart: { ping: "Ping", success: "Respostas bem-sucedidas", errors: "Erros" },
+  questions: {
+    update: {
+      title: "Com qual frequência isso atualiza?'",
+      answer: "Todos os dias às 11:00 GMT-3",
+    },
+    leaderboard: {
+      title: "Como a classificação no ranking é calculada?",
+      answer:
+        "Todos os dias, logo após a atualização das estatísticas, nós calculamos diferentes pontuações.<br>A pontuação <b>normal</b> é obtida usando os seus queijos coletados, queijos coletados em primeiro e rodadas jogadas.<br>A pontuação <b>geral</b> é obtida usando todas as outras pontuações coletadas.",
+    },
+    moduleStats: {
+      title: "As estatísticas de módulos contam?",
+      answer:
+        "Atualmente, não. No entanto, existe um plano para fazermos com que elas contem num futuro próximo.",
+    },
+    suggestion: {
+      title: "Eu tenho uma sugestão / Quero reportar um problema",
+      answer: "Por favor, sugira ou reporte em nosso {open}servidor no Discord{close}",
+    },
+    dislikeLeaderboard: {
+      title: "Eu não gosto do ranking",
+      answer:
+        "Atualmente nós estamos na versão beta, então elas serão ajustadas com o decorrer do tempo.<br>Se você tiver alguma sugestão ou um feedback específico para melhorá-las, por favor,  acesse o nosso {open}servidor no Discord{close}.",
+    },
+    weirdTribeStats: {
+      title: "As estatísticas da minha tribo estão estranhas",
+      answer:
+        "As estatísticas das tribos são calculadas ao dividir o total de estatísticas pela raiz quadrada da quantidade de membros da tribo.",
+    },
+    activeMembers: {
+      title: 'Quem é considerado um "membro ativo" da tribo?',
+      answer: "Um membro ativo de uma tribo é alguém que se conectou ao jogo nas últimas 24 horas.",
+    },
+    contribute: {
+      title: "Como eu posso contribuir?",
+      answer:
+        "Este é um projeto de código aberto e nós aceitamos qualquer tipo de contribuição.<br>Se você souber programar, você pode {ghopen}acessar o nosso Github{close}.<br>Se você gostaria de traduzir o site, você pode utilizar o {tropen}painel de traduções{close}.<br>Se você gostaria de contribuir de algum outro modo, por favor, nos avisem via {dopen}Discord{close}.",
+    },
+  },
 };
