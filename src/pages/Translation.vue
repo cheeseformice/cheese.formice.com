@@ -128,13 +128,9 @@
               <span class="text-positive" v-if="isValidHTML(props.row.translation)">
                 Already translated
               </span>
-              <span class="text-negative" v-else>
-                Invalid translation
-              </span>
+              <span class="text-negative" v-else> Invalid translation </span>
             </span>
-            <span class="text-negative" v-else>
-              Missing translation
-            </span>
+            <span class="text-negative" v-else> Missing translation </span>
           </div>
         </q-td>
       </template>
