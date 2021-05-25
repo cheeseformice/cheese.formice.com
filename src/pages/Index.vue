@@ -1,7 +1,7 @@
 <template>
   <q-page padding class="container q-pt-lg">
     <q-card flat class="q-py-md text-center transparent">
-      <span class="text-h6">{{ $t("welcome") }}</span>
+      <span class="text-h4">{{ $t("welcome") }}</span>
     </q-card>
 
     <div class="row q-col-gutter-md">
