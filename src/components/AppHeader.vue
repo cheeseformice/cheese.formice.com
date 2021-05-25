@@ -3,7 +3,7 @@
     <q-toolbar class="container">
       <q-btn v-if="$q.screen.xs" icon="menu" flat round @click="showDrawer = !showDrawer" />
       <q-tabs v-else>
-        <q-route-tab v-for="{ label, to } of links" :key="label" :to="to" :label="label" />
+        <q-route-tab v-for="{ label, to } of links" exact :key="label" :to="to" :label="label" />
       </q-tabs>
       <q-space />
 
