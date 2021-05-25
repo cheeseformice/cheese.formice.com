@@ -97,4 +97,42 @@ export default {
     majorOutage: "Interrupción mayor",
   },
   chart: { ping: "Ping", success: "Respuesas exitosas", errors: "Errores" },
+  questions: {
+    update: {
+      title: "¿Qué tan seguido se actualiza esto?",
+      answer: "Todos los días a las 14:00 UTC",
+    },
+    leaderboard: {
+      title: "¿Cómo se calculan los rankings?",
+      answer:
+        "Todos los días, justo después de que las estadísticas se actualizan, calculamos diferentes puntajes.<br>El puntaje <b>normal</b> es calculado usando tus quesos obtenidos, firsts y rondas jugadas.<br>Otros puntajes solamente toman en consideración sus propias estadísticas.<br>El puntaje <b>general</b> es calculado usando todos los otros puntajes generados.",
+    },
+    moduleStats: {
+      title: "¿Las estadísticas de los módulos cuentan?",
+      answer: "Actualmente, no. Pero hay un plan para hacerlas contar en un futuro cercano.",
+    },
+    suggestion: {
+      title: "Tengo una sugerencia / quiero reportar un bug",
+      answer: "Por favor, repórtalo en nuestro {open}servidor de discord{close}.",
+    },
+    dislikeLeaderboard: {
+      title: "No me gustan los rankings",
+      answer:
+        "Actualmente estamos en la versión beta, por lo que serán modificados más tarde.<br>Si tienes una sugerencia u opinión específica acerca de cómo mejorarlos, por favor, avísanos en nuestro {open}servidor de discord{close}.",
+    },
+    weirdTribeStats: {
+      title: "Las estadísticas de mi tribu son raras",
+      answer:
+        "Las estadísticas de las tribus son calculadas dividiendo el total de la estadística sobre la raíz cuadrada de la cantidad de miembros en la tribu.<br>Esto quiere decir, que fluctúan mucho cuando un miembro entra o sale de la tribu.",
+    },
+    activeMembers: {
+      title: "¿Qué se considera un 'miembro activo' de una tribu?",
+      answer: "Un miembro activo es alguien que se conectó al juego en las últimas 24 horas.",
+    },
+    contribute: {
+      title: "¿Cómo puedo ayudar?",
+      answer:
+        "Este es un proyecto de código abierto, y aceptamos cualquier tipo de contribución.<br>Si sabes programar, puedes {ghopen}ir a nuestro github{close}.<br>Si quieres traducir el sitio web, puedes usar nuestro {tropen}panel de traducción{close}.<br>Si quieres contribuir en cualquier otra forma, por favor avísanos vía {dopen}discord{close}.",
+    },
+  },
 };
