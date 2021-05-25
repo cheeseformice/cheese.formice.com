@@ -67,6 +67,51 @@
           <code>{{ props.value }}</code>
         </q-td>
       </template>
+      <template #body-cell-en="props">
+        <q-td :props="props">
+          <span v-if="props.value.length < 35">{{ props.value }}</span>
+          <div v-else>
+            <q-btn
+              color="secondary"
+              label="View"
+              no-caps
+              outline
+              @click="viewField(props.row.key)"
+            />
+            <q-dialog v-model="props.row.view">
+              <q-card>
+                <q-card-section>
+                  <div class="text-h6">Translation</div>
+                </q-card-section>
+
+                <q-card-section class="q-pt-none">
+                  <span v-if="!isValidHTML(props.row.translation)" class="text-negative">
+                    <q-icon name="warning" color="warning" size="1rem" />
+                    Invalid translation<br /><br />
+                  </span>
+
+                  <pre><code
+                    style="white-space: break-spaces;"
+                    v-html="visualizeHTML(props.value)"
+                  ></code></pre>
+
+                  <q-input
+                    outlined
+                    dense
+                    type="textarea"
+                    placeholder="Translation"
+                    v-model="props.row.translation"
+                  />
+                </q-card-section>
+
+                <q-card-actions align="right">
+                  <q-btn outline no-caps label="Close" color="secondary" v-close-popup />
+                </q-card-actions>
+              </q-card>
+            </q-dialog>
+          </div>
+        </q-td>
+      </template>
       <template #body-cell-translation="props">
         <q-td :props="props">
           <q-input
@@ -75,7 +120,21 @@
             type="text"
             placeholder="Translation"
             v-model="props.row.translation"
+            v-if="props.row.en.length < 35"
           />
+          <div v-else>
+            <span v-if="props.row.translation.length > 0">
+              <span class="text-positive" v-if="isValidHTML(props.row.translation)">
+                Already translated
+              </span>
+              <span class="text-negative" v-else>
+                Invalid translation
+              </span>
+            </span>
+            <span class="text-negative" v-else>
+              Missing translation
+            </span>
+          </div>
         </q-td>
       </template>
     </q-table>
@@ -97,6 +156,7 @@ interface TranslationFields {
 
 interface FlatTranslationField {
   key: string;
+  view: boolean;
   en: string;
   translation: string;
 }
@@ -148,6 +208,7 @@ export default class Translation extends Vue {
       if (typeof value === "string") {
         data.push({
           key,
+          view: false,
           en: value,
           translation: "",
         });
@@ -158,6 +219,7 @@ export default class Translation extends Vue {
           const { key: _key, en, translation } = child[index];
           data.push({
             key: `${key}.${_key}`,
+            view: false,
             en,
             translation,
           });
@@ -166,6 +228,25 @@ export default class Translation extends Vue {
     }
 
     return data;
+  }
+
+  viewField(key: string) {
+    for (let field of this.tableData) {
+      if (field.key === key) {
+        field.view = true;
+        return;
+      }
+    }
+  }
+
+  visualizeHTML(html: string): string {
+    return html.replace(/</g, "&lt;").replace(/&lt;br>/g, "<br>");
+  }
+
+  isValidHTML(html: string): boolean {
+    var doc = document.createElement("div");
+    doc.innerHTML = html;
+    return doc.innerHTML === html;
   }
 
   mounted() {
@@ -249,7 +330,7 @@ export default class Translation extends Vue {
         target = target[key] as TranslationFields;
       }
 
-      target[access[access.length - 1]] = field.translation;
+      target[access[access.length - 1]] = field.translation.replace(/\n/g, "<br>");
     }
 
     this.result = JSON.stringify(result);
