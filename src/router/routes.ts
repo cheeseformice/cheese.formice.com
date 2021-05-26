@@ -15,6 +15,11 @@ const routes: RouteRecordRaw[] = [
       playerRoute,
       tribeRoute,
       {
+        path: "cookie-policy",
+        name: "cookie-policy",
+        component: () => import("pages/CookiePolicy.vue"),
+      },
+      {
         path: "status",
         name: "status",
         component: () => import("pages/ServerStatus.vue"),

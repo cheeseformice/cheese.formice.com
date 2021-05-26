@@ -1,13 +1,14 @@
 <template>
-  <q-dialog v-model="showNotice" persistent>
+  <q-dialog v-if="$route.name !== 'cookie-policy'" v-model="showNotice" persistent>
     <q-card>
       <q-card-section>
         <div class="text-h6">Cookies</div>
       </q-card-section>
 
-      <q-card-section class="q-pt-none">{{
-        $t("cookies.alert", { open: "", close: "" })
-      }}</q-card-section>
+      <q-card-section
+        class="q-pt-none"
+        v-html="$t('cookies.alert', { open: '<a href=\'/cookie-policy\'>', close: '</a>' })"
+      ></q-card-section>
 
       <q-card-actions align="right">
         <q-btn
@@ -50,13 +51,14 @@ export default class CookieNotice extends Vue {
   mounted() {
     if (this.consentType === null) {
       this.showNotice = true;
+      this.applyConsent("essentials");
       return;
     }
 
-    this.applyConsent(this.consentType);
+    this.applyConsent(this.consentType, true);
   }
 
-  applyConsent(consentType: ConsentType) {
+  applyConsent(consentType: ConsentType, dontReload?: boolean) {
     if (consentType === "essentials") {
       // essential "cookies" are stored in local storage
       // so we just delete all of this
@@ -77,6 +79,9 @@ export default class CookieNotice extends Vue {
           return true;
         },
       });
+    } else if (!dontReload) {
+      // accepted all cookies, so we have re-enable cookie functionality
+      window.location.reload();
     }
   }
 }
