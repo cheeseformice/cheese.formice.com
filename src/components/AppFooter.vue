@@ -19,6 +19,7 @@
           <q-item style="padding-left: 0; padding-right: 0">
             <q-select
               dark
+              color="secondary"
               v-model="language"
               :options="languageOptions"
               dense
