@@ -6,7 +6,7 @@ export default {
   welcome: "Bem-vindo ao CheeseForMice!",
   lastTenPlayers: "Últimos 10 jogadores vistos",
   lastTenTribes: "Últimas 10 tribos vistas",
-  topTenPlayers: "Jogadores top 10",
+  topTenPlayers: "Top 10 jogadores",
   login: "Login",
   register: "Registrar",
   username: "Nome de usuário",
@@ -99,7 +99,7 @@ export default {
   chart: { ping: "Ping", success: "Respostas bem-sucedidas", errors: "Erros" },
   questions: {
     update: {
-      title: "Com qual frequência isso atualiza?'",
+      title: "Com qual frequência os dado são atualizados?'",
       answer: "Todos os dias às 11:00 GMT-3",
     },
     leaderboard: {
@@ -133,7 +133,7 @@ export default {
     contribute: {
       title: "Como eu posso contribuir?",
       answer:
-        "Este é um projeto de código aberto e nós aceitamos qualquer tipo de contribuição.<br>Se você souber programar, você pode {ghopen}acessar o nosso Github{close}.<br>Se você gostaria de traduzir o site, você pode utilizar o {tropen}painel de traduções{close}.<br>Se você gostaria de contribuir de algum outro modo, por favor, nos avisem via {dopen}Discord{close}.",
+        "Este é um projeto de código aberto e nós aceitamos qualquer tipo de contribuição.<br>Se você souber programar, você pode {ghopen}acessar o nosso Github{close}.<br>Se você gostaria de traduzir o site, você pode utilizar o {tropen}painel de traduções{close}.<br>Se você gostaria de contribuir de algum outro modo, por favor, nos avise em nosso {dopen}Discord{close}.",
     },
   },
 };
