@@ -12,6 +12,8 @@
     <!-- Empty space -->
     <div style="height: 25vh"></div>
     <app-footer />
+
+    <cookie-notice />
   </q-layout>
 </template>
 
@@ -19,7 +21,8 @@
 import { Options, Vue } from "vue-class-component";
 import AppHeader from "src/components/AppHeader.vue";
 import AppFooter from "src/components/AppFooter.vue";
+import CookieNotice from "src/components/CookieNotice.vue";
 
-@Options({ components: { AppHeader, AppFooter } })
+@Options({ components: { AppHeader, AppFooter, CookieNotice } })
 export default class MainLayout extends Vue {}
 </script>

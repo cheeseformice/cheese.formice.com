@@ -11,6 +11,12 @@ export default {
   register: "Zarejestruj",
   username: "Nazwa użytkownika",
   password: "Hasło",
+  cookies: {
+    alert:
+      "Ta witryna używa cookies by poprawić wrażenia użytkownika. Poprzez używanie naszej witryny wyrażasz zgodę na wszystkie cookies zgodnie z naszą {open}polityką cookies{close}.",
+    acceptAll: "Zaakceptuj wszystko",
+    acceptEssentials: "Zaakceptuj wybrane",
+  },
   nothingHere: "Ups. Tu nic nie ma...",
   redirect: "Jeżeli nie jesteś przekierowywany, {open}kliknij tutaj{close}",
   members: "Członkowie",

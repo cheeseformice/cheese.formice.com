@@ -15,6 +15,14 @@ export default {
   username: "Username",
   password: "Password",
 
+  cookies: {
+    alert:
+      "This website uses cookies to improve user experience. By using our website you consent to " +
+      "all cookies in accordance with our {open}Cookie Policy{close}.",
+    acceptAll: "Accept all",
+    acceptEssentials: "Accept essentials",
+  },
+
   nothingHere: "Oops. Nothing here...",
   redirect: "If you are not being redirected, {open}click here{close}",
 

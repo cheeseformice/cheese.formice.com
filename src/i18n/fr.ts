@@ -11,6 +11,12 @@ export default {
   register: "Créer un compte",
   username: "Pseudonyme",
   password: "Mot de Passe",
+  cookies: {
+    alert:
+      "Ce site utilises des cookies pour améliorer l'expérience utilisateur. En utilisant notre site, vous consentez à tout les cookies en accord avec notre {open}Politique sur les cookies{close}.",
+    acceptAll: "Accepter tout",
+    acceptEssentials: "Accepter l'essentiel",
+  },
   nothingHere: "Oups. Y'a rien ici...",
   redirect: "Si vous n'êtes pas redirigé(e), {open}cliquez ici{close}",
   members: "Membres",
