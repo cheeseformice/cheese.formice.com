@@ -11,6 +11,12 @@ export default {
   register: "Reģistrēties",
   username: "Lietotājvārds",
   password: "Parole",
+  cookies: {
+    alert:
+      "Šī vietne izmanto sīkdatnes lietotāju pieredzes uzlabošanai. Izmantojot mūsu vietni, tu piekrīti visām sīkdatnēm saskaņā ar mūsu {open}sīkdatņu politiku{close}.",
+    acceptAll: "Piekrist visām",
+    acceptEssentials: "Piekrist svarīgākajām",
+  },
   nothingHere: "Ups. Te nekā nav...",
   redirect: "Ja tu netiec pāradresēts, {open}nospied šeit{close}.",
   members: "Biedri",
