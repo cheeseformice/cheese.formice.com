@@ -4,6 +4,7 @@ import fr from "./fr";
 import lv from "./lv";
 import pl from "./pl";
 import pt from "./pt";
+import ro from "./ro";
 import ru from "./ru";
 
 export default {
@@ -13,5 +14,6 @@ export default {
   lv,
   pl,
   pt,
+  ro,
   ru,
 };
