@@ -45,7 +45,12 @@ export default {
   score: "Pontuação",
   playerLeaderboards: "Melhores jogadores",
   tribeLeaderboards: "Melhores tribos",
-  periods: { overall: "De todos os tempos", daily: "Diário", weekly: "Semanal", monthly: "Mensal" },
+  periods: {
+    overall: "De todos os tempos",
+    daily: "Diário",
+    weekly: "Semanal",
+    monthly: "Mensal",
+  },
   sorts: {
     none: "Sem classificação",
     rounds: "Rodadas jogadas",
@@ -90,7 +95,8 @@ export default {
   sinceLastSevenDays: "{sign}{value} desde os últimos 7 dias",
   help: {
     api: "A API é responsável pelo funcionamento do site",
-    changelogs: "Serviço responsável por acompanhar o progresso dos jogadores & tribos",
+    changelogs:
+      "Serviço responsável por acompanhar o progresso dos jogadores & tribos",
     profile: "Serviço responsável por mostrar o perfil dos jogadores & tribos",
     auth: "Serviço responsável pela autenticação do site",
     router: "Serviço responsável por atender solicitações",
@@ -102,10 +108,14 @@ export default {
     partialOutage: "Interrupção parcial",
     majorOutage: "Grande interrupção",
   },
-  chart: { ping: "Ping", success: "Respostas bem-sucedidas", errors: "Erros" },
+  chart: {
+    ping: "Ping",
+    success: "Respostas bem-sucedidas",
+    errors: "Erros",
+  },
   questions: {
     update: {
-      title: "Com qual frequência os dado são atualizados?'",
+      title: "Com qual frequência os dados são atualizados?",
       answer: "Todos os dias às 11:00 GMT-3",
     },
     leaderboard: {
@@ -120,7 +130,8 @@ export default {
     },
     suggestion: {
       title: "Eu tenho uma sugestão / Quero reportar um problema",
-      answer: "Por favor, sugira ou reporte em nosso {open}servidor no Discord{close}",
+      answer:
+        "Por favor, faça uma sugestão ou reporte um bug em nosso {open}servidor no Discord{close}.",
     },
     dislikeLeaderboard: {
       title: "Eu não gosto do ranking",
@@ -134,7 +145,8 @@ export default {
     },
     activeMembers: {
       title: 'Quem é considerado um "membro ativo" da tribo?',
-      answer: "Um membro ativo de uma tribo é alguém que se conectou ao jogo nas últimas 24 horas.",
+      answer:
+        "Um membro ativo de uma tribo é alguém que se conectou ao jogo nas últimas 24 horas.",
     },
     contribute: {
       title: "Como eu posso contribuir?",
