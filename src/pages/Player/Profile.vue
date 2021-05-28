@@ -8,7 +8,7 @@
             <image :href="look" width="90" />
           </svg>
           <!-- Title -->
-          <div>«{{ title }}»</div>
+          <div v-html="`«${title}»`" />
         </div>
 
         <q-separator spaced inset />
