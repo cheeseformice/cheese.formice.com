@@ -4,7 +4,7 @@ import { createI18n } from "vue-i18n";
 import messages from "src/i18n";
 
 interface TranslationMap {
-  [key: string]: string | TranslationMap
+  [key: string]: string | TranslationMap;
 }
 
 for (const code of Object.keys(messages)) {

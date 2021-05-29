@@ -235,7 +235,9 @@ export default class Translation extends Vue {
     const data: FlatTranslationField[] = [];
 
     for (let [key, value] of Object.entries(dict)) {
-      if (key === "__isoCode") { continue; }
+      if (key === "__isoCode") {
+        continue;
+      }
 
       if (typeof value === "string") {
         data.push({
