@@ -21,8 +21,13 @@ type getLook = {
   (outfit: string): string;
 };
 export const getLook: getLook = (playerOrLook: Player | string) => {
-  if (typeof playerOrLook === "string") return `${API_BASE_URL}/dressroom/mouse/${playerOrLook}`;
-  else return `${API_BASE_URL}/dressroom/mouse/${playerOrLook.shop.look}`;
+  if (typeof playerOrLook === "string") {
+    return `${API_BASE_URL}/dressroom/mouse/${playerOrLook}`;
+  }
+
+  const look = playerOrLook.shop.look;
+  const color = playerOrLook.shop.colors[0].toString(16);
+  return `${API_BASE_URL}/dressroom/mouse/${look};${color}`;
 };
 
 /**
