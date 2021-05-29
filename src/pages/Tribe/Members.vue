@@ -1,5 +1,8 @@
 <template>
-  <div class="col-12 col-lg-10 q-gutter-y-md">
+  <div class="col-12 text-center text-h6" v-if="loaded && members.length === 0">
+    {{ $t("noMembers") }}
+  </div>
+  <div class="col-12 col-lg-10 q-gutter-y-md" v-else>
     <div class="row items-center q-gutter-y-md">
       <div class="col-12">
         <div class="q-col-gutter-md" :class="$q.screen.gt.sm ? 'row float-right' : ''">
@@ -80,6 +83,7 @@ export default class TribeProfile extends mixins(Images) {
   lookup: LookupOptions = {
     page: 1,
   };
+  loaded = false;
   members: BasePlayer[] | PlayerLeaderboard[] = [];
   itemsPerPage = 50;
   total = 0;
@@ -187,6 +191,7 @@ export default class TribeProfile extends mixins(Images) {
     );
     this.members = response.data.page;
     this.total = response.data.total;
+    this.loaded = true;
     window.scrollTo(0, 0);
   }
 }

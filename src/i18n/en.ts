@@ -105,6 +105,7 @@ export default {
   pointsGathered: "Points Gathered",
   totalMemberCount: "Total member count",
   activeMemberCount: "Active member count",
+  noMembers: "This tribe has no members",
   sinceLastSevenDays: "{sign}{value} since last 7 days",
 
   // Server healthcheck
