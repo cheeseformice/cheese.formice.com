@@ -13,7 +13,7 @@ export default {
   password: "Şifre",
   cookies: {
     alert:
-      "Bu site, kullanıcı deneyimini iyileştirmek için çerezler kullanmaktadır. Web sitemizi kullanarak {open}Çerez Politikamıza{close} uygun olan tüm çerezlere izin vermiş olursunuz.",
+      "Bu site, kullanıcı deneyimini iyileştirmek için çerezler kullanmaktadır. Web sitemizi kullanarak {open}Çerez Politikamız{close}da olan tüm çerezlere izin vermiş olursunuz.",
     acceptAll: "Tümünü kabul et",
     acceptEssentials: "Gereklileri kabul et",
   },
@@ -42,6 +42,8 @@ export default {
   tribe: "Kabile",
   rank: "Sıralama",
   name: "İsim",
+  playerName: "Oyuncu ismi",
+  tribeName: "Kabile ismi",
   score: "Skor",
   playerLeaderboards: "Oyuncu Puan Tablosu",
   tribeLeaderboards: "Kabile Puan Tablosu",
@@ -60,7 +62,7 @@ export default {
     overall: "Genel puan",
   },
   statValue: {
-    rounds: "{stat} Oynalılan Raund",
+    rounds: "{stat} Oynalılan Tur",
     cheese: "{stat} Toplanılan Peynir",
     first: "{stat} Birincilik",
     bootcamp: "{stat} Bootcamp",
@@ -71,14 +73,21 @@ export default {
     defilante: "Defilante puanı: {stat}",
     overall: "Genel puan: {stat}",
   },
+  date: "Tarih",
   level: "Seviye {level}",
-  miceSavedNormal: "Kurtarılan Fare (Normal)",
-  miceSavedHard: "Kurtarılan Fare (Zor)",
-  miceSavedDivine: "Kurtarılan Fare (Kutsal)",
-  roundsPlayed: "Oynalılan Raund",
-  completedRounds: "Tamamlanan Raund",
+  miceSavedNormal: "Kurtarılan Fare (Normal Mod)",
+  miceSavedNormalShort: "Kurtarılan Fare (Normal Mod)",
+  miceSavedHard: "Kurtarılan Fare (Zor Mod)",
+  miceSavedHardShort: "Kurtarılan Fare (Zor Mod)",
+  miceSavedDivine: "Kurtarılan Fare (Kutsal Mod)",
+  miceSavedDivineShort: "Kurtarılan Fare (Kutsal Mod)",
+  roundsPlayed: "Oynalılan Tur",
+  completedRounds: "Tamamlanan Tur",
   gatheredCheese: "Toplanılan Peynir",
   cheeseGatheredFirst: "Birinci Olarak Toplanılan Peynir",
+  cheeseGatheredShaman: "Şaman Olarak Toplanılan Peynir",
+  cheeseGatheredShamanShort: "Şaman Olarak Toplanılan Peynir",
+  experience: "Deneyim",
   numberOfPodiums: "Podyum Sayısı",
   numberOfFirsts: "Birincilik Sayısı",
   roundsAsShaman: "Şaman Olarak Oynanılan Raund",
@@ -87,6 +96,7 @@ export default {
   pointsGathered: "Toplanılan Puan",
   totalMemberCount: "Toplam üye sayısı",
   activeMemberCount: "Aktif üye sayısı",
+  noMembers: "Bu kabilenin üyesi bulunmamaktadır",
   sinceLastSevenDays: "{sign}{value} 7 gündür",
   help: {
     api: "API, sitenin işlevseldiğinden sorumludur.<br>",
@@ -100,24 +110,27 @@ export default {
   status: { operational: "İşlevsel", partialOutage: "Kısmi kesinti", majorOutage: "Büyük kesinti" },
   chart: { ping: "Ping", success: "Başarılı yanıtlar", errors: "Hatalar" },
   questions: {
-    update: { title: "Ne kadar sıklıkta güncellenmektedir?", answer: "Her gün UTC 14.00'te." },
+    update: {
+      title: "İstatistikler ne kadar sıklıkla güncellenmektedir?",
+      answer: "Her gün UTC 14.00'te",
+    },
     leaderboard: {
       title: "Puan tabloları nasıl hesaplanır?",
       answer:
-        "Her gün, istatistik güncellemelerinden sonra, farklı skorları hesaba katıyoruz.<br><br><b>Normal</b> puan; toplanan peynir, birincilik ve oynanan raundlarla elde edilir.<br><br>Diğer puanlar sadece kendi istatistiklerini dikkate alır. <b>Genel</b> skor diğer bütün istatistiklerle elde edilir.<br> ",
+        "Her gün, istatistik güncellemelerinden sonra, yeni skorları hesaba katıyoruz.<br><br><b>Normal</b> puan; toplanan peynir, birincilik ve oynanan raundlarla elde edilir.<br><br>Diğer puanlar sadece kendi istatistiklerini dikkate alır. <b>Genel</b> skor diğer bütün istatistiklerle elde edilir.<br> ",
     },
     moduleStats: {
       title: "Modül istatististikleri sayılıyor mu?",
       answer: "Şimdilik hayır fakat gelecekte sayılmaları için bir planımız var.",
     },
     suggestion: {
-      title: "Öneride bulunmak / bug raporlamak istiyorum",
+      title: "Öneride bulunmak / bug bildirmek istiyorum",
       answer: "Lütfen {open}Discord sunucumuzda{close} bildirin.",
     },
     dislikeLeaderboard: {
       title: "Puan tabloları hoşuma gitmiyor",
       answer:
-        "Şimdilik beta versiyonundayız, bu sebeple ileride ince ayarlar yapılacaktır.<br><br>Puan tablolarını iyileştirmeyle ilgili herhangi bir öneriniz veya geri bildiriminiz varsa, lütfen {open}Discord sunucu{close}muza gidin.",
+        "Şimdilik beta versiyonundayız, ileride ince ayarlar yapılacaktır.<br><br>Puan tablolarını iyileştirmeyle ilgili herhangi bir öneriniz veya geri bildiriminiz varsa, lütfen {open}Discord sunucu{close}muza gidin.",
     },
     weirdTribeStats: {
       title: "Kabile istatistiklerim tuhaf",
@@ -129,7 +142,7 @@ export default {
       answer: "Aktif kabile üyesi, oyuna son 24 saat içerisinde bağlanmış biridir.",
     },
     contribute: {
-      title: "Nasıl katkıda bulunabilirim",
+      title: "Nasıl katkıda bulunabilirim?",
       answer:
         "Bu açık kaynaklı bir projedir ve her türlü katkıyı kabul ediyoruz.<br><br>Kodlama yapmayı biliyorsanız,  {ghopen}github'a gidebilirsiniz{close}.<br><br>Siteyi çevirmek istiyorsanız {tropen}Çeviri paneli{close}mizi kullanabilirsiniz.<br><br>Farklı bir şekilde katkıda bulunmak istiyorsanız, lütfen {dopen}Discord{close} aracılığıyla bizi bilgilendirin.",
     },
