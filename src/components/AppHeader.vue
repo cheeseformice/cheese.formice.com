@@ -8,7 +8,7 @@
       <q-space />
 
       <q-select
-        v-model="undefined"
+        v-model="selectedSearch"
         :placeholder="$t('search')"
         outlined
         dense
@@ -22,18 +22,19 @@
         ref="itemSelection"
         :options="searchResult"
         @filter="search"
+        @keyup.enter="onSearchSelect"
       >
         <template #no-option>
           <q-item>
             <q-item-section class="text-grey"> No results </q-item-section>
           </q-item>
         </template>
-        <template #option="{ opt }">
-          <q-item clickable v-ripple :to="opt.route">
+        <template #option="scope">
+          <q-item v-bind="scope.itemProps" clickable v-ripple :to="scope.opt.route">
             <q-item-section avatar>
-              <c-avatar :id="opt.id" :tribe="opt.type === 'tribe'" />
+              <c-avatar :id="scope.opt.id" :tribe="scope.opt.type === 'tribe'" />
             </q-item-section>
-            <q-item-section>{{ opt.name }}</q-item-section>
+            <q-item-section>{{ scope.opt.name }}</q-item-section>
           </q-item>
         </template>
       </q-select>
@@ -61,12 +62,22 @@
 
 <script lang="ts">
 import { mixins } from "vue-property-decorator";
-import { BasePlayer, BaseTribe, PlayersService, TribesService } from "src/api";
+import { RouteLocationRaw } from "vue-router";
+import { PlayersService, TribesService } from "src/api";
 import { Images } from "src/common/mixins";
 
+interface SearchOption {
+  label: string;
+  type: string;
+  id: number;
+  name: string;
+  route: RouteLocationRaw;
+}
+
 export default class AppHeader extends mixins(Images) {
+  selectedSearch: SearchOption | null = null;
   showDrawer = false;
-  searchResult: BasePlayer | BaseTribe[] = [];
+  searchResult: SearchOption[] = [];
 
   async search(keyword: string, update: (v: unknown) => void) {
     if (!keyword) return;
@@ -75,8 +86,8 @@ export default class AppHeader extends mixins(Images) {
 
     const [players, tribes] = await Promise.all([playersPromise, tribesPromise]);
     const results = [
-      ...players.data.page.map((p) => ({ ...p, type: "player" })),
-      ...tribes.data.page.map((p) => ({ ...p, type: "tribe" })),
+      ...players.data.page.map((p) => ({ ...p, label: p.name, type: "player" })),
+      ...tribes.data.page.map((t) => ({ ...t, label: t.name, type: "tribe" })),
     ];
 
     update(() => {
@@ -84,18 +95,18 @@ export default class AppHeader extends mixins(Images) {
         const isPlayer = r.type === "player";
         return {
           ...r,
-          route: isPlayer
-            ? {
-                name: "player",
-                params: { playerName: r.name },
-              }
-            : {
-                name: "tribe",
-                params: { tribeName: r.name },
-              },
+          route: {
+            name: isPlayer ? "player" : "tribe",
+            params: { playerName: r.name, tribeName: r.name },
+          },
         };
       });
     });
+  }
+
+  onSearchSelect() {
+    if (!this.selectedSearch) return;
+    void this.$router.push(this.selectedSearch.route);
   }
 
   get links() {
