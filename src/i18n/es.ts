@@ -89,7 +89,7 @@ export default {
   activeMemberCount: "Miembros activos",
   sinceLastSevenDays: "{sign}{value} desde los últimos 7 días",
   help: {
-    api: "La API es responsable de la funcionalidad del sitio web.",
+    api: "La API es responsable del funcionamiento del sitio web",
     changelogs: "Servicio responsable de seguir el progreso de tribus & jugadores",
     profile: "Servicio responsable de mostrar el perfil de tribus & jugadores",
     auth: "Servicio responsable de la autentificación del sitio web",
@@ -98,7 +98,7 @@ export default {
     dressroom: "Servicio responsable de dibujar la vestimenta de los ratones",
   },
   status: {
-    operational: "Operacional",
+    operational: "Operando",
     partialOutage: "Interrupción parcial",
     majorOutage: "Interrupción mayor",
   },
