@@ -12,7 +12,8 @@ export interface Player extends BasePlayer {
   shop: {
     look: string;
     outfits: string[];
-    colors: number[];
+    mouseColor: number;
+    shamanColor: number;
   };
   badges: number[];
   titles: number[];

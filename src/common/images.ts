@@ -26,7 +26,7 @@ export const getLook: getLook = (playerOrLook: Player | string) => {
   }
 
   const look = playerOrLook.shop.look;
-  const color = playerOrLook.shop.colors[0].toString(16);
+  const color = playerOrLook.shop.mouseColor.toString(16);
   return `${API_BASE_URL}/dressroom/mouse/${look};${color}`;
 };
 
