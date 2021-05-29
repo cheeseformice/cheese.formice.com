@@ -16,6 +16,11 @@
       :rows-per-page-options="[0]"
       hide-bottom
     >
+      <template v-slot:body-cell-date="props">
+        <q-td class="text-center">
+          <span>{{ props.value.toLocaleString() }}</span>
+        </q-td>
+      </template>
       <template #body-cell="{ value, col, row }">
         <q-td class="text-center">
           <span>{{ value }}</span>
@@ -78,7 +83,7 @@ export default class Changelogs extends Vue {
   }
 
   fillChangelogGap(
-    logs: Record<string, number | string>[],
+    logs: Record<string, number | Date>[],
     name: string,
     start: number,
     end: number,
@@ -95,10 +100,10 @@ export default class Changelogs extends Vue {
     const logs = this.changelogsRaw?.[this.type];
     if (!logs || !dates) return [];
 
-    const normalizedLogs: Record<string, number | string>[] = [];
+    const normalizedLogs: Record<string, number | Date>[] = [];
     for (let date of dates) {
       normalizedLogs.push({
-        date: new Date(date).toLocaleString(),
+        date: new Date(date),
       });
     }
 
@@ -182,14 +187,12 @@ export default class Changelogs extends Vue {
           mode: "index",
           intersect: false,
         },
-        aspectRatio: 4,
         scales: {
           yAxes: [
             {
               ticks: {
                 autoSkip: true,
-                maxTicksLimit: 5,
-                suggestedMin: 0,
+                maxTicksLimit: 10,
                 precision: 0,
               },
               gridLines: {
@@ -200,14 +203,9 @@ export default class Changelogs extends Vue {
           xAxes: [
             {
               type: "time",
-              time: {
-                displayFormats: {
-                  hour: "HH:mm",
-                },
-              },
               ticks: {
-                autoSkip: true,
-                maxTicksLimit: 10,
+                maxTicksLimit: 20,
+                precision: 0,
               },
               gridLines: {
                 display: false,
@@ -252,7 +250,7 @@ export default class Changelogs extends Vue {
       }
     }
 
-    this.chart.data.labels = changelogs.map((c) => new Date(c.date).toLocaleDateString());
+    this.chart.data.labels = changelogs.map((c) => c.date);
     this.chart.data.datasets = keys.map((k, i) => {
       return {
         label: k.charAt(0).toUpperCase() + k.slice(1),
