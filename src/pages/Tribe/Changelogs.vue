@@ -206,9 +206,6 @@ export default class Changelogs extends Vue {
           chart.options.legend!.display = newSize.width >= 700;
           chart.update();
         },
-        legend: {
-          display: this.canvas.width >= 700,
-        },
         tooltips: {
           mode: "index",
           intersect: false,
