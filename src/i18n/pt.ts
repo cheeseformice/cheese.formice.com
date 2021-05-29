@@ -95,8 +95,7 @@ export default {
   sinceLastSevenDays: "{sign}{value} desde os últimos 7 dias",
   help: {
     api: "A API é responsável pelo funcionamento do site",
-    changelogs:
-      "Serviço responsável por acompanhar o progresso dos jogadores & tribos",
+    changelogs: "Serviço responsável por acompanhar o progresso dos jogadores & tribos",
     profile: "Serviço responsável por mostrar o perfil dos jogadores & tribos",
     auth: "Serviço responsável pela autenticação do site",
     router: "Serviço responsável por atender solicitações",
@@ -145,8 +144,7 @@ export default {
     },
     activeMembers: {
       title: 'Quem é considerado um "membro ativo" da tribo?',
-      answer:
-        "Um membro ativo de uma tribo é alguém que se conectou ao jogo nas últimas 24 horas.",
+      answer: "Um membro ativo de uma tribo é alguém que se conectou ao jogo nas últimas 24 horas.",
     },
     contribute: {
       title: "Como eu posso contribuir?",
