@@ -120,7 +120,8 @@ export default class Leaderboard extends Vue {
       },
       {
         name: "name",
-        label: this.leaderboardOptions.tab === "player" ? this.$t("playerName") : this.$t("tribeName"),
+        label:
+          this.leaderboardOptions.tab === "player" ? this.$t("playerName") : this.$t("tribeName"),
         field: "name",
         align: "left",
       },
