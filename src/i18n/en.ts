@@ -53,6 +53,8 @@ export default {
   tribe: "Tribe",
   rank: "Rank",
   name: "Name",
+  playerName: "Player name",
+  tribeName: "Tribe name",
   score: "Score",
   playerLeaderboards: "Player Leaderboards",
   tribeLeaderboards: "Tribe Leaderboards",
