@@ -5,6 +5,7 @@ switch (window.location.hostname) {
   case "cheese.formice.com":
   case "beta.formice.com":
     tmp = window.location.hostname;
+    break;
 
   default:
     tmp = "cfmtest.tk";
