@@ -158,18 +158,39 @@ export default class Changelogs extends Vue {
     const ctx = this.canvas?.getContext("2d");
     if (!ctx || !this.changelogs.length) return;
 
-    this.chart = new Chart(ctx, {
+    let chart: Chart;
+    chart = new Chart(ctx, {
       type: "line",
       data: {
         labels: [],
         datasets: [],
       },
       options: {
+        onResize: (newSize) => {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          chart.options.legend!.display = newSize.width >= 700;
+          chart.update();
+        },
+        legend: {
+          display: this.canvas.width >= 700,
+        },
+        tooltips: {
+          mode: "index",
+          intersect: false,
+        },
+        hover: {
+          mode: "index",
+          intersect: false,
+        },
+        aspectRatio: 4,
         scales: {
           yAxes: [
             {
               ticks: {
+                autoSkip: true,
+                maxTicksLimit: 5,
                 suggestedMin: 0,
+                precision: 0,
               },
               gridLines: {
                 display: false,
@@ -178,14 +199,34 @@ export default class Changelogs extends Vue {
           ],
           xAxes: [
             {
+              type: "time",
+              time: {
+                displayFormats: {
+                  hour: "HH:mm",
+                },
+              },
+              ticks: {
+                autoSkip: true,
+                maxTicksLimit: 10,
+              },
               gridLines: {
                 display: false,
               },
             },
           ],
         },
+        elements: {
+          line: {
+            tension: 0,
+            fill: false,
+          },
+          point: {
+            radius: 0,
+          },
+        },
       },
     });
+    this.chart = chart;
   }
 
   mounted() {
