@@ -60,12 +60,43 @@ export default class Changelogs extends Vue {
     survivor: ["date", "rounds", "killed", "shaman", "survivor"],
     defilante: ["date", "rounds", "finished", "points"],
   } as const;
+  translations: Record<string, Record<string, string>> = {
+    global: {
+      date: "date",
+      rounds: "roundsPlayed",
+      first: "cheeseGatheredFirst",
+      finished: "completedRounds",
+    },
+    normal: {
+      cheese: "gatheredCheese",
+      bootcamp: "bootcamp",
+    },
+    shaman: {
+      cheese: "cheeseGatheredShamanShort",
+      savesDivine: "miceSavedDivineShort",
+      savesHard: "miceSavedHardShort",
+      savesNormal: "miceSavedNormalShort",
+      experience: "experience",
+    },
+    racing: {
+      podium: "numberOfPodiums",
+    },
+    survivor: {
+      killed: "killedMice",
+      shaman: "roundsAsShaman",
+      survivor: "roundsSurvived",
+    },
+    defilante: {
+      points: "pointsGathered",
+    },
+  } as const;
 
   get tableColumns(): QTable["columns"] {
     return this.tableCols[this.type].map((c: string) => {
+      let key = this.translations[this.type]?.[c] || this.translations.global[c];
       return {
         name: c,
-        label: c.charAt(0).toUpperCase() + c.slice(1),
+        label: this.$t(key),
         field: c,
         align: "center",
       };
