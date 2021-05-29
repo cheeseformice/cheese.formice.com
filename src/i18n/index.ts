@@ -6,6 +6,7 @@ import pl from "./pl";
 import pt from "./pt";
 import ro from "./ro";
 import ru from "./ru";
+import tr from "./tr";
 
 export default {
   en,
@@ -16,4 +17,5 @@ export default {
   pt,
   ro,
   ru,
+  tr,
 };
