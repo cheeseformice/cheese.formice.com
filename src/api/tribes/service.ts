@@ -36,7 +36,10 @@ export default class Tribes {
   /** Get player by name / id */
   static async getById(tribeId: number | string): Promise<AxiosResponse<Tribe>> {
     return await axios.get(`${BASE}/${encodeURIComponent(tribeId)}`, {
-      params: { start: dayjs().subtract(7, "days").format("YYYY-MM-DD") },
+      params: {
+        start: dayjs().subtract(7, "days").format("YYYY-MM-DD"),
+        recent: "true",
+      },
     });
   }
 

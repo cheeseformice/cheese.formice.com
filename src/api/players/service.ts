@@ -37,7 +37,10 @@ export default class Players {
   /** Get player by name / id */
   static async getById(playerId: number | string): Promise<AxiosResponse<Player>> {
     return await axios.get(`${BASE}/${encodeURIComponent(playerId)}`, {
-      params: { start: dayjs().subtract(7, "days").format("YYYY-MM-DD") },
+      params: {
+        start: dayjs().subtract(7, "days").format("YYYY-MM-DD"),
+        recent: "true",
+      },
     });
   }
 
