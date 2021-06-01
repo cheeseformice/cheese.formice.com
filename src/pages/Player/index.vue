@@ -74,9 +74,12 @@ export default class PlayerPage extends mixins(Images) {
     const playerModule = getModule(PlayerModule, this.$store);
     playerModule.setPlayer(null);
     playerModule.setLanguage(this.$i18n.locale);
+
     await playerModule.getPlayer(this.playerName);
     if (!this.player) return await this.$router.push({ name: "home" });
-    else this.meta.setPlayer(this.player);
+
+    this.meta.setPlayer(this.player);
+    await playerModule.getChangelogs();
   }
 
   /** SSR */

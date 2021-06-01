@@ -129,6 +129,7 @@ export default class Changelogs extends Vue {
     const dates = this.changelogsRaw?.dates;
     const logs = this.changelogsRaw?.[this.type];
     if (!logs || !dates) return [];
+    if (dates.length === 0) return [];
 
     const normalizedLogs: Record<string, number | Date>[] = [];
     for (let date of dates) {

@@ -74,9 +74,12 @@ export default class TribePage extends mixins(Images) {
   async onTribeNameChange() {
     const tribeModule = getModule(TribeModule, this.$store);
     tribeModule.setTribe(null);
+
     await tribeModule.getTribe(this.tribeName);
     if (!this.tribe) return await this.$router.push({ name: "home" });
-    else this.meta.setTribe(this.tribe);
+
+    this.meta.setTribe(this.tribe);
+    await tribeModule.getChangelogs();
   }
 
   /** SSR */
