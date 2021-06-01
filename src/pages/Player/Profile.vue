@@ -77,7 +77,7 @@
         <player-stats col="col-12 col-md-4" :title="$t('defilante')" :stats="defilanteStats" />
       </div>
 
-      <div class="text-center">
+      <div class="text-center" v-if="badges.length > 0">
         <div class="text-h5 q-my-md">{{ $t("badges") }}</div>
 
         <q-scroll-area horizontal visible style="height: 65px">
