@@ -105,7 +105,6 @@ import { getExperienceNeeded, getLevel, getTotalExperienceNeeded } from "src/com
 import { Images } from "src/common/mixins";
 import { PlayerModule } from "src/store";
 import { PlayerStats } from "./components";
-import { DOMAIN } from "src/common/vars";
 
 @Options({
   components: { PlayerStats },
@@ -179,19 +178,19 @@ export default class PlayerProfile extends mixins(Images) {
     const progress = this.player.period.shaman;
     return [
       {
-        icon: `https://${DOMAIN}/tfm/images/x_transformice/x_divers/x_mc0.jpg`,
+        icon: this.getImage("x_transformice/x_divers/x_mc0.jpg"),
         title: this.$t("miceSavedNormal"),
         value: savesNormal,
         progress: progress.savesNormal,
       },
       {
-        icon: `https://${DOMAIN}/tfm/images/x_transformice/x_divers/x_mc1.jpg`,
+        icon: this.getImage("x_transformice/x_divers/x_mc1.jpg"),
         title: this.$t("miceSavedHard"),
         value: savesHard,
         progress: progress.savesHard,
       },
       {
-        icon: `https://${DOMAIN}/tfm/images/x_transformice/x_divers/x_mc2.jpg`,
+        icon: this.getImage("x_transformice/x_divers/x_mc2.jpg"),
         title: this.$t("miceSavedDivine"),
         value: savesDivine,
         progress: progress.savesDivine,

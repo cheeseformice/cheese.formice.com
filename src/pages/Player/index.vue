@@ -25,7 +25,6 @@ import { PlayerModule } from "src/store";
 import { Images } from "src/common/mixins";
 import useReactiveMeta from "./meta";
 import { setup } from "vue-class-component";
-import { DOMAIN } from "src/common/vars";
 
 @Options({ components: { CHero } })
 export default class PlayerPage extends mixins(Images) {
@@ -37,7 +36,7 @@ export default class PlayerPage extends mixins(Images) {
   });
 
   get banner() {
-    return `https://${DOMAIN}/tfm/images/x_transformice/x_evt/x_evt_03/0or8meuj/map-mongolfiere.jpg`;
+    return this.getImage("x_transformice/x_evt/x_evt_03/0or8meuj/map-mongolfiere.jpg");
   }
 
   get player() {
