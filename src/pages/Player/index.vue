@@ -59,13 +59,8 @@ export default class PlayerPage extends mixins(Images) {
   }
 
   async mounted() {
-    const playerModule = getModule(PlayerModule, this.$store);
     if (!this.player || this.playerName.toUpperCase() !== this.player?.name.toUpperCase()) {
       await this.onPlayerNameChange();
-    }
-    if (this.player) {
-      this.meta.setPlayer(this.player);
-      await playerModule.getChangelogs();
     }
   }
 

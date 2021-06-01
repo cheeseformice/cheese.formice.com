@@ -63,11 +63,6 @@ export default class TribePage extends mixins(Images) {
     if (!this.tribe || this.tribeName.toUpperCase() !== this.tribe?.name.toUpperCase()) {
       await this.onTribeNameChange();
     }
-    if (this.tribe) {
-      this.meta.setTribe(this.tribe);
-      const tribeModule = getModule(TribeModule, this.$store);
-      await tribeModule.getChangelogs();
-    }
   }
 
   @Watch("tribeName")
