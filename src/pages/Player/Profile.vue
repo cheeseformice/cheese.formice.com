@@ -71,7 +71,7 @@
 
       <div class="q-gutter-y-sm">
         <player-stats col="col-12 col-md-4" :stats="shamanStats" />
-        <player-stats :title="$t('normal')" :stats="normalStats" />
+        <player-stats :title="$t('mouse')" :stats="mouseStats" />
         <player-stats :title="$t('racing')" :stats="racingStats" />
         <player-stats :title="$t('survivor')" :stats="survivorStats" />
         <player-stats col="col-12 col-md-4" :title="$t('defilante')" :stats="defilanteStats" />
@@ -198,9 +198,9 @@ export default class PlayerProfile extends mixins(Images) {
     ];
   }
 
-  get normalStats() {
-    const { rounds, cheese, first, bootcamp } = this.player.stats.normal;
-    const progress = this.player.period.normal;
+  get mouseStats() {
+    const { rounds, cheese, first, bootcamp } = this.player.stats.mouse;
+    const progress = this.player.period.mouse;
     return [
       {
         icon: this.getInventory(2259),

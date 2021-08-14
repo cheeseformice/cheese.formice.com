@@ -19,7 +19,7 @@ export enum TribeChangelogTypes {
   Members = 1,
   Active = 2,
   Shaman = 4,
-  Normal = 8,
+  Mouse = 8,
   Survivor = 16,
   Racing = 32,
   Defilante = 64,
@@ -32,7 +32,7 @@ export interface TribeChangelogs<T extends number = any> {
   dates: string[];
   members: T extends TribeChangelogTypes.Members ? Log<number> : undefined;
   active: T extends TribeChangelogTypes.Active ? Log<number> : undefined;
-  normal: T extends TribeChangelogTypes.Normal ? Log<Normal> : undefined;
+  mouse: T extends TribeChangelogTypes.Mouse ? Log<Mouse> : undefined;
   shaman: T extends TribeChangelogTypes.Shaman ? Log<Shaman> : undefined;
   survivor: T extends TribeChangelogTypes.Survivor ? Log<Survivor> : undefined;
   racing: T extends TribeChangelogTypes.Racing ? Log<Racing> : undefined;
@@ -67,7 +67,7 @@ export interface Members {
 
 export interface Stats {
   shaman: Shaman;
-  normal: Normal;
+  mouse: Mouse;
   survivor: Survivor;
   racing: Racing;
   defilante: Defilante;
@@ -79,7 +79,7 @@ export interface Defilante {
   points: number;
 }
 
-export interface Normal {
+export interface Mouse {
   rounds: number;
   cheese: number;
   first: number;

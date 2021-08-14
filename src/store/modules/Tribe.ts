@@ -4,7 +4,7 @@ import { Tribe, TribesService, TribeChangelogTypes as T, TribeChangelogs } from 
 @Module({ namespaced: true, name: "tribe", stateFactory: true })
 export default class TribeModule extends VuexModule {
   tribe: Tribe | null = null;
-  changelogsRaw: TribeChangelogs<T.Normal | T.Survivor | T.Racing | T.Defilante> | null = null;
+  changelogsRaw: TribeChangelogs<T.Mouse | T.Survivor | T.Racing | T.Defilante> | null = null;
 
   @Mutation
   setTribe(tribe: Tribe | null) {
@@ -12,7 +12,7 @@ export default class TribeModule extends VuexModule {
   }
 
   @Mutation
-  setChangelogs(changelogs: TribeChangelogs<T.Normal | T.Survivor | T.Racing | T.Defilante>) {
+  setChangelogs(changelogs: TribeChangelogs<T.Mouse | T.Survivor | T.Racing | T.Defilante>) {
     this.changelogsRaw = changelogs;
   }
 
@@ -38,7 +38,7 @@ export default class TribeModule extends VuexModule {
       T.Shaman,
       T.Survivor,
       T.Defilante,
-      T.Normal,
+      T.Mouse,
     ]);
     this.setChangelogs(response.data);
     return response;

@@ -26,7 +26,7 @@ export interface Player extends BasePlayer {
 
 interface Stats {
   shaman: Shaman;
-  normal: Normal;
+  mouse: Mouse;
   survivor: Survivor;
   racing: Racing;
   defilante: Defilante;
@@ -40,7 +40,7 @@ export enum PlayerChangelogTypes {
   Badge = 16,
   Title = 32,
   Shaman = 64,
-  Normal = 128,
+  Mouse = 128,
   Survivor = 256,
   Racing = 512,
   Defilante = 1024,
@@ -59,7 +59,7 @@ export interface PlayerChangelogs<T extends number = any> {
   // activity: T extends PlayerChangelogTypes.Activity ? Log : undefined;
   badge: T extends PlayerChangelogTypes.Badge ? Log<number[]> : undefined;
   title: T extends PlayerChangelogTypes.Title ? Log<number[]> : undefined;
-  normal: T extends PlayerChangelogTypes.Normal ? Log<Normal> : undefined;
+  mouse: T extends PlayerChangelogTypes.Mouse ? Log<Mouse> : undefined;
   shaman: T extends PlayerChangelogTypes.Shaman ? Log<Shaman> : undefined;
   survivor: T extends PlayerChangelogTypes.Survivor ? Log<Survivor> : undefined;
   racing: T extends PlayerChangelogTypes.Racing ? Log<Racing> : undefined;
@@ -94,7 +94,7 @@ interface Tribe {
   name: string;
 }
 
-interface Normal {
+interface Mouse {
   rounds: number;
   cheese: number;
   first: number;

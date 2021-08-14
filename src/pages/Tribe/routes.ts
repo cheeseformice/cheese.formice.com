@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from "vue-router";
 
-const changelogs = ["Normal", "Shaman", "Racing", "Survivor", "Defilante"];
+const changelogs = ["Mouse", "Shaman", "Racing", "Survivor", "Defilante"];
 
 export default <RouteRecordRaw>{
   path: "t/:tribeName",

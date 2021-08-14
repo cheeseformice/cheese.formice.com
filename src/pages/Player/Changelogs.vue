@@ -49,12 +49,12 @@ export default class Changelogs extends Vue {
   @Ref() readonly canvas!: HTMLCanvasElement;
   chart?: Chart;
 
-  @Prop() type!: "racing" | "shaman" | "survivor" | "defilante" | "normal";
+  @Prop() type!: "racing" | "shaman" | "survivor" | "defilante" | "mouse";
 
   chartColor = ["#E57373", "#81C784", "#64B5F6", "#FFF176", "#CE93D8"];
 
   tableCols = {
-    normal: ["date", "rounds", "cheese", "first", "bootcamp"],
+    mouse: ["date", "rounds", "cheese", "first", "bootcamp"],
     shaman: ["date", "cheese", "savesDivine", "savesNormal", "savesHard", "experience"],
     racing: ["date", "rounds", "finished", "podium", "first"],
     survivor: ["date", "rounds", "killed", "shaman", "survivor"],
@@ -67,7 +67,7 @@ export default class Changelogs extends Vue {
       first: "cheeseGatheredFirst",
       finished: "completedRounds",
     },
-    normal: {
+    mouse: {
       cheese: "gatheredCheese",
       bootcamp: "bootcamp",
     },
@@ -135,10 +135,6 @@ export default class Changelogs extends Vue {
     }
 
     for (let key in logs) {
-      if (key === "public") {
-        continue;
-      }
-
       const statName = key as keyof typeof logs;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if (!this.tableCols[this.type].includes(statName as any)) {

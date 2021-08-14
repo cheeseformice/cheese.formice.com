@@ -12,7 +12,7 @@ export default class PlayerModule extends VuexModule {
   player: Player | null = null;
   title = "";
   lang = "";
-  changelogsRaw: PlayerChangelogs<T.Normal | T.Survivor | T.Racing | T.Defilante> | null = null;
+  changelogsRaw: PlayerChangelogs<T.Mouse | T.Survivor | T.Racing | T.Defilante> | null = null;
 
   @Mutation
   setPlayer(player: Player | null) {
@@ -25,7 +25,7 @@ export default class PlayerModule extends VuexModule {
   }
 
   @Mutation
-  setChangelogs(changelogs: PlayerChangelogs<T.Normal | T.Survivor | T.Racing | T.Defilante>) {
+  setChangelogs(changelogs: PlayerChangelogs<T.Mouse | T.Survivor | T.Racing | T.Defilante>) {
     this.changelogsRaw = changelogs;
   }
 
@@ -78,7 +78,7 @@ export default class PlayerModule extends VuexModule {
       T.Shaman,
       T.Survivor,
       T.Defilante,
-      T.Normal,
+      T.Mouse,
     ]);
     this.setChangelogs(response.data);
     return response;

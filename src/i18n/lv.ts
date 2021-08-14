@@ -20,7 +20,7 @@ export default {
   nothingHere: "Ups. Te nekā nav...",
   redirect: "Ja tu netiec pāradresēts, {open}nospied šeit{close}.",
   members: "Biedri",
-  normal: "Normālais",
+  mouse: "Normālais",
   shaman: "Šamanis",
   profile: "Profils",
   racing: "Racing",

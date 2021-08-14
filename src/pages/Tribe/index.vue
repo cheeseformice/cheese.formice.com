@@ -50,7 +50,7 @@ export default class TribePage extends mixins(Images) {
     return [
       { label: this.$t("profile"), to: { name: "tribe", params: { tribeName } } },
       { label: this.$t("members"), to: { name: "tribeMembers", params: { tribeName } } },
-      { label: this.$t("normal"), to: { name: "tribeNormal", params: { tribeName } } },
+      { label: this.$t("mouse"), to: { name: "tribeMouse", params: { tribeName } } },
       { label: this.$t("shaman"), to: { name: "tribeShaman", params: { tribeName } } },
       { label: this.$t("racing"), to: { name: "tribeRacing", params: { tribeName } } },
       { label: this.$t("survivor"), to: { name: "tribeSurvivor", params: { tribeName } } },

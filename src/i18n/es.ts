@@ -20,7 +20,7 @@ export default {
   nothingHere: "Ups. Aquí no hay nada...",
   redirect: "Si no estás siendo redirigido, {open}haz clic aquí{close}",
   members: "Miembros",
-  normal: "Normal",
+  mouse: "Normal",
   shaman: "Chamán",
   profile: "Perfil",
   racing: "Racing",

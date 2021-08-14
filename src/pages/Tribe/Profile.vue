@@ -36,7 +36,7 @@
       <div class="q-gutter-y-sm">
         <tribe-stats col="col-12 col-sm-6" :stats="memberStats" />
         <tribe-stats col="col-12 col-sm-6 col-md-4" :stats="shamanStats" />
-        <tribe-stats :title="$t('normal')" :stats="normalStats" />
+        <tribe-stats :title="$t('mouse')" :stats="mouseStats" />
         <tribe-stats :title="$t('racing')" :stats="racingStats" />
         <tribe-stats :title="$t('survivor')" :stats="survivorStats" />
         <tribe-stats
@@ -140,9 +140,9 @@ export default class TribeProfile extends mixins(Images) {
     ];
   }
 
-  get normalStats() {
-    const { rounds, cheese, first, bootcamp } = this.tribe.stats.normal;
-    const progress = this.tribe.period.normal;
+  get mouseStats() {
+    const { rounds, cheese, first, bootcamp } = this.tribe.stats.mouse;
+    const progress = this.tribe.period.mouse;
     return [
       {
         icon: this.getInventory(2259),
