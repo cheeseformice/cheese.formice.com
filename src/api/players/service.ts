@@ -7,6 +7,7 @@ import {
   Pagination,
   SearchOptions,
   PaginatedResponse,
+  orderChangelogs,
 } from "../";
 import {
   BasePlayer,
@@ -74,8 +75,10 @@ export default class Players {
   static async getChangelogs<T extends PlayerChangelogTypes[]>(
     playerId: number | string,
     types: T
-  ): Promise<AxiosResponse<PlayerChangelogs<T[number]>>> {
+  ): Promise<PlayerChangelogs<T[number]>> {
     const summedTypes = types.reduce((b, c) => b + c, 0);
-    return await axios.get(`${BASE}/${playerId}/changelogs/${summedTypes}`);
+    const response: AxiosResponse<PlayerChangelogs<T[number]>> = await axios.get(`${BASE}/${playerId}/changelogs/${summedTypes}`);
+    orderChangelogs(response.data);
+    return response.data;
   }
 }

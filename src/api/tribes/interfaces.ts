@@ -1,3 +1,5 @@
+import { Log } from "..";
+
 export interface BaseTribe {
   id: number;
   name: string;
@@ -38,12 +40,6 @@ export interface TribeChangelogs<T extends number = any> {
   racing: T extends TribeChangelogTypes.Racing ? Log<Racing> : undefined;
   defilante: T extends TribeChangelogTypes.Defilante ? Log<Defilante> : undefined;
 }
-
-type DateIndex = number;
-
-type Log<T> = {
-  [key in keyof T]: [DateIndex, number | string][];
-};
 
 export interface TribeLeaderboard {
   id: number;

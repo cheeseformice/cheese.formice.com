@@ -80,7 +80,7 @@ export default class PlayerModule extends VuexModule {
       T.Defilante,
       T.Mouse,
     ]);
-    this.setChangelogs(response.data);
+    this.setChangelogs(response);
     return response;
   }
 }

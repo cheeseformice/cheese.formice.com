@@ -1,3 +1,9 @@
+export type DateIndex = number;
+
+export type Log<T> = {
+  [key in keyof T]: [DateIndex, number | string][];
+};
+
 export interface SearchOptions {
   search: string;
   page: number;

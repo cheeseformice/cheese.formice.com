@@ -7,6 +7,7 @@ import {
   Pagination,
   SearchOptions,
   PaginatedResponse,
+  orderChangelogs,
 } from "../";
 import {
   BaseTribe,
@@ -73,9 +74,11 @@ export default class Tribes {
   static async getChangelogs<T extends TribeChangelogTypes[]>(
     tribeId: number | string,
     types: T
-  ): Promise<AxiosResponse<TribeChangelogs<T[number]>>> {
+  ): Promise<TribeChangelogs<T[number]>> {
     const summedTypes = types.reduce((b, c) => b + c, 0);
-    return await axios.get(`${BASE}/${tribeId}/changelogs/${summedTypes}`);
+    const response: AxiosResponse<TribeChangelogs<T[number]>> = await axios.get(`${BASE}/${tribeId}/changelogs/${summedTypes}`);
+    orderChangelogs(response.data);
+    return response.data;
   }
 
   static async getMembers(

@@ -1,3 +1,5 @@
+import { Log } from "..";
+
 export interface BasePlayer {
   id: number;
   name: string;
@@ -51,7 +53,8 @@ export interface PlayerChangelogs<T extends number = any> {
   id: number;
   name: string;
   dates: string[];
-  roles: string[];
+  cfmRoles: string[];
+  tfmRoles: string[];
   names: T extends PlayerChangelogTypes.Name ? Log<string> : undefined;
   soulmate: T extends PlayerChangelogTypes.Soulmate ? Log<BasePlayer> : undefined;
   tribe: T extends PlayerChangelogTypes.Tribe ? Log<Tribe> : undefined;
@@ -82,12 +85,6 @@ export interface PlayerLeaderboard {
   defilante: number;
   overall: number;
 }
-
-type DateIndex = number;
-
-type Log<T> = {
-  [key in keyof T]: [DateIndex, number | string][];
-};
 
 interface Tribe {
   id: number;
