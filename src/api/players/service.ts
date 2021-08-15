@@ -77,7 +77,9 @@ export default class Players {
     types: T
   ): Promise<PlayerChangelogs<T[number]>> {
     const summedTypes = types.reduce((b, c) => b + c, 0);
-    const response: AxiosResponse<PlayerChangelogs<T[number]>> = await axios.get(`${BASE}/${playerId}/changelogs/${summedTypes}`);
+    const response: AxiosResponse<PlayerChangelogs<T[number]>> = await axios.get(
+      `${BASE}/${playerId}/changelogs/${summedTypes}`
+    );
     orderChangelogs(response.data);
     return response.data;
   }

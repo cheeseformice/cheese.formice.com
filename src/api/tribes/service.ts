@@ -76,7 +76,9 @@ export default class Tribes {
     types: T
   ): Promise<TribeChangelogs<T[number]>> {
     const summedTypes = types.reduce((b, c) => b + c, 0);
-    const response: AxiosResponse<TribeChangelogs<T[number]>> = await axios.get(`${BASE}/${tribeId}/changelogs/${summedTypes}`);
+    const response: AxiosResponse<TribeChangelogs<T[number]>> = await axios.get(
+      `${BASE}/${tribeId}/changelogs/${summedTypes}`
+    );
     orderChangelogs(response.data);
     return response.data;
   }
