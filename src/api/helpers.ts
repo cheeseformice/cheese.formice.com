@@ -7,7 +7,6 @@ const fixIndices = (item: any, translationMap: Record<number, number>) => {
     return;
   }
   if (!Array.isArray(item)) {
-    console.log("recursive", item);
     for (const key in item) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       fixIndices(item[key], translationMap);
@@ -15,7 +14,6 @@ const fixIndices = (item: any, translationMap: Record<number, number>) => {
     return;
   }
 
-  console.log("ok", item);
   for (let i = 0; i < item.length; i++) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const entry = item[i];
