@@ -33,3 +33,15 @@ export type Pagination = {
   page: number;
   limit: number;
 };
+
+export type CfmRole = "dev" | "admin" | "mod" | "translator";
+
+export type TfmRole =
+  | "admin"
+  | "mod"
+  | "sentinel"
+  | "mapcrew"
+  | "mapcrew"
+  | "module"
+  | "funcorp"
+  | "fashion";
