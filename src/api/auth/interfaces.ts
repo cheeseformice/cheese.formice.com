@@ -12,10 +12,12 @@ export interface SessionToken extends JWT {
 }
 
 export interface AuthError {
+  success: false;
   message: string;
 }
 
 export interface RefreshResponse {
+  success: true;
   session: string;
 }
 
