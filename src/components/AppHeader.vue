@@ -7,37 +7,11 @@
       </q-tabs>
       <q-space />
 
-      <q-select
-        v-model="selectedSearch"
-        :placeholder="$t('search')"
-        outlined
-        dense
-        color="white"
-        dark
-        use-input
-        hide-selected
-        fill-input
-        options-dense
-        input-debounce="500"
-        ref="itemSelection"
-        :options="searchResult"
-        @filter="search"
-        @keyup.enter="onSearchSelect"
-      >
-        <template #no-option>
-          <q-item>
-            <q-item-section class="text-grey"> No results </q-item-section>
-          </q-item>
-        </template>
-        <template #option="scope">
-          <q-item v-bind="scope.itemProps" clickable v-ripple :to="scope.opt.route">
-            <q-item-section avatar>
-              <c-avatar :id="scope.opt.id" :tribe="scope.opt.type === 'tribe'" />
-            </q-item-section>
-            <q-item-section>{{ scope.opt.name }}</q-item-section>
-          </q-item>
-        </template>
-      </q-select>
+      <c-entity-search
+        :players="true"
+        :tribes="true"
+        :onSelect="(e) => { $router.push(e.route); }"
+      />
     </q-toolbar>
     <q-drawer v-if="$q.screen.xs" v-model="showDrawer" :width="280" bordered class="bg-grey-1">
       <q-scroll-area class="fit">
@@ -61,56 +35,43 @@
 </template>
 
 <script lang="ts">
-import { mixins } from "vue-property-decorator";
-import { RouteLocationRaw } from "vue-router";
-import { PlayersService, TribesService } from "src/api";
+import { mixins, Options } from "vue-property-decorator";
+import { AuthService } from "src/api";
 import { Images } from "src/common/mixins";
+import { CEntitySearch } from ".";
 
-interface SearchOption {
+interface Link {
   label: string;
-  type: string;
-  id: number;
-  name: string;
-  route: RouteLocationRaw;
+  icon: string;
+  to: { name: string };
 }
 
+@Options({ components: { CEntitySearch } })
 export default class AppHeader extends mixins(Images) {
-  selectedSearch: SearchOption | null = null;
   showDrawer = false;
-  searchResult: SearchOption[] = [];
+  links: Link[] = [];
 
-  async search(keyword: string, update: (v: unknown) => void) {
-    if (!keyword) return;
-    const playersPromise = PlayersService.search({ search: keyword });
-    const tribesPromise = TribesService.search({ search: keyword });
+  async updateLinks() {
+    const player = await AuthService.getPlayerInfo();
 
-    const [players, tribes] = await Promise.all([playersPromise, tribesPromise]);
-    const results = [
-      ...players.data.page.map((p) => ({ ...p, label: p.name, type: "player" })),
-      ...tribes.data.page.map((t) => ({ ...t, label: t.name, type: "tribe" })),
-    ];
+    let account: Link;
+    if (!player) {
+      account = {
+        label: this.$t("login"),
+        icon: "login",
+        to: { name: "login" },
+      };
+    } else {
+      account = {
+        label: player.name,
+        icon: "user",
+        to: { name: "account" },
+      };
+    }
 
-    update(() => {
-      this.searchResult = results.map((r) => {
-        const isPlayer = r.type === "player";
-        return {
-          ...r,
-          route: {
-            name: isPlayer ? "player" : "tribe",
-            params: { playerName: r.name, tribeName: r.name },
-          },
-        };
-      });
-    });
-  }
+    const showAccountButton = !!player || window.localStorage.getItem("login-beta") === "true";
 
-  onSearchSelect() {
-    if (!this.selectedSearch) return;
-    void this.$router.push(this.selectedSearch.route);
-  }
-
-  get links() {
-    return [
+    this.links = [
       {
         label: this.$t("home"),
         icon: "home",
@@ -122,6 +83,14 @@ export default class AppHeader extends mixins(Images) {
         to: { name: "leaderboard" },
       },
     ];
+
+    if (showAccountButton) {
+      this.links.push(account);
+    }
+  }
+
+  mounted() {
+    void this.updateLinks();
   }
 }
 </script>

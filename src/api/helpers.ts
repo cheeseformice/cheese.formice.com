@@ -57,3 +57,28 @@ export function orderChangelogs<T extends TribeChangelogTypes[] | PlayerChangelo
 
   logs.dates = orderedDates;
 }
+
+export function snakeCaseToCamelCase(input: string): string {
+  return input
+    .split("_")
+    .reduce(
+      (res, word, i) =>
+        i === 0
+          ? word.toLowerCase()
+          : `${res}${word.charAt(0).toUpperCase()}${word
+              .substr(1)
+              .toLowerCase()}`,
+      ""
+    );
+}
+
+export function camelCaseDict<T = Record<string, unknown>>(dict: T): T {
+  for (const key in dict) {
+    const converted = snakeCaseToCamelCase(key) as keyof typeof dict;
+    if (converted === key) { continue; }
+
+    dict[converted] = dict[key];
+    delete dict[key];
+  }
+  return dict;
+}

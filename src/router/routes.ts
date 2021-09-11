@@ -37,7 +37,24 @@ const routes: RouteRecordRaw[] = [
       {
         path: "login",
         name: "login",
-        component: () => import("src/pages/Login/index.vue"),
+        component: () => import("src/pages/Account/Login.vue"),
+      },
+      {
+        path: "account",
+        name: "account",
+        component: () => import("src/pages/Account/index.vue"),
+        children: [
+          {
+            path: "profile",
+            name: "accountProfile",
+            component: () => import("src/pages/Account/Profile.vue"),
+          },
+          {
+            path: "admin",
+            name: "adminPanel",
+            component: () => import("src/pages/Account/AdminPanel.vue"),
+          }
+        ],
       },
       {
         path: "leaderboard",

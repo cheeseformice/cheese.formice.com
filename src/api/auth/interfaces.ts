@@ -11,6 +11,14 @@ export interface SessionToken extends JWT {
   tfmRoles: TfmRole[];
 }
 
+export const NullSessionToken: SessionToken = {
+  user: 0,
+  cfmRoles: [],
+  tfmRoles: [],
+  iat: 0,
+  exp: 0,
+}
+
 export interface AuthError {
   success: false;
   message: string;

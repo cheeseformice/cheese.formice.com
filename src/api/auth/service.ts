@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { axios, Player, PlayersService } from "../";
+import { axios, camelCaseDict, Player, PlayersService } from "../";
 import {
   LoginResponse,
   SessionToken,
@@ -72,7 +72,7 @@ export default class Auth {
 
   static setRefreshToken(token: string): void {
     refreshToken = token;
-    const refresh = jwtDecode<JWT>(refreshToken);
+    const refresh = camelCaseDict(jwtDecode<JWT>(refreshToken));
     refreshExpiration = refresh.exp - 5; // account for 5 seconds of latency, just in case
 
     window.localStorage.setItem("refresh", refreshToken);
@@ -86,7 +86,7 @@ export default class Auth {
 
   static setSessionToken(token: string): void {
     sessionToken = token;
-    session = jwtDecode<SessionToken>(sessionToken);
+    session = camelCaseDict(jwtDecode<SessionToken>(sessionToken));
     sessionExpiration = session.exp - 5; // account for 5 seconds of latency, just in case
 
     window.sessionStorage.setItem("session", sessionToken);

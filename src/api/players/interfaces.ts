@@ -9,22 +9,79 @@ export interface BasePlayer {
 
 export interface Player extends BasePlayer {
   title: number;
-  tribe: Tribe;
-  soulmate: BasePlayer;
+  tribe: Tribe | null;
+  soulmate: BasePlayer | null;
   shop: {
     look: string;
     outfits: string[];
     mouseColor: number;
     shamanColor: number;
   };
-  badges: number[];
-  titles: number[];
+  badges: string[];
+  titles: string[];
   stats: Stats;
   period: Stats & {
     start: string;
     end: string;
   };
 }
+
+const NullStats: Stats = {
+  shaman: {
+    experience: 0,
+    cheese: 0,
+    savesNormal: 0,
+    savesHard: 0,
+    savesDivine: 0,
+  },
+  mouse: {
+    rounds: 0,
+    cheese: 0,
+    first: 0,
+    bootcamp: 0,
+  },
+  survivor: {
+    rounds: 0,
+    killed: 0,
+    shaman: 0,
+    survivor: 0,
+  },
+  racing: {
+    rounds: 0,
+    finished: 0,
+    first: 0,
+    podium: 0,
+  },
+  defilante: {
+    rounds: 0,
+    finished: 0,
+    points: 0,
+  },
+};
+
+export const NullPlayer: Player = {
+  id: 0,
+  name: "Null#0001",
+  cfmRoles: [],
+  tfmRoles: [],
+  title: 0,
+  tribe: null,
+  soulmate: null,
+  shop: {
+    look: "1;0,0,0,0,0,0,0,0,0",
+    outfits: [],
+    mouseColor: 0,
+    shamanColor: 0,
+  },
+  badges: [],
+  titles: [],
+  stats: NullStats,
+  period: {
+    ...NullStats,
+    start: "2021-08-26",
+    end: "2021-08-26",
+  },
+};
 
 interface Stats {
   shaman: Shaman;
