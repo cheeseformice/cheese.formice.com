@@ -7,11 +7,12 @@ import { Vue } from "vue-class-component";
 import { AuthService } from "./api";
 
 export default class App extends Vue {
-  async useTicket(ticket: string) {
+  async useTicket(ticket: string, url: URL) {
     const token = await AuthService.getSessionToken();
     if (typeof token === "string") { return; } // already logged in
 
     await AuthService.useTicket(ticket);
+    document.location.replace(url.toString());
   }
 
   mounted() {
@@ -24,8 +25,7 @@ export default class App extends Vue {
       const ticket = params.get("ticket") as string;
       params.delete("ticket");
 
-      document.location.replace(url.toString());
-      void this.useTicket(ticket);
+      void this.useTicket(ticket, url);
     }
   }
 }
