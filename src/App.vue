@@ -12,7 +12,7 @@ export default class App extends Vue {
     if (typeof token === "string") { return; } // already logged in
 
     await AuthService.useTicket(ticket);
-    // document.location.replace(url.toString());
+    document.location.replace(url.toString());
   }
 
   mounted() {
