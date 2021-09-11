@@ -15,6 +15,8 @@ export default class App extends Vue {
   }
 
   mounted() {
+    if (window.localStorage.getItem("login-beta") !== "true") { return; }
+
     const url = new URL(document.location.href);
     const params = url.searchParams;
 
