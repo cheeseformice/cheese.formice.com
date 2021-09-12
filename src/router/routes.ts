@@ -53,7 +53,7 @@ const routes: RouteRecordRaw[] = [
             path: "admin",
             name: "adminPanel",
             component: () => import("src/pages/Account/AdminPanel.vue"),
-          }
+          },
         ],
       },
       {

@@ -4,6 +4,12 @@ export type Log<T> = {
   [key in keyof T]: [DateIndex, number | string][];
 };
 
+export interface ErrorResponse {
+  status: number;
+  error?: string;
+  message?: string;
+}
+
 export interface SearchOptions {
   search: string;
   page: number;

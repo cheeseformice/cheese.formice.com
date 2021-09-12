@@ -9,6 +9,7 @@ import {
   TicketResponse,
 } from "./interfaces";
 import jwtDecode from "jwt-decode";
+import { CfmRole, ErrorResponse } from "../interfaces";
 
 let loadedTokens = false;
 
@@ -218,5 +219,23 @@ export default class Auth {
     const remind = window.localStorage.getItem("loginRemind") === "true";
     const result = await Auth.login(player.name, password, remind);
     return result.success;
+  }
+
+  static async updateRoles(playerName: string, roles: CfmRole[]): Promise<string | undefined> {
+    const token = await Auth.getSessionToken();
+    if (!token) {
+      return "Unauthorized";
+    }
+
+    const response: AxiosResponse<unknown> = await axios.put(
+      `/users/${playerName.replace("#", "-")}/roles`,
+      { roles },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (response.status === 204) {
+      return;
+    }
+
+    return (response.data as ErrorResponse).message;
   }
 }

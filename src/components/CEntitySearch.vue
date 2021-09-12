@@ -24,7 +24,7 @@
       </q-item>
     </template>
     <template #option="scope">
-      <q-item v-bind="scope.itemProps" clickable v-ripple @click="() => { this.onSelect(scope.opt); }">
+      <q-item v-bind="scope.itemProps" clickable v-ripple @click="onSelect(scope.opt)">
         <q-item-section avatar>
           <c-avatar :id="scope.opt.id" :tribe="scope.opt.type === 'tribe'" />
         </q-item-section>
@@ -63,8 +63,8 @@ export const NullSearchOption = <SearchOption>{
   route: {
     name: "player",
     params: { playerName: "Null#0001" },
-  }
-}
+  },
+};
 
 export default class CEntitySearch extends mixins(Images) {
   @Prop({ required: true }) players!: boolean;
@@ -78,7 +78,7 @@ export default class CEntitySearch extends mixins(Images) {
 
   async search(keyword: string, update: (v: unknown) => void) {
     if (!keyword) return;
-    const promises = []
+    const promises = [];
 
     if (this.players) {
       promises.push(PlayersService.search({ search: keyword }));

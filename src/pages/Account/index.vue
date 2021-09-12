@@ -114,7 +114,7 @@ export default class Account extends Vue {
 
     const isMod = this.session.cfmRoles.includes("mod");
     const isAdm = this.session.cfmRoles.includes("admin");
-    const isDev = this.session.cfmRoles.includes("dev")
+    const isDev = this.session.cfmRoles.includes("dev");
 
     if (isMod || isAdm || isDev) {
       privileged.links.push({
@@ -129,11 +129,7 @@ export default class Account extends Vue {
       });
     }
 
-    return [
-      overview,
-      settings,
-      privileged,
-    ];
+    return [overview, settings, privileged];
   }
 
   async redirect(to: Record<string, string>) {
@@ -148,7 +144,9 @@ export default class Account extends Vue {
     }
 
     const session = await AuthService.getSession();
-    if (!session) { return; }
+    if (!session) {
+      return;
+    }
 
     this.player = player;
     this.session = session;

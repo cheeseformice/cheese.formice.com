@@ -17,7 +17,7 @@ export const NullSessionToken: SessionToken = {
   tfmRoles: [],
   iat: 0,
   exp: 0,
-}
+};
 
 export interface AuthError {
   success: false;

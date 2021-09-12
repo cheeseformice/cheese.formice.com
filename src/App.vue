@@ -9,14 +9,18 @@ import { AuthService } from "./api";
 export default class App extends Vue {
   async useTicket(ticket: string, url: URL) {
     const token = await AuthService.getSessionToken();
-    if (typeof token === "string") { return; } // already logged in
+    if (typeof token === "string") {
+      return;
+    } // already logged in
 
     await AuthService.useTicket(ticket);
     document.location.replace(url.toString());
   }
 
   mounted() {
-    if (window.localStorage.getItem("login-beta") !== "true") { return; }
+    if (window.localStorage.getItem("login-beta") !== "true") {
+      return;
+    }
 
     const url = new URL(document.location.href);
     const params = url.searchParams;

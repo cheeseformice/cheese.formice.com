@@ -10,7 +10,11 @@
       <c-entity-search
         :players="true"
         :tribes="true"
-        :onSelect="(e) => { $router.push(e.route); }"
+        :onSelect="
+          (e) => {
+            $router.push(e.route);
+          }
+        "
       />
     </q-toolbar>
     <q-drawer v-if="$q.screen.xs" v-model="showDrawer" :width="280" bordered class="bg-grey-1">

@@ -1,6 +1,4 @@
-<template>
-  lol
-</template>
+<template>lol</template>
 
 <script lang="ts">
 import { Vue } from "vue-property-decorator";
