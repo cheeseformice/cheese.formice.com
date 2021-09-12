@@ -53,6 +53,19 @@ export interface SearchOption extends Entity {
   route: RouteLocationRaw;
 }
 
+export const NullSearchOption = <SearchOption>{
+  label: "",
+  type: "player",
+  id: 0,
+  name: "Null#0001",
+  cfmRoles: [],
+  tfmRoles: [],
+  route: {
+    name: "player",
+    params: { playerName: "Null#0001" },
+  }
+}
+
 export default class CEntitySearch extends mixins(Images) {
   @Prop({ required: true }) players!: boolean;
   @Prop({ required: true }) tribes!: boolean;
