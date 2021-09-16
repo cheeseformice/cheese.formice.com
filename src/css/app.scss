@@ -13,6 +13,18 @@ a {
   text-decoration: none;
 }
 
+.soopafresh {
+  font-family: "Soopafresh";
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Soopafresh";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/Soopafresh.woff2") format("woff2"), url("/fonts/Soopafresh.woff") format("woff");
+}
+
 .container,
 .container-sm,
 .container-md,

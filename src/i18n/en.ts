@@ -187,4 +187,18 @@ export default {
         "If you want to contribute in any other way, please let us know via {dopen}discord{close}.",
     },
   },
+
+  roles: {
+    cfmdev: "CFM Developer",
+    cfmadmin: "CFM Administrator",
+    cfmmod: "CFM Moderator",
+    cfmtranslator: "CFM Translator",
+    admin: "Administrator",
+    mod: "Moderator",
+    sentinel: "Sentinel",
+    mapcrew: "Mapcrew",
+    module: "Module team",
+    funcorp: "Funcorp",
+    fashion: "Fashion squad",
+  },
 };

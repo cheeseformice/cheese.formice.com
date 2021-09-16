@@ -5,7 +5,14 @@
     </div>
   </template>
   <template v-else>
-    <c-hero :id="player.id" :tabs="tabs" :title="player.name" :img="banner" />
+    <c-hero
+      :id="player.id"
+      :tabs="tabs"
+      :title="player.name"
+      :img="banner"
+      :cfmRoles="player.cfmRoles"
+      :tfmRoles="player.tfmRoles"
+    />
     <div class="container q-py-md">
       <router-view v-slot="{ Component }">
         <!-- <keep-alive> -->

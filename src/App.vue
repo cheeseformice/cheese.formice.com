@@ -17,6 +17,18 @@ export default class App extends Vue {
     document.location.replace(url.toString());
   }
 
+  created() {
+    this.$q.iconMapFn = (iconName) => {
+      if (iconName.startsWith("mdi:") === true) {
+        const name = iconName.substring(4);
+
+        return {
+          cls: `mdi mdi-${name}`,
+        };
+      }
+    };
+  }
+
   mounted() {
     if (window.localStorage.getItem("login-beta") !== "true") {
       return;
