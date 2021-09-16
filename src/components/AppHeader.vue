@@ -3,7 +3,37 @@
     <q-toolbar class="container">
       <q-btn v-if="$q.screen.xs" icon="menu" flat round @click="showDrawer = !showDrawer" />
       <q-tabs v-else>
-        <q-route-tab v-for="{ label, to } of links" exact :key="label" :to="to" :label="label" />
+        <div class="full-height" v-for="link of links" :key="link.label">
+          <q-route-tab exact :to="link.to" :label="link.label" v-if="!!link.to" />
+          <q-btn-dropdown
+            auto-close
+            stretch
+            flat
+            :label="link.label"
+            class="full-height"
+            content-class="z-max"
+            v-if="!!link.dropdown && link.dropdown.length > 1"
+          >
+            <q-list>
+              <div v-for="sub of link.dropdown" :key="sub.label">
+                <q-item clickable v-close-popup @click="sub.click" :to="sub.to">
+                  <q-item-section>
+                    <q-item-label>{{ sub.label }}</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </div>
+            </q-list>
+          </q-btn-dropdown>
+          <div v-if="!!link.dropdown && link.dropdown.length == 1">
+            <q-route-tab
+              exact
+              :to="sub.to"
+              :label="sub.label"
+              :key="sub.label"
+              v-for="sub of link.dropdown"
+            />
+          </div>
+        </div>
       </q-tabs>
       <q-space />
 
@@ -16,6 +46,40 @@
           }
         "
       />
+      <q-tabs stretch v-if="!$q.screen.xs && rightLinks.length > 0">
+        <div style="width: 0.3rem" class="full-height"></div>
+        <div class="full-height" v-for="link of rightLinks" :key="link.label">
+          <q-route-tab exact :to="link.to" :label="link.label" v-if="!!link.to" />
+          <q-btn-dropdown
+            auto-close
+            stretch
+            flat
+            :label="link.label"
+            class="full-height"
+            content-class="z-max"
+            v-if="!!link.dropdown && link.dropdown.length > 1"
+          >
+            <q-list>
+              <div v-for="sub of link.dropdown" :key="sub.label">
+                <q-item clickable v-close-popup @click="sub.click" :to="sub.to">
+                  <q-item-section>
+                    <q-item-label>{{ sub.label }}</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </div>
+            </q-list>
+          </q-btn-dropdown>
+          <div v-if="!!link.dropdown && link.dropdown.length == 1">
+            <q-route-tab
+              exact
+              :to="sub.to"
+              :label="sub.label"
+              :key="sub.label"
+              v-for="sub of link.dropdown"
+            />
+          </div>
+        </div>
+      </q-tabs>
     </q-toolbar>
     <q-drawer v-if="$q.screen.xs" v-model="showDrawer" :width="280" bordered class="bg-grey-1">
       <q-scroll-area class="fit">
@@ -26,12 +90,21 @@
 
           <q-separator />
 
-          <q-item v-for="link of links" clickable v-ripple :key="link.label" :to="link.to">
-            <q-item-section avatar>
-              <q-icon :name="link.icon" />
-            </q-item-section>
-            <q-item-section class="text-dark">{{ link.label }}</q-item-section>
-          </q-item>
+          <div :key="link.label" v-for="link of [...links, ...rightLinks]">
+            <q-item
+              v-for="sub of link.dropdown || [link]"
+              clickable
+              v-ripple
+              :key="sub.label"
+              :to="sub.to"
+              @click="sub.click"
+            >
+              <q-item-section avatar>
+                <q-icon :name="sub.icon" />
+              </q-item-section>
+              <q-item-section class="text-dark">{{ sub.label }}</q-item-section>
+            </q-item>
+          </div>
         </q-list>
       </q-scroll-area>
     </q-drawer>
@@ -40,42 +113,71 @@
 
 <script lang="ts">
 import { mixins, Options } from "vue-property-decorator";
-import { AuthService } from "src/api";
+import { AuthService, Player } from "src/api";
 import { Images } from "src/common/mixins";
 import { CEntitySearch } from ".";
 
+interface Callable {
+  (): void;
+}
+
 interface Link {
   label: string;
-  icon: string;
-  to: { name: string };
+  icon?: string;
+  to?: { name: string; params?: Record<string, string> };
+  dropdown?: Link[];
+  click?: Callable;
 }
 
 @Options({ components: { CEntitySearch } })
 export default class AppHeader extends mixins(Images) {
+  player?: void | Player;
+  showAccountButton = false;
   showDrawer = false;
+
   links: Link[] = [];
+  rightLinks: Link[] = [];
+
+  async logout() {
+    AuthService.logout();
+    await this.updateLinks();
+    await this.$router.push({ name: "home" });
+  }
 
   async updateLinks() {
-    const player = await AuthService.getPlayerInfo();
+    const loginBeta = window.localStorage.getItem("login-beta");
+    this.player = await AuthService.getPlayerInfo();
+    this.showAccountButton = !!this.player || loginBeta === "true";
 
-    let account: Link;
-    if (!player) {
-      account = {
-        label: this.$t("login"),
-        icon: "login",
-        to: { name: "login" },
-      };
-    } else {
-      account = {
-        label: player.name,
-        icon: "user",
-        to: { name: "account" },
-      };
+    this.links = this.getLinks();
+    this.rightLinks = this.getRightLinks();
+  }
+
+  getLinks(): Link[] {
+    const dropdown: Link[] = [];
+
+    if (this.showAccountButton) {
+      if (this.player && this.player.cfmRoles) {
+        const hasDev = this.player.cfmRoles.includes("dev");
+        const hasAdm = this.player.cfmRoles.includes("admin");
+        const hasMod = this.player.cfmRoles.includes("mod");
+
+        (hasDev || hasAdm || hasMod) &&
+          dropdown.push({
+            label: this.$t("modPanel"),
+            icon: "leaderboard",
+            to: { name: "leaderboard" },
+          });
+        (hasDev || hasAdm) &&
+          dropdown.push({
+            label: this.$t("adminPanel"),
+            icon: "leaderboard",
+            to: { name: "leaderboard" },
+          });
+      }
     }
 
-    const showAccountButton = !!player || window.localStorage.getItem("login-beta") === "true";
-
-    this.links = [
+    return [
       {
         label: this.$t("home"),
         icon: "home",
@@ -86,14 +188,55 @@ export default class AppHeader extends mixins(Images) {
         icon: "leaderboard",
         to: { name: "leaderboard" },
       },
+      {
+        label: this.$t("staffTools"),
+        dropdown: dropdown,
+      },
     ];
+  }
 
-    if (showAccountButton) {
-      this.links.push(account);
+  getRightLinks(): Link[] {
+    if (!this.showAccountButton) {
+      return [];
     }
+    if (!this.player) {
+      return [
+        {
+          label: this.$t("login"),
+          icon: "login",
+          to: { name: "login" },
+        },
+      ];
+    }
+
+    return [
+      {
+        label: this.player.name,
+        dropdown: [
+          {
+            label: this.$t("profile"),
+            icon: "account-circle",
+            to: { name: "player", params: { playerName: this.player.name } },
+          },
+          {
+            label: this.$t("settings"),
+            icon: "settings",
+            to: { name: "account" },
+          },
+          {
+            label: this.$t("logout"),
+            icon: "logout",
+            click: () => this.logout(),
+          },
+        ],
+      },
+    ];
   }
 
   mounted() {
+    this.links = this.getLinks();
+    this.rightLinks = this.getRightLinks();
+
     void this.updateLinks();
   }
 }
