@@ -100,7 +100,7 @@
               @click="sub.click"
             >
               <q-item-section avatar>
-                <q-icon :name="sub.icon" />
+                <q-icon class="text-dark" :name="sub.icon" />
               </q-item-section>
               <q-item-section class="text-dark">{{ sub.label }}</q-item-section>
             </q-item>
@@ -165,13 +165,13 @@ export default class AppHeader extends mixins(Images) {
         (hasDev || hasAdm || hasMod) &&
           dropdown.push({
             label: this.$t("modPanel"),
-            icon: "leaderboard",
+            icon: "admin_panel_settings",
             to: { name: "leaderboard" },
           });
         (hasDev || hasAdm) &&
           dropdown.push({
             label: this.$t("adminPanel"),
-            icon: "leaderboard",
+            icon: "admin_panel_settings",
             to: { name: "leaderboard" },
           });
       }
@@ -215,7 +215,7 @@ export default class AppHeader extends mixins(Images) {
         dropdown: [
           {
             label: this.$t("profile"),
-            icon: "account-circle",
+            icon: "account_circle",
             to: { name: "player", params: { playerName: this.player.name } },
           },
           {
