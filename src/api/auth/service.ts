@@ -37,6 +37,9 @@ export default class Auth {
   static logout(): void {
     refreshExpiration = 0;
     sessionExpiration = 0;
+    window.localStorage.removeItem("refresh");
+    window.localStorage.removeItem("playerInfo");
+    window.sessionStorage.removeItem("session");
   }
 
   static loadTokens(): void {
