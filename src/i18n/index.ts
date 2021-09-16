@@ -2,6 +2,7 @@ import ar from "./ar";
 import en from "./en";
 import es from "./es";
 import fr from "./fr";
+import hu from "./hu";
 import lv from "./lv";
 import pl from "./pl";
 import pt from "./pt";
@@ -36,6 +37,7 @@ export default {
   en,
   es,
   fr,
+  hu,
   lv,
   pl,
   pt,
