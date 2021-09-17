@@ -97,39 +97,8 @@ export default class Account extends Vue {
         },
       ],
     };
-    const privileged = {
-      key: "privileged",
-      label: "",
-      links: [
-        {
-          label: this.$t("devPanel"),
-          to: { name: "devPanel" },
-        },
-        // {
-        //   label: this.$t("myModules"),
-        //   to: { name: "accountModules" },
-        // },
-      ],
-    };
 
-    const isMod = this.session.cfmRoles.includes("mod");
-    const isAdm = this.session.cfmRoles.includes("admin");
-    const isDev = this.session.cfmRoles.includes("dev");
-
-    if (isMod || isAdm || isDev) {
-      privileged.links.push({
-        label: this.$t("modPanel"),
-        to: { name: "modPanel" },
-      });
-    }
-    if (isAdm || isDev) {
-      privileged.links.push({
-        label: this.$t("adminPanel"),
-        to: { name: "adminPanel" },
-      });
-    }
-
-    return [overview, settings, privileged];
+    return [overview, settings];
   }
 
   async redirect(to: Record<string, string>) {

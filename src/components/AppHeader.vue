@@ -166,13 +166,13 @@ export default class AppHeader extends mixins(Images) {
           dropdown.push({
             label: this.$t("modPanel"),
             icon: "admin_panel_settings",
-            to: { name: "leaderboard" },
+            to: { name: "modPanel" },
           });
         (hasDev || hasAdm) &&
           dropdown.push({
             label: this.$t("adminPanel"),
             icon: "admin_panel_settings",
-            to: { name: "leaderboard" },
+            to: { name: "adminPanel" },
           });
       }
     }
