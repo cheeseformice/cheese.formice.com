@@ -15,7 +15,10 @@
 
             <q-item-section class="q-ml-md">
               <q-item-label>{{ s.title }}</q-item-label>
-              <q-item-label class="text-h6">{{ s.value }}</q-item-label>
+              <q-item-label class="text-h6">
+                {{ s.value }}
+                <span v-if="s.ratio" class="text-caption q-ml-xs">Ratio: {{ s.ratio }}</span>
+              </q-item-label>
               <q-item-label caption class="text-green">
                 <template v-if="s.progress">
                   {{ $t("sinceLastSevenDays", { sign: "+", value: s.progress }) }}
@@ -40,6 +43,7 @@ export default class Stats extends Vue {
     icon: string;
     title: string;
     value: number;
+    ratio: string;
     progress: number;
   }[];
 }
