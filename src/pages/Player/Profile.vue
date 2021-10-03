@@ -52,7 +52,7 @@
       </div>
 
       <div class="q-gutter-y-sm">
-        <player-stats col="col-12 col-md-4" :stats="shamanStats" />
+        <player-stats :title="$t('shaman')" :stats="shamanStats" />
         <player-stats :title="$t('mouse')" :stats="mouseStats" />
         <player-stats :title="$t('racing')" :stats="racingStats" />
         <player-stats :title="$t('survivor')" :stats="survivorStats" />
@@ -156,7 +156,7 @@ export default class PlayerProfile extends mixins(Images) {
   }
 
   get shamanStats() {
-    const { savesNormal, savesHard, savesDivine } = this.player.stats.shaman;
+    const { savesNormal, savesHard, savesDivine, cheese } = this.player.stats.shaman;
     const progress = this.player.period.shaman;
     return [
       {
@@ -179,6 +179,13 @@ export default class PlayerProfile extends mixins(Images) {
         value: savesDivine,
         ratio: this.calculateRatio(savesDivine),
         progress: progress.savesDivine,
+      },
+      {
+        icon: this.getInventory(800),
+        title: this.$t("cheeseGatheredShaman"),
+        value: cheese,
+        ratio: this.calculateRatio(cheese),
+        progress: progress.cheese
       },
     ];
   }
