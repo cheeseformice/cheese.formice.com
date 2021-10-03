@@ -157,6 +157,7 @@ export default class PlayerProfile extends mixins(Images) {
 
   get shamanStats() {
     const { savesNormal, savesHard, savesDivine, cheese } = this.player.stats.shaman;
+    const rounds = this.player.stats.mouse.rounds;
     const progress = this.player.period.shaman;
     const progressRounds = this.player.period.mouse.rounds;
     return [
@@ -164,7 +165,7 @@ export default class PlayerProfile extends mixins(Images) {
         icon: this.getImage("x_transformice/x_divers/x_mc0.jpg"),
         title: this.$t("miceSavedNormal"),
         value: savesNormal,
-        ratio: this.calculateRatio(savesNormal),
+        ratio: this.calculateRatio(savesNormal, rounds),
         progress: progress.savesNormal,
         progressRatio: this.calculateRatio(progress.savesNormal, progressRounds),
       },
@@ -172,7 +173,7 @@ export default class PlayerProfile extends mixins(Images) {
         icon: this.getImage("x_transformice/x_divers/x_mc1.jpg"),
         title: this.$t("miceSavedHard"),
         value: savesHard,
-        ratio: this.calculateRatio(savesHard),
+        ratio: this.calculateRatio(savesHard, rounds),
         progress: progress.savesHard,
         progressRatio: this.calculateRatio(progress.savesHard, progressRounds),
       },
@@ -180,7 +181,7 @@ export default class PlayerProfile extends mixins(Images) {
         icon: this.getImage("x_transformice/x_divers/x_mc2.jpg"),
         title: this.$t("miceSavedDivine"),
         value: savesDivine,
-        ratio: this.calculateRatio(savesDivine),
+        ratio: this.calculateRatio(savesDivine, rounds),
         progress: progress.savesDivine,
         progressRatio: this.calculateRatio(progress.savesDivine, progressRounds),
       },
@@ -188,7 +189,7 @@ export default class PlayerProfile extends mixins(Images) {
         icon: this.getInventory(800),
         title: this.$t("cheeseGatheredShaman"),
         value: cheese,
-        ratio: this.calculateRatio(cheese),
+        ratio: this.calculateRatio(cheese, rounds),
         progress: progress.cheese,
         progressRatio: this.calculateRatio(progress.cheese, progressRounds),
       },
@@ -209,7 +210,7 @@ export default class PlayerProfile extends mixins(Images) {
         icon: this.getInventory(800),
         title: this.$t("gatheredCheese"),
         value: cheese,
-        ratio: this.calculateRatio(cheese),
+        ratio: this.calculateRatio(cheese, rounds),
         progress: progress.cheese,
         progressRatio: this.calculateRatio(progress.cheese, progress.rounds)
       },
@@ -217,7 +218,7 @@ export default class PlayerProfile extends mixins(Images) {
         icon: this.getInventory(2254),
         title: this.$t("cheeseGatheredFirst"),
         value: first,
-        ratio: this.calculateRatio(first),
+        ratio: this.calculateRatio(first, rounds),
         progress: progress.first,
         progressRatio: this.calculateRatio(progress.first, progress.rounds)
       },
@@ -337,8 +338,10 @@ export default class PlayerProfile extends mixins(Images) {
     return this.getLook(this.player);
   }
 
-  calculateRatio(stat: number, rounds: number = this.player.stats.mouse.rounds) {
+  calculateRatio(stat: number, rounds: number) {
     if (rounds > 0) return (stat / rounds * 100);
+
+    return 0;
   }
 }
 </script>

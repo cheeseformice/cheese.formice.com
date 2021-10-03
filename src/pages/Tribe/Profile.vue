@@ -117,34 +117,35 @@ export default class TribeProfile extends mixins(Images) {
 
   get shamanStats() {
     const { savesNormal, savesHard, savesDivine, cheese } = this.tribe.stats.shaman;
+    const rounds = this.tribe.stats.mouse.rounds;
     const progress = this.tribe.period.shaman;
     return [
       {
         icon: this.getImage("x_transformice/x_divers/x_mc0.jpg"),
         title: this.$t("miceSavedNormal"),
         value: savesNormal,
-        ratio: this.calculateRatio(savesNormal),
+        ratio: this.calculateRatio(savesNormal, rounds),
         progress: progress.savesNormal,
       },
       {
         icon: this.getImage("x_transformice/x_divers/x_mc1.jpg"),
         title: this.$t("miceSavedHard"),
         value: savesHard,
-        ratio: this.calculateRatio(savesHard),
+        ratio: this.calculateRatio(savesHard, rounds),
         progress: progress.savesHard,
       },
       {
         icon: this.getImage("x_transformice/x_divers/x_mc2.jpg"),
         title: this.$t("miceSavedDivine"),
         value: savesDivine,
-        ratio: this.calculateRatio(savesDivine),
+        ratio: this.calculateRatio(savesDivine, rounds),
         progress: progress.savesDivine,
       },
       {
         icon: this.getInventory(800),
         title: this.$t("cheeseGatheredShaman"),
         value: cheese,
-        ratio: this.calculateRatio(cheese),
+        ratio: this.calculateRatio(cheese, rounds),
         progress: progress.cheese,
       },
     ];
@@ -164,14 +165,14 @@ export default class TribeProfile extends mixins(Images) {
         icon: this.getInventory(800),
         title: this.$t("gatheredCheese"),
         value: cheese,
-        ratio: this.calculateRatio(cheese),
+        ratio: this.calculateRatio(cheese, rounds),
         progress: progress.cheese,
       },
       {
         icon: this.getInventory(2254),
         title: this.$t("cheeseGatheredFirst"),
         value: first,
-        ratio: this.calculateRatio(first),
+        ratio: this.calculateRatio(first, rounds),
         progress: progress.first,
       },
       {
@@ -278,8 +279,10 @@ export default class TribeProfile extends mixins(Images) {
     ];
   }
 
-  calculateRatio(stat: number, rounds: number = this.tribe.stats.mouse.rounds) {
+  calculateRatio(stat: number, rounds: number) {
     if (rounds > 0) return (stat / rounds * 100);
+
+    return 0;
   }
 }
 </script>
