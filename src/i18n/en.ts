@@ -27,7 +27,7 @@ export default {
   redirect: "If you are not being redirected, {open}click here{close}",
 
   members: "Members",
-  mouse: "Normal",
+  mouse: "Mouse",
   shaman: "Shaman",
   profile: "Profile",
   racing: "Racing",
