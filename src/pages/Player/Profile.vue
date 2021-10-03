@@ -52,7 +52,7 @@
       </div>
 
       <div class="q-gutter-y-sm">
-        <player-stats col="col-12 col-md-4" :stats="shamanStats" />
+        <player-stats :title="$t('shaman')" :stats="shamanStats" />
         <player-stats :title="$t('mouse')" :stats="mouseStats" />
         <player-stats :title="$t('racing')" :stats="racingStats" />
         <player-stats :title="$t('survivor')" :stats="survivorStats" />
@@ -156,26 +156,42 @@ export default class PlayerProfile extends mixins(Images) {
   }
 
   get shamanStats() {
-    const { savesNormal, savesHard, savesDivine } = this.player.stats.shaman;
+    const { savesNormal, savesHard, savesDivine, cheese } = this.player.stats.shaman;
+    const rounds = this.player.stats.mouse.rounds;
     const progress = this.player.period.shaman;
+    const progressRounds = this.player.period.mouse.rounds;
     return [
       {
         icon: this.getImage("x_transformice/x_divers/x_mc0.jpg"),
         title: this.$t("miceSavedNormal"),
         value: savesNormal,
+        ratio: this.calculateRatio(savesNormal, rounds),
         progress: progress.savesNormal,
+        progressRatio: this.calculateRatio(progress.savesNormal, progressRounds),
       },
       {
         icon: this.getImage("x_transformice/x_divers/x_mc1.jpg"),
         title: this.$t("miceSavedHard"),
         value: savesHard,
+        ratio: this.calculateRatio(savesHard, rounds),
         progress: progress.savesHard,
+        progressRatio: this.calculateRatio(progress.savesHard, progressRounds),
       },
       {
         icon: this.getImage("x_transformice/x_divers/x_mc2.jpg"),
         title: this.$t("miceSavedDivine"),
         value: savesDivine,
+        ratio: this.calculateRatio(savesDivine, rounds),
         progress: progress.savesDivine,
+        progressRatio: this.calculateRatio(progress.savesDivine, progressRounds),
+      },
+      {
+        icon: this.getInventory(800),
+        title: this.$t("cheeseGatheredShaman"),
+        value: cheese,
+        ratio: this.calculateRatio(cheese, rounds),
+        progress: progress.cheese,
+        progressRatio: this.calculateRatio(progress.cheese, progressRounds),
       },
     ];
   }
@@ -194,13 +210,17 @@ export default class PlayerProfile extends mixins(Images) {
         icon: this.getInventory(800),
         title: this.$t("gatheredCheese"),
         value: cheese,
+        ratio: this.calculateRatio(cheese, rounds),
         progress: progress.cheese,
+        progressRatio: this.calculateRatio(progress.cheese, progress.rounds)
       },
       {
         icon: this.getInventory(2254),
         title: this.$t("cheeseGatheredFirst"),
         value: first,
+        ratio: this.calculateRatio(first, rounds),
         progress: progress.first,
+        progressRatio: this.calculateRatio(progress.first, progress.rounds)
       },
       {
         icon: this.getInventory(2261),
@@ -212,94 +232,116 @@ export default class PlayerProfile extends mixins(Images) {
   }
 
   get racingStats() {
-    const stats = this.player.stats.racing;
+    const { rounds, finished, podium, first } = this.player.stats.racing;
     const progress = this.player.period.racing;
     return [
       {
         icon: this.getBadge(124),
         title: this.$t("roundsPlayed"),
-        value: stats.rounds,
+        value: rounds,
         progress: progress.rounds,
       },
       {
         icon: this.getBadge(125),
         title: this.$t("completedRounds"),
-        value: stats.finished,
+        value: finished,
+        ratio: this.calculateRatio(finished, rounds),
         progress: progress.finished,
+        progressRatio: this.calculateRatio(progress.finished, progress.rounds),
       },
       {
         icon: this.getBadge(127),
         title: this.$t("numberOfPodiums"),
-        value: stats.podium,
+        value: podium,
+        ratio: this.calculateRatio(podium, rounds),
         progress: progress.podium,
+        progressRatio: this.calculateRatio(progress.podium, progress.rounds),
       },
       {
         icon: this.getBadge(126),
         title: this.$t("numberOfFirsts"),
-        value: stats.first,
+        value: first,
+        ratio: this.calculateRatio(first, rounds),
         progress: progress.first,
+        progressRatio: this.calculateRatio(progress.first, progress.rounds),
       },
     ];
   }
 
   get survivorStats() {
-    const stats = this.player.stats.survivor;
+    const { rounds, shaman, killed, survivor } = this.player.stats.survivor;
     const progress = this.player.period.survivor;
     return [
       {
         icon: this.getBadge(120),
         title: this.$t("roundsPlayed"),
-        value: stats.rounds,
+        value: rounds,
         progress: progress.rounds,
       },
       {
         icon: this.getBadge(121),
         title: this.$t("roundsAsShaman"),
-        value: stats.shaman,
+        value: shaman,
+        ratio: this.calculateRatio(shaman, rounds),
         progress: progress.shaman,
+        progressRatio: this.calculateRatio(progress.shaman, progress.rounds),
       },
       {
         icon: this.getBadge(122),
         title: this.$t("killedMice"),
-        value: stats.killed,
+        value: killed,
+        ratio: this.calculateRatio(killed, rounds),
         progress: progress.killed,
+        progressRatio: this.calculateRatio(progress.killed, progress.rounds),
       },
       {
         icon: this.getBadge(123),
         title: this.$t("roundsSurvived"),
-        value: stats.survivor,
+        value: survivor,
+        ratio: this.calculateRatio(survivor, rounds),
         progress: progress.survivor,
+        progressRatio: this.calculateRatio(progress.survivor, progress.rounds),
       },
     ];
   }
 
   get defilanteStats() {
-    const stats = this.player.stats.defilante;
+    const { rounds, finished, points } = this.player.stats.defilante;
     const progress = this.player.period.defilante;
     return [
       {
         icon: this.getBadge(288),
         title: this.$t("roundsPlayed"),
-        value: stats.rounds,
+        value: rounds,
         progress: progress.rounds,
       },
       {
         icon: this.getBadge(287),
         title: this.$t("completedRounds"),
-        value: stats.finished,
+        value: finished,
+        ratio: this.calculateRatio(finished, rounds),
         progress: progress.finished,
+        progressRatio: this.calculateRatio(progress.finished, progress.rounds),
       },
       {
         icon: this.getBadge(286),
         title: this.$t("pointsGathered"),
-        value: stats.points,
+        value: points,
+        ratio: this.calculateRatio(points, rounds),
         progress: progress.points,
+        progressRatio: this.calculateRatio(progress.points, progress.rounds),
       },
     ];
   }
 
   get look() {
     return this.getLook(this.player);
+  }
+
+  calculateRatio(stat: number, rounds: number) {
+    if (rounds > 0) return (stat / rounds * 100);
+
+    return 0;
   }
 }
 </script>

@@ -20,7 +20,7 @@ export default {
   nothingHere: "Oops. Burada hiçbir şey yok...",
   redirect: "Yeniden yönlendirilemiyorsanız, {open} buraya tıklayın {close}",
   members: "Üyeler",
-  mouse: "Normal",
+  mouse: "Fare",
   shaman: "Şaman",
   profile: "Profil",
   racing: "Racing",

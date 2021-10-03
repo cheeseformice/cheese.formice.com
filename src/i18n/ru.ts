@@ -20,7 +20,7 @@ export default {
   nothingHere: "Упс. Здесь ничего нет..",
   redirect: "Если вы не были перенаправлены, {open}нажмите сюда{close}",
   members: "Пользователи",
-  mouse: "Обычный",
+  mouse: "Мышь",
   shaman: "Шаман",
   profile: "Профиль",
   racing: "Racing",
