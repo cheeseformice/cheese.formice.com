@@ -158,6 +158,7 @@ export default class PlayerProfile extends mixins(Images) {
   get shamanStats() {
     const { savesNormal, savesHard, savesDivine, cheese } = this.player.stats.shaman;
     const progress = this.player.period.shaman;
+    const progressRounds = this.player.period.mouse.rounds;
     return [
       {
         icon: this.getImage("x_transformice/x_divers/x_mc0.jpg"),
@@ -165,6 +166,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: savesNormal,
         ratio: this.calculateRatio(savesNormal),
         progress: progress.savesNormal,
+        progressRatio: this.calculateRatio(progress.savesNormal, progressRounds),
       },
       {
         icon: this.getImage("x_transformice/x_divers/x_mc1.jpg"),
@@ -172,6 +174,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: savesHard,
         ratio: this.calculateRatio(savesHard),
         progress: progress.savesHard,
+        progressRatio: this.calculateRatio(progress.savesHard, progressRounds),
       },
       {
         icon: this.getImage("x_transformice/x_divers/x_mc2.jpg"),
@@ -179,13 +182,15 @@ export default class PlayerProfile extends mixins(Images) {
         value: savesDivine,
         ratio: this.calculateRatio(savesDivine),
         progress: progress.savesDivine,
+        progressRatio: this.calculateRatio(progress.savesDivine, progressRounds),
       },
       {
         icon: this.getInventory(800),
         title: this.$t("cheeseGatheredShaman"),
         value: cheese,
         ratio: this.calculateRatio(cheese),
-        progress: progress.cheese
+        progress: progress.cheese,
+        progressRatio: this.calculateRatio(progress.cheese, progressRounds),
       },
     ];
   }
@@ -206,6 +211,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: cheese,
         ratio: this.calculateRatio(cheese),
         progress: progress.cheese,
+        progressRatio: this.calculateRatio(progress.cheese, progress.rounds)
       },
       {
         icon: this.getInventory(2254),
@@ -213,6 +219,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: first,
         ratio: this.calculateRatio(first),
         progress: progress.first,
+        progressRatio: this.calculateRatio(progress.first, progress.rounds)
       },
       {
         icon: this.getInventory(2261),
@@ -239,6 +246,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: finished,
         ratio: this.calculateRatio(finished, rounds),
         progress: progress.finished,
+        progressRatio: this.calculateRatio(progress.finished, progress.rounds),
       },
       {
         icon: this.getBadge(127),
@@ -246,6 +254,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: podium,
         ratio: this.calculateRatio(podium, rounds),
         progress: progress.podium,
+        progressRatio: this.calculateRatio(progress.podium, progress.rounds),
       },
       {
         icon: this.getBadge(126),
@@ -253,6 +262,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: first,
         ratio: this.calculateRatio(first, rounds),
         progress: progress.first,
+        progressRatio: this.calculateRatio(progress.first, progress.rounds),
       },
     ];
   }
@@ -273,6 +283,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: shaman,
         ratio: this.calculateRatio(shaman, rounds),
         progress: progress.shaman,
+        progressRatio: this.calculateRatio(progress.shaman, progress.rounds),
       },
       {
         icon: this.getBadge(122),
@@ -280,6 +291,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: killed,
         ratio: this.calculateRatio(killed, rounds),
         progress: progress.killed,
+        progressRatio: this.calculateRatio(progress.killed, progress.rounds),
       },
       {
         icon: this.getBadge(123),
@@ -287,6 +299,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: survivor,
         ratio: this.calculateRatio(survivor, rounds),
         progress: progress.survivor,
+        progressRatio: this.calculateRatio(progress.survivor, progress.rounds),
       },
     ];
   }
@@ -307,6 +320,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: finished,
         ratio: this.calculateRatio(finished, rounds),
         progress: progress.finished,
+        progressRatio: this.calculateRatio(progress.finished, progress.rounds),
       },
       {
         icon: this.getBadge(286),
@@ -314,6 +328,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: points,
         ratio: this.calculateRatio(points, rounds),
         progress: progress.points,
+        progressRatio: this.calculateRatio(progress.points, progress.rounds),
       },
     ];
   }
@@ -323,7 +338,7 @@ export default class PlayerProfile extends mixins(Images) {
   }
 
   calculateRatio(stat: number, rounds: number = this.player.stats.mouse.rounds) {
-    if (rounds > 0) return (stat / rounds * 100).toFixed(1) + "%";
+    if (rounds > 0) return (stat / rounds * 100);
   }
 }
 </script>

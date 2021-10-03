@@ -116,6 +116,7 @@ export default {
   activeMemberCount: "Active member count",
   noMembers: "This tribe has no members",
   sinceLastSevenDays: "{sign}{value} since last 7 days",
+  ratio: "Ratio: {value}%",
 
   // Server healthcheck
   help: {
