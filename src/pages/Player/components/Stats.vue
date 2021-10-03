@@ -16,8 +16,9 @@
             <q-item-section class="q-ml-md">
               <q-item-label>{{ s.title }}</q-item-label>
               <q-item-label class="text-h6">
-                {{ s.value }}
-                <span v-if="s.ratio" class="text-caption q-ml-xs">{{ $t("ratio", { value: s.ratio.toFixed(1) }) }}</span>
+                <span class="q-mr-sm">{{ s.value }}</span>
+                <wbr>
+                <span v-if="s.ratio" class="text-caption text-no-wrap">{{ $t("ratio", { value: s.ratio.toFixed(1) }) }}</span>
               </q-item-label>
               <q-item-label caption v-if="s.progress" class="text-green">
                 {{ $t("sinceLastSevenDays", { sign: "+", value: s.progress }) }}
