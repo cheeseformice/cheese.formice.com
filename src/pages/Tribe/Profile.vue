@@ -35,7 +35,7 @@
     <div class="col-12 col-lg-10 q-gutter-y-md">
       <div class="q-gutter-y-sm">
         <tribe-stats col="col-12 col-sm-6" :stats="memberStats" />
-        <tribe-stats col="col-12 col-sm-6 col-md-4" :stats="shamanStats" />
+        <tribe-stats :title="$t('shaman')" :stats="shamanStats" />
         <tribe-stats :title="$t('mouse')" :stats="mouseStats" />
         <tribe-stats :title="$t('racing')" :stats="racingStats" />
         <tribe-stats :title="$t('survivor')" :stats="survivorStats" />
@@ -116,26 +116,36 @@ export default class TribeProfile extends mixins(Images) {
   }
 
   get shamanStats() {
-    const { savesNormal, savesHard, savesDivine } = this.tribe.stats.shaman;
+    const { savesNormal, savesHard, savesDivine, cheese } = this.tribe.stats.shaman;
     const progress = this.tribe.period.shaman;
     return [
       {
         icon: this.getImage("x_transformice/x_divers/x_mc0.jpg"),
         title: this.$t("miceSavedNormal"),
         value: savesNormal,
+        ratio: this.calculateRatio(savesNormal),
         progress: progress.savesNormal,
       },
       {
         icon: this.getImage("x_transformice/x_divers/x_mc1.jpg"),
         title: this.$t("miceSavedHard"),
         value: savesHard,
+        ratio: this.calculateRatio(savesHard),
         progress: progress.savesHard,
       },
       {
         icon: this.getImage("x_transformice/x_divers/x_mc2.jpg"),
         title: this.$t("miceSavedDivine"),
         value: savesDivine,
+        ratio: this.calculateRatio(savesDivine),
         progress: progress.savesDivine,
+      },
+      {
+        icon: this.getInventory(800),
+        title: this.$t("cheeseGatheredShaman"),
+        value: cheese,
+        ratio: this.calculateRatio(cheese),
+        progress: progress.cheese,
       },
     ];
   }
@@ -154,12 +164,14 @@ export default class TribeProfile extends mixins(Images) {
         icon: this.getInventory(800),
         title: this.$t("gatheredCheese"),
         value: cheese,
+        ratio: this.calculateRatio(cheese),
         progress: progress.cheese,
       },
       {
         icon: this.getInventory(2254),
         title: this.$t("cheeseGatheredFirst"),
         value: first,
+        ratio: this.calculateRatio(first),
         progress: progress.first,
       },
       {
@@ -172,90 +184,102 @@ export default class TribeProfile extends mixins(Images) {
   }
 
   get racingStats() {
-    const stats = this.tribe.stats.racing;
+    const { rounds, finished, podium, first } = this.tribe.stats.racing;
     const progress = this.tribe.period.racing;
     return [
       {
         icon: this.getBadge(124),
         title: this.$t("roundsPlayed"),
-        value: stats.rounds,
+        value: rounds,
         progress: progress.rounds,
       },
       {
         icon: this.getBadge(125),
         title: this.$t("completedRounds"),
-        value: stats.finished,
+        value: finished,
+        ratio: this.calculateRatio(finished, rounds),
         progress: progress.finished,
       },
       {
         icon: this.getBadge(127),
         title: this.$t("numberOfPodiums"),
-        value: stats.podium,
+        value: podium,
+        ratio: this.calculateRatio(podium, rounds),
         progress: progress.podium,
       },
       {
         icon: this.getBadge(126),
         title: this.$t("numberOfFirsts"),
-        value: stats.first,
+        value: first,
+        ratio: this.calculateRatio(first, rounds),
         progress: progress.first,
       },
     ];
   }
 
   get survivorStats() {
-    const stats = this.tribe.stats.survivor;
+    const { rounds, shaman, killed, survivor } = this.tribe.stats.survivor;
     const progress = this.tribe.period.survivor;
     return [
       {
         icon: this.getBadge(120),
         title: this.$t("roundsPlayed"),
-        value: stats.rounds,
+        value: rounds,
         progress: progress.rounds,
       },
       {
         icon: this.getBadge(121),
         title: this.$t("roundsAsShaman"),
-        value: stats.shaman,
+        value: shaman,
+        ratio: this.calculateRatio(shaman, rounds),
         progress: progress.shaman,
       },
       {
         icon: this.getBadge(122),
         title: this.$t("killedMice"),
-        value: stats.killed,
+        value: killed,
+        ratio: this.calculateRatio(killed, rounds),
         progress: progress.killed,
       },
       {
         icon: this.getBadge(123),
         title: this.$t("roundsSurvived"),
-        value: stats.survivor,
+        value: survivor,
+        ratio: this.calculateRatio(survivor, rounds),
         progress: progress.survivor,
       },
     ];
   }
 
   get defilanteStats() {
-    const stats = this.tribe.stats.defilante;
+    const { rounds, finished, points } = this.tribe.stats.defilante;
     const progress = this.tribe.period.defilante;
     return [
       {
         icon: this.getBadge(288),
         title: this.$t("roundsPlayed"),
-        value: stats.rounds,
+        value: rounds,
         progress: progress.rounds,
       },
       {
         icon: this.getBadge(287),
         title: this.$t("completedRounds"),
-        value: stats.finished,
+        value: finished,
+        ratio: this.calculateRatio(finished, rounds),
         progress: progress.finished,
       },
       {
         icon: this.getBadge(286),
         title: this.$t("pointsGathered"),
-        value: stats.points,
+        value: points,
+        ratio: this.calculateRatio(points, rounds),
         progress: progress.points,
       },
     ];
+  }
+
+  calculateRatio(stat: number, rounds: number = this.tribe.stats.mouse.rounds) {
+    if (rounds > 0) return (stat / rounds * 100);
   }
 }
 </script>
