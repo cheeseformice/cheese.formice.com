@@ -15,7 +15,7 @@ export default {
   nothingHere: "...عفوا. لا شيء هنا",
   redirect: "إعادة توجيه",
   members: "اعضاء",
-  mouse: "عادي",
+  mouse: "الفأر",
   shaman: "الشامان",
   profile: "الملف الشخصي",
   racing: "السباق",

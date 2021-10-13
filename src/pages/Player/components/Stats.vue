@@ -3,8 +3,8 @@
     <div class="text-grey q-pl-sm">{{ title }}</div>
     <div class="row">
       <div v-for="(s, i) in stats" :key="i" class="q-pa-xs" :class="col">
-        <q-card flat bordered>
-          <q-item>
+        <q-card flat bordered class="full-height">
+          <q-item class="full-height">
             <q-item-section avatar v-if="s.icon">
               <q-avatar square>
                 <img :src="s.icon" />
@@ -15,12 +15,17 @@
 
             <q-item-section class="q-ml-md">
               <q-item-label>{{ s.title }}</q-item-label>
-              <q-item-label class="text-h6">{{ s.value }}</q-item-label>
-              <q-item-label caption class="text-green">
-                <template v-if="s.progress">
-                  {{ $t("sinceLastSevenDays", { sign: "+", value: s.progress }) }}
+              <q-item-label class="text-h6">
+                <span class="q-mr-sm">{{ s.value }}</span>
+                <wbr>
+                <span v-if="s.ratio" class="text-caption text-no-wrap">{{ $t("ratio", { value: s.ratio.toFixed(1) }) }}</span>
+              </q-item-label>
+              <q-item-label caption v-if="s.progress" class="text-green">
+                {{ $t("sinceLastSevenDays", { sign: "+", value: s.progress }) }}
+                <br>
+                <template v-if="s.progressRatio">
+                  {{ $t("ratio", { value: s.progressRatio.toFixed(1) }) }}
                 </template>
-                <wbr />
               </q-item-label>
             </q-item-section>
           </q-item>
@@ -40,7 +45,9 @@ export default class Stats extends Vue {
     icon: string;
     title: string;
     value: number;
+    ratio: number;
     progress: number;
+    progressRatio: number;
   }[];
 }
 </script>

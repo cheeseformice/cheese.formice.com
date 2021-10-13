@@ -27,7 +27,7 @@ export default {
   redirect: "If you are not being redirected, {open}click here{close}",
 
   members: "Members",
-  mouse: "Normal",
+  mouse: "Mouse",
   shaman: "Shaman",
   profile: "Profile",
   racing: "Racing",
@@ -116,6 +116,7 @@ export default {
   activeMemberCount: "Active member count",
   noMembers: "This tribe has no members",
   sinceLastSevenDays: "{sign}{value} since last 7 days",
+  ratio: "Ratio: {value}%",
 
   // Server healthcheck
   help: {

@@ -20,7 +20,7 @@ export default {
   nothingHere: "Hoppá, valami nem stimmel...Váratlan hiba",
   redirect: "Ha nem kerül átirányításra, {open}kattintson ide{close} ",
   members: "Tagok",
-  mouse: "Normál",
+  mouse: "Egér",
   shaman: "Sámán",
   profile: "Profil",
   racing: "Verseny",

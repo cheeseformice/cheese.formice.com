@@ -20,7 +20,7 @@ export default {
   nothingHere: "Oops. Nu e nimic aici...",
   redirect: "Dacă nu ești redirecționat, {open}click aici{close}",
   members: "Membri",
-  mouse: "Normal",
+  mouse: "Șoarece",
   shaman: "Șaman",
   profile: "Porfil",
   racing: "Racing",
