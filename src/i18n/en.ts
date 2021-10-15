@@ -103,6 +103,7 @@ export default {
   completedRounds: "Completed Rounds",
   gatheredCheese: "Gathered Cheese",
   cheeseGatheredFirst: "Cheese Gathered First",
+  cheeseGatheredFirstShort: "Firsts",
   cheeseGatheredShaman: "Cheese Gathered as Shaman",
   cheeseGatheredShamanShort: "Shaman Cheese",
   experience: "Experience",
