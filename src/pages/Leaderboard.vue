@@ -40,6 +40,7 @@
         :boundary-numbers="false"
       />
     </div>
+
     <q-table
       flat
       hide-bottom
@@ -103,7 +104,7 @@ export default class Leaderboard extends Vue {
     },
     type: {
       label: "",
-      value: "overall",
+      value: "stats",
     },
     page: 1,
   };
@@ -111,6 +112,28 @@ export default class Leaderboard extends Vue {
 
   // TODO: label key on this array should be from i18n `this.$t("key")`
   get columns(): QTable["columns"] {
+    const defaultColumns: string[][] = [["rounds", "roundsPlayed"], ["cheese", "gatheredCheese"], ["first", "cheeseGatheredFirstShort"], ["savesNormal", "miceSavedNormalShort"], ["score", "score"]];
+
+    const columnMap: Record<LeaderboardType, string[][]> = {
+      "stats": defaultColumns,
+      "rounds": defaultColumns,
+      "cheese": defaultColumns,
+      "first": defaultColumns,
+      "bootcamp": [["bootcamp", "bootcamp"]],
+      "shaman": [["rounds", "roundsPlayed"], ["savesNormal", "miceSavedNormalShort"], ["savesHard", "miceSavedHardShort"], ["savesDivine", "miceSavedDivineShort"], ["cheese", "cheeseGatheredShamanShort"], ["score", "score"]],
+      "racing": [["rounds", "roundsPlayed"], ["finished", "completedRounds"], ["podium", "numberOfPodiums"], ["first", "numberOfFirsts"], ["score", "score"]],
+      "survivor": [["rounds", "roundsPlayed"], ["survivor", "roundsSurvived"], ["shaman", "roundsAsShaman"], ["killed", "killedMice"], ["score", "score"]],
+      "defilante": [["rounds", "roundsPlayed"], ["finished", "completedRounds"], ["points", "pointsGathered"], ["score", "score"]],
+      "overall": [["score", "score"]],
+    };
+
+    const columns = columnMap[this.leaderboardOptions.type.value].map((item: string[]) => ({
+        name: item[0],
+        label: this.$t(item[1]),
+        field: item[0],
+        align: "left",
+    }));
+
     return [
       {
         name: "rank",
@@ -125,12 +148,7 @@ export default class Leaderboard extends Vue {
         field: "name",
         align: "left",
       },
-      {
-        name: "score",
-        label: this.$t("score"),
-        field: "score",
-        align: "left",
-      },
+      ...columns,
     ];
   }
 
@@ -144,16 +162,16 @@ export default class Leaderboard extends Vue {
 
   get typeOptions(): LeaderboardOptions["type"][] {
     const sortNames: LeaderboardType[] = [
-      "overall",
+      "stats",
       "rounds",
       "cheese",
       "first",
       "bootcamp",
-      "stats",
       "shaman",
-      "survivor",
       "racing",
+      "survivor",
       "defilante",
+      "overall",
     ];
     return sortNames.map((n) => ({
       label: this.$t(`sorts.${n}`),
@@ -169,7 +187,7 @@ export default class Leaderboard extends Vue {
 
   mounted() {
     this.leaderboardOptions.period.label = this.$t("periods.overall");
-    this.leaderboardOptions.type.label = this.$t("sorts.overall");
+    this.leaderboardOptions.type.label = this.$t("sorts.stats");
 
     void this.fetchLeaderboard();
   }
@@ -184,7 +202,20 @@ export default class Leaderboard extends Vue {
     this.leaderboard = response.data.page.map((l, i) => ({
       rank: (page - 1) * limit + i + 1,
       name: l.name,
-      score: l[type.value],
+      score: l.score,
+      rounds: l.rounds,
+      cheese: l.cheese,
+      first: l.first,
+      bootcamp: l.bootcamp,
+      savesNormal: l.savesNormal,
+      savesHard: l.savesHard,
+      savesDivine: l.savesDivine,
+      finished: l.finished,
+      podium: l.podium,
+      killed: l.killed,
+      shaman: l.shaman,
+      survivor: l.survivor,
+      points: l.points,
     }));
   }
 }

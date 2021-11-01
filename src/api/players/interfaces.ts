@@ -126,21 +126,12 @@ export interface PlayerChangelogs<T extends number = any> {
   defilante: T extends PlayerChangelogTypes.Defilante ? Log<Defilante> : undefined;
 }
 
-export interface PlayerLeaderboard {
+export interface PlayerLeaderboard extends Mouse, Shaman, Survivor, Racing, Defilante {
   id: number;
   name: string;
   cfmRoles: string[] | null;
   tfmRoles: string[] | null;
-  rounds: number;
-  cheese: number;
-  first: number;
-  bootcamp: number;
-  stats: number;
-  shaman: number;
-  survivor: number;
-  racing: number;
-  defilante: number;
-  overall: number;
+  score: number;
 }
 
 interface Tribe {

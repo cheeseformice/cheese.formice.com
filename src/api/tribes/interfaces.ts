@@ -41,19 +41,10 @@ export interface TribeChangelogs<T extends number = any> {
   defilante: T extends TribeChangelogTypes.Defilante ? Log<Defilante> : undefined;
 }
 
-export interface TribeLeaderboard {
+export interface TribeLeaderboard extends Mouse, Shaman, Survivor, Racing, Defilante {
   id: number;
   name: string;
-  rounds: number;
-  cheese: number;
-  first: number;
-  bootcamp: number;
-  stats: number;
-  shaman: number;
-  survivor: number;
-  racing: number;
-  defilante: number;
-  overall: number;
+  score: number;
 }
 
 export interface Members {
