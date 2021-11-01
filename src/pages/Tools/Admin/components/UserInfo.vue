@@ -3,7 +3,7 @@
     <q-dialog v-model="showError">
       <q-card>
         <q-card-section>
-          <div class="text-h6">Error</div>
+          <div class="text-h6">{{ $t("error") }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
@@ -19,7 +19,7 @@
       </q-card>
     </q-dialog>
 
-    <h5 class="q-my-none">Player Information</h5>
+    <h5 class="q-my-none">{{ $t("rightsManagement") }}</h5>
     <q-separator spaced />
     <div>
       <c-entity-search :players="true" :tribes="false" color="black" :onSelect="selectPlayer" />
@@ -87,10 +87,11 @@
 </template>
 
 <script lang="ts">
-import { AuthService, CfmRole, TfmRole, NullSessionToken, SessionToken } from "src/api";
+import { CfmRole, TfmRole } from "src/api";
 import { mixins } from "vue-property-decorator";
 import { Images } from "src/common/mixins";
 import { RouteLocationRaw } from "vue-router";
+import Auth from "src/auth";
 
 // If we import these interfaces from CEntitySearch.vue, eslint gets bugged lol
 interface Entity {
@@ -120,7 +121,6 @@ const NullSearchOption = <SearchOption>{
 };
 
 export default class UserInfo extends mixins(Images) {
-  session: SessionToken = NullSessionToken;
   player: SearchOption = NullSearchOption;
 
   showError = false;
@@ -134,7 +134,7 @@ export default class UserInfo extends mixins(Images) {
 
   async sendNewRoles(): Promise<boolean> {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const result = await AuthService.updateRoles(this.player.name, this.player.cfmRoles!);
+    const result = await Auth.admin.updateRoles(this.player.name, this.player.cfmRoles!);
     if (result === undefined) {
       return true;
     }
@@ -152,6 +152,7 @@ export default class UserInfo extends mixins(Images) {
     }
 
     if (!dontUpdate && !(await this.sendNewRoles())) {
+      // unsucessful to add role, remove it locally
       await this.removeRole(role, true);
     }
   }
@@ -167,17 +168,9 @@ export default class UserInfo extends mixins(Images) {
     }
 
     if (!dontUpdate && !(await this.sendNewRoles())) {
+      // unsucessful to remove role, add it locally
       await this.addRole(role, true);
     }
-  }
-
-  async mounted() {
-    const session = await AuthService.getSession();
-    if (!session) {
-      return;
-    }
-
-    this.session = session;
   }
 }
 </script>

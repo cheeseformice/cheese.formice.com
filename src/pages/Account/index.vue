@@ -2,32 +2,12 @@
   <q-page class="container text-center q-py-md">
     <div class="row q-col-gutter-md">
       <div class="col-3">
-        <q-card
+        <c-link-section
           v-for="section in links"
           :key="section.key"
-          flat
-          bordered
-          class="q-py-none q-mb-sm text-left"
-        >
-          <div v-if="!!section.label">
-            <q-card-section class="q-py-sm q-px-md">
-              <b>{{ section.label }}</b>
-            </q-card-section>
-            <q-separator />
-          </div>
-          <div
-            v-for="(link, idx) in section.links"
-            :key="link.label"
-            :style="$route.name === link.to.name ? '' : 'cursor: pointer;'"
-            @click="$route.name === link.to.name ? '' : redirect(link.to)"
-          >
-            <q-card-section class="q-py-sm q-px-md">
-              <div class="page-selector" v-if="$route.name === link.to.name"></div>
-              {{ link.label }}
-            </q-card-section>
-            <q-separator v-if="idx < section.links.length - 1" />
-          </div>
-        </q-card>
+          :label="section.label"
+          :links="section.links"
+        />
       </div>
 
       <div class="container col-9 q-ml-md text-left">
@@ -41,24 +21,17 @@
   </q-page>
 </template>
 
-<style lang="scss" scoped>
-.page-selector {
-  position: absolute;
-  height: 100%;
-  width: 3px;
-  background-color: $secondary;
-  left: 0px;
-  top: 0;
-}
-</style>
-
 <script lang="ts">
-import { AuthService, NullPlayer, Player, NullSessionToken, SessionToken } from "src/api";
-import { Vue } from "vue-property-decorator";
+import { Options, Vue } from "vue-property-decorator";
+import { CLinkSection } from "src/components";
+import Auth from "src/auth";
+import { AuthState } from "src/auth/interfaces";
 
+@Options({
+  components: { CLinkSection },
+})
 export default class Account extends Vue {
-  player: Player = NullPlayer;
-  session: SessionToken = NullSessionToken;
+  hook = -1;
 
   get links() {
     const overview = {
@@ -101,33 +74,24 @@ export default class Account extends Vue {
     return [overview, settings];
   }
 
-  async redirect(to: Record<string, string>) {
-    await this.$router.push(to);
-  }
-
-  async redirectIfNecessary() {
-    const player = await AuthService.getPlayerInfo();
-    if (!player) {
-      await this.$router.push({ name: "login" });
-      return;
-    }
-
-    const session = await AuthService.getSession();
-    if (!session) {
-      return;
-    }
-
-    this.player = player;
-    this.session = session;
-
-    if (this.$route.name === "account") {
-      await this.$router.push({ name: "accountProfile" });
-      return;
-    }
-  }
-
   mounted() {
-    void this.redirectIfNecessary();
+    this.hook = Auth.hook({ logged: true }, {
+      mismatch: () => {
+        void this.$router.push({ name: "login" });
+        Auth.unhook();
+      },
+      match: (state: AuthState) => {
+        if (!state.logged) { return; } // for the IDE
+
+        if (this.$route.name === "account") {
+          void this.$router.replace({ name: "accountProfile" });
+        }
+      },
+    }, ["all"]);
+  }
+
+  unmounted() {
+    Auth.unhook(this.hook);
   }
 }
 </script>

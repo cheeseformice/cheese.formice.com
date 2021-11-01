@@ -1,23 +1,4 @@
-import { CfmRole, TfmRole } from "../interfaces";
-
-export interface JWT {
-  iat: number;
-  exp: number;
-}
-
-export interface SessionToken extends JWT {
-  user: number;
-  cfmRoles: CfmRole[];
-  tfmRoles: TfmRole[];
-}
-
-export const NullSessionToken: SessionToken = {
-  user: 0,
-  cfmRoles: [],
-  tfmRoles: [],
-  iat: 0,
-  exp: 0,
-};
+import { BasePlayer } from "..";
 
 export interface AuthError {
   success: false;
@@ -38,16 +19,17 @@ export interface TicketResponse extends LoginResponse {
 }
 
 export interface PrivacySettings {
-  names: boolean;
   soulmate: boolean;
   tribe: boolean;
-  look: boolean;
-  activity: boolean;
-  badges: boolean;
   titles: boolean;
   shaman: boolean;
   mouse: boolean;
   survivor: boolean;
   racing: boolean;
   defilante: boolean;
+}
+
+export interface AccountInformation {
+  player: BasePlayer;
+  privacy: PrivacySettings;
 }

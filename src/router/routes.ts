@@ -59,14 +59,14 @@ const routes: RouteRecordRaw[] = [
           {
             path: "mod",
             name: "modPanel",
-            component: () => import("src/pages/Tools/Mod/ModPanel.vue"),
+            component: () => import("src/pages/Tools/Mod/index.vue"),
           },
           {
             path: "admin",
             name: "adminPanel",
-            component: () => import("src/pages/Tools/Admin/AdminPanel.vue"),
+            component: () => import("src/pages/Tools/Admin/index.vue"),
           },
-        ]
+        ],
       },
       {
         path: "leaderboard",

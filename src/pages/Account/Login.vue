@@ -55,7 +55,7 @@
           :label="$t('password')"
           :rules="[(val) => (val && val.length > 0) || '']"
         />
-        <q-checkbox v-model="remindMe" label="Remind me" />
+        <q-checkbox v-model="rememberMe" label="Remember me" />
         <div class="row items-center">
           <div class="col-12 col-sm-6 text-left">
             <q-btn outline color="secondary" type="submit" :label="$t('login')" @click="login" />
@@ -74,7 +74,7 @@
 </template>
 
 <script lang="ts">
-import { AuthService } from "src/api/auth";
+import Auth from "src/auth";
 import { Vue } from "vue-property-decorator";
 
 export default class Login extends Vue {
@@ -83,28 +83,24 @@ export default class Login extends Vue {
   showRegister = false;
   showError = false;
   errorMessage = "";
-  remindMe = false;
-
-  async redirectIfNecessary() {
-    const player = await AuthService.getPlayerInfo();
-    if (!!player) {
-      await this.$router.push({ name: "account" });
-    }
-  }
+  rememberMe = false;
 
   mounted() {
-    void this.redirectIfNecessary();
+    Auth.hook({ logged: false }, {
+      mismatch: () => {
+        void this.$router.push({ name: "account" });
+        Auth.unhook();
+      }
+    }, []);
   }
 
   async login() {
     if (!this.username || !this.password) return;
-    const response = await AuthService.login(this.username, this.password, this.remindMe);
+    const response = await Auth.authenticator.login(this.username, this.password, this.rememberMe);
 
-    if (response.success) {
-      await this.redirectIfNecessary();
-    } else {
+    if (!response.success) {
       this.showError = true;
-      this.errorMessage = response.message;
+      this.errorMessage = response.message || "Something went wrong.";
     }
   }
 

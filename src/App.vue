@@ -4,19 +4,10 @@
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
-import { AuthService } from "./api";
+import Auth from "./auth";
+import { AuthState } from "./auth/interfaces";
 
 export default class App extends Vue {
-  async useTicket(ticket: string, url: URL) {
-    const token = await AuthService.getSessionToken();
-    if (typeof token === "string") {
-      return;
-    } // already logged in
-
-    await AuthService.useTicket(ticket);
-    document.location.replace(url.toString());
-  }
-
   created() {
     this.$q.iconMapFn = (iconName) => {
       if (iconName.startsWith("mdi:") === true) {
@@ -30,10 +21,6 @@ export default class App extends Vue {
   }
 
   mounted() {
-    if (window.localStorage.getItem("login-beta") !== "true") {
-      return;
-    }
-
     const url = new URL(document.location.href);
     const params = url.searchParams;
 
@@ -41,7 +28,20 @@ export default class App extends Vue {
       const ticket = params.get("ticket") as string;
       params.delete("ticket");
 
-      void this.useTicket(ticket, url);
+      window.history.replaceState(null, "CFM", url.toString());
+
+      if (!ticket || window.localStorage.getItem("login-beta") !== "true") {
+        return;
+      }
+
+      Auth.hook({}, {
+        hook: (state: AuthState) => {
+          if (!state.logged) {
+            void Auth.authenticator.useTicket(ticket);
+          }
+          Auth.unhook();
+        }
+      }, []);
     }
   }
 }

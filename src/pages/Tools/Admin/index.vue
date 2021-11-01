@@ -1,34 +1,56 @@
 <template>
-  <user-info />
+  <side-panel :sections="sections">
+    <user-info />
+  </side-panel>
 </template>
 
 <script lang="ts">
-import { AuthService, NullSessionToken, SessionToken } from "src/api";
 import { Options, Vue } from "vue-property-decorator";
+import { SidePanel } from "../components";
 import { UserInfo } from "./components";
+import Auth from "src/auth";
+import { AuthState } from "src/auth/interfaces";
 
 @Options({
-  components: { UserInfo },
+  components: { UserInfo, SidePanel },
 })
 export default class AdminPanel extends Vue {
-  session: SessionToken = NullSessionToken;
+  hook = -1;
 
-  async mounted() {
-    const session = await AuthService.getSession();
-    if (!session) {
-      await this.$router.push({ name: "login" });
-      return;
-    }
+  get sections() {
+    return [
+      {
+        label: this.$t("adminPanel"),
+        links: [
+          {
+            label: this.$t("stats"),
+            to: { name: "home" },
+          },
+          {
+            label: this.$t("rightsManagement"),
+            to: { name: "adminPanel" },
+          },
+        ],
+      },
+    ];
+  }
 
-    this.session = session;
+  mounted() {
+    this.hook = Auth.hook({ player: { cfmRoles: ["admin", "dev"] } }, {
+      mismatch: (state: AuthState) => {
+        console.log(state);
+        if (!state.logged) {
+          void this.$router.replace({ name: "login" });
+        } else {
+          void this.$router.replace({ name: "accountProfile" });
+        }
+      }
+    }, ["player.cfmRoles"]);
+    console.log("admin", this.hook);
+  }
 
-    const isAdm = this.session.cfmRoles.includes("admin");
-    const isDev = this.session.cfmRoles.includes("dev");
-
-    if (!isAdm && !isDev) {
-      await this.$router.push({ name: "accountProfile" });
-      return;
-    }
+  unmounted() {
+    Auth.unhook(this.hook);
   }
 }
 </script>

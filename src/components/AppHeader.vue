@@ -4,13 +4,19 @@
       <q-btn v-if="$q.screen.xs" icon="menu" flat round @click="showDrawer = !showDrawer" />
       <q-tabs v-else>
         <div class="full-height" v-for="link of links" :key="link.label">
-          <q-route-tab exact :to="link.to" :label="link.label" v-if="!!link.to" />
+          <q-route-tab
+            class="link-color"
+            exact
+            :to="link.to"
+            :label="link.label"
+            v-if="!!link.to"
+          />
           <q-btn-dropdown
             auto-close
             stretch
             flat
+            class="full-height link-color"
             :label="link.label"
-            class="full-height"
             content-class="z-max"
             v-if="!!link.dropdown && link.dropdown.length > 1"
           >
@@ -27,6 +33,7 @@
           <div v-if="!!link.dropdown && link.dropdown.length == 1">
             <q-route-tab
               exact
+              class="link-color"
               :to="sub.to"
               :label="sub.label"
               :key="sub.label"
@@ -49,13 +56,19 @@
       <q-tabs stretch v-if="!$q.screen.xs && rightLinks.length > 0">
         <div style="width: 0.3rem" class="full-height"></div>
         <div class="full-height" v-for="link of rightLinks" :key="link.label">
-          <q-route-tab exact :to="link.to" :label="link.label" v-if="!!link.to" />
+          <q-route-tab
+            class="link-color"
+            exact
+            :to="link.to"
+            :label="link.label"
+            v-if="!!link.to"
+          />
           <q-btn-dropdown
             auto-close
             stretch
             flat
             :label="link.label"
-            class="full-height"
+            class="full-height link-color"
             content-class="z-max"
             v-if="!!link.dropdown && link.dropdown.length > 1"
           >
@@ -72,6 +85,7 @@
           <div v-if="!!link.dropdown && link.dropdown.length == 1">
             <q-route-tab
               exact
+              class="link-color"
               :to="sub.to"
               :label="sub.label"
               :key="sub.label"
@@ -111,11 +125,19 @@
   </q-header>
 </template>
 
+<style scoped>
+.link-color {
+  color: #d5d5d5;
+}
+</style>
+
 <script lang="ts">
 import { mixins, Options } from "vue-property-decorator";
-import { AuthService, Player } from "src/api";
+import { BasePlayer } from "src/api";
+import Auth from "src/auth";
 import { Images } from "src/common/mixins";
 import { CEntitySearch } from ".";
+import { AuthState } from "src/auth/interfaces";
 
 interface Callable {
   (): void;
@@ -131,27 +153,14 @@ interface Link {
 
 @Options({ components: { CEntitySearch } })
 export default class AppHeader extends mixins(Images) {
-  player?: void | Player;
+  player?: void | BasePlayer;
   showAccountButton = false;
   showDrawer = false;
 
   links: Link[] = [];
   rightLinks: Link[] = [];
 
-  async logout() {
-    AuthService.logout();
-    await this.updateLinks();
-    await this.$router.push({ name: "home" });
-  }
-
-  async updateLinks() {
-    const loginBeta = window.localStorage.getItem("login-beta");
-    this.player = await AuthService.getPlayerInfo();
-    this.showAccountButton = !!this.player || loginBeta === "true";
-
-    this.links = this.getLinks();
-    this.rightLinks = this.getRightLinks();
-  }
+  hook = -1;
 
   getLinks(): Link[] {
     const dropdown: Link[] = [];
@@ -226,7 +235,7 @@ export default class AppHeader extends mixins(Images) {
           {
             label: this.$t("logout"),
             icon: "logout",
-            click: () => this.logout(),
+            click: () => Auth.authenticator.logout(),
           },
         ],
       },
@@ -237,7 +246,25 @@ export default class AppHeader extends mixins(Images) {
     this.links = this.getLinks();
     this.rightLinks = this.getRightLinks();
 
-    void this.updateLinks();
+    this.hook = Auth.hook({}, {
+      match: (state: AuthState) => {
+        const loginBeta = window.localStorage.getItem("login-beta");
+        if (state.logged) {
+          this.player = state.player;
+        } else {
+          this.player = undefined;
+        }
+
+        this.showAccountButton = state.logged || loginBeta === "true";
+
+        this.links = this.getLinks();
+        this.rightLinks = this.getRightLinks();
+      }
+    }, ["all"]);
+  }
+
+  unmounted() {
+    Auth.unhook(this.hook);
   }
 }
 </script>
