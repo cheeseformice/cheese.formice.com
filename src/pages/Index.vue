@@ -47,6 +47,9 @@
         <q-list dense bordered padding class="rounded-borders bg-white">
           <q-item key="title">
             <q-item-section class="q-table__title">{{ $t("topTenPlayers") }}</q-item-section>
+            <router-link :to="{ name: 'playerLeaderboard' }">
+              <q-btn outline no-caps dense class="q-px-sm" :label="$t('showMore')" color="secondary" />
+            </router-link>
           </q-item>
           <q-item
             v-for="player in leaderboard"
@@ -157,7 +160,7 @@ export default class PageIndex extends Vue {
   }
 
   async fetchLeaderboard() {
-    const response = await PlayersService.getLeaderboard("overall", "overall", {
+    const response = await PlayersService.getLeaderboard("stats", "overall", {
       page: 1,
       limit: 10,
     });
