@@ -68,9 +68,10 @@
               v-for="(badge, i) in badges"
               :key="i"
               :src="badge"
+              loading="lazy"
               height="40px"
               width="40px"
-              spinner-size="32px"
+              no-spinner
             />
           </div>
         </q-scroll-area>
