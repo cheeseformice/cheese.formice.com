@@ -3,5 +3,5 @@
 <script lang="ts">
 import { Vue } from "vue-property-decorator";
 
-export default class AccountProfile extends Vue {}
+export default class AccountPrivacy extends Vue {}
 </script>

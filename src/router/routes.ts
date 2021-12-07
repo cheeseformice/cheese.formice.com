@@ -45,9 +45,9 @@ const routes: RouteRecordRaw[] = [
         component: () => import("src/pages/Account/index.vue"),
         children: [
           {
-            path: "profile",
-            name: "accountProfile",
-            component: () => import("src/pages/Account/Profile.vue"),
+            path: "progress",
+            name: "accountProgress",
+            component: () => import("src/pages/Account/Progress.vue"),
           },
         ],
       },

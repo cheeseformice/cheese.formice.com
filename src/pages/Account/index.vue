@@ -39,27 +39,9 @@ export default class Account extends Vue {
       label: this.$t("accountOverview"),
       links: [
         {
-          label: this.$t("profile"),
-          to: { name: "accountProfile" },
-        },
-        {
           label: this.$t("progress"),
           to: { name: "accountProgress" },
         },
-        {
-          label: this.$t("stats"),
-          to: { name: "accountStats" },
-        },
-        {
-          label: this.$t("sanctions"),
-          to: { name: "accountSanctions" },
-        },
-      ],
-    };
-    const settings = {
-      key: "settings",
-      label: this.$t("accountSettings"),
-      links: [
         {
           label: this.$t("preferences"),
           to: { name: "accountPreferences" },
@@ -71,23 +53,29 @@ export default class Account extends Vue {
       ],
     };
 
-    return [overview, settings];
+    return [overview];
   }
 
   mounted() {
-    this.hook = Auth.hook({ logged: true }, {
-      mismatch: () => {
-        void this.$router.push({ name: "login" });
-        Auth.unhook();
-      },
-      match: (state: AuthState) => {
-        if (!state.logged) { return; } // for the IDE
+    this.hook = Auth.hook(
+      { logged: true },
+      {
+        mismatch: () => {
+          void this.$router.push({ name: "login" });
+          Auth.unhook();
+        },
+        match: (state: AuthState) => {
+          if (!state.logged) {
+            return;
+          } // for the IDE
 
-        if (this.$route.name === "account") {
-          void this.$router.replace({ name: "accountProfile" });
-        }
+          if (this.$route.name === "account") {
+            void this.$router.replace({ name: "accountProgress" });
+          }
+        },
       },
-    }, ["all"]);
+      ["all"]
+    );
   }
 
   unmounted() {
