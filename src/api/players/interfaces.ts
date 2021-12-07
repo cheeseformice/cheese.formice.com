@@ -20,6 +20,8 @@ export interface Player extends BasePlayer {
   badges: string[];
   titles: string[];
   stats: Stats;
+  disqualified: boolean;
+  canQualify: boolean;
   period: Stats & {
     start: string;
     end: string;
@@ -76,6 +78,8 @@ export const NullPlayer: Player = {
   badges: [],
   titles: [],
   stats: NullStats,
+  disqualified: false,
+  canQualify: false,
   period: {
     ...NullStats,
     start: "2021-08-26",

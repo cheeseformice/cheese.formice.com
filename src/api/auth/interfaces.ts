@@ -32,4 +32,6 @@ export interface PrivacySettings {
 export interface AccountInformation {
   player: BasePlayer;
   privacy: PrivacySettings;
+  disqualified: boolean;
+  canQualify: boolean;
 }
