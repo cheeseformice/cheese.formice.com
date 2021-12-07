@@ -41,7 +41,7 @@ export default class Authenticator {
     this.refresh = window.localStorage.getItem("refresh") || undefined;
     this.session = window.sessionStorage.getItem("session") || undefined;
 
-    if (this.refresh || this.session) {
+    if (this.refresh) {
       void this.checkAccount();
     } else {
       this.setAccount(undefined);
@@ -137,17 +137,27 @@ export default class Authenticator {
   async getSession(ignoreError?: false): Promise<string>;
   async getSession(ignoreError: true): Promise<string | undefined>;
   async getSession(ignoreError?: boolean) {
-    if (!this.session || !this.refresh) {
-      if (ignoreError) { return; }
+    if (!this.refresh) {
+      if (ignoreError) {
+        return;
+      }
       throw new Error("No session available.");
     }
 
     const refresh = camelCaseDict(jwtDecode<JWT>(this.refresh));
-    const session = camelCaseDict(jwtDecode<JWT>(this.session));
     const now = new Date().getTime() / 1000;
 
-    // account for 5 seconds of latency, just in case
-    if (now >= session.exp - 5) {
+    let session: JWT;
+    let expiredSession: boolean;
+    if (!this.session) {
+      expiredSession = true;
+    } else {
+      session = camelCaseDict(jwtDecode<JWT>(this.session));
+      // account for 5 seconds of latency, just in case
+      expiredSession = now >= session.exp - 5;
+    }
+
+    if (expiredSession) {
       if (now < refresh.exp - 5) {
         const response = await AuthService.refresh(this.refresh);
         if (response.data.success) {
