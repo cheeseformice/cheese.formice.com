@@ -157,7 +157,7 @@ export default class PageIndex extends Vue {
   }
 
   async fetchLeaderboard() {
-    const response = await PlayersService.getLeaderboard("overall", "overall", {
+    const response = await PlayersService.getLeaderboard("stats", "overall", {
       page: 1,
       limit: 10,
     });
