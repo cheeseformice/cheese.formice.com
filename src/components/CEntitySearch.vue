@@ -77,7 +77,10 @@ export default class CEntitySearch extends mixins(Images) {
   content = "";
 
   async search(keyword: string, update: (v: unknown) => void) {
-    if (!keyword) return;
+    if (!keyword)
+      return update(() => {
+        /* Empty function just so the popup shows again */
+      });
     const promises = [];
 
     if (this.players) {
