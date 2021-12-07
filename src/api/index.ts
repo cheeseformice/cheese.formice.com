@@ -1,5 +1,6 @@
 export * from "./auth";
 export * from "./healthcheck";
+export * from "./mod";
 export * from "./players";
 export * from "./translations";
 export * from "./tribes";
