@@ -57,11 +57,6 @@ const routes: RouteRecordRaw[] = [
         component: () => import("src/pages/Tools/index.vue"),
         children: [
           {
-            path: "mod",
-            name: "modPanel",
-            component: () => import("src/pages/Tools/Mod/index.vue"),
-          },
-          {
             path: "admin",
             name: "adminPanel",
             component: () => import("src/pages/Tools/Admin/index.vue"),
