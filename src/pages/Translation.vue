@@ -308,7 +308,7 @@ export default class Translation extends Vue {
           if (!state.logged) {
             void this.$router.replace({ name: "login" });
           } else {
-            void this.$router.replace({ name: "accountProfile" });
+            void this.$router.replace({ name: "account" });
           }
         },
       },
