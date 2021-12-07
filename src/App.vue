@@ -6,6 +6,7 @@
 import { Vue } from "vue-class-component";
 import Auth from "./auth";
 import { AuthState } from "./auth/interfaces";
+import { controller } from "src/components/NoticeHandler/controller";
 
 export default class App extends Vue {
   created() {
@@ -18,6 +19,20 @@ export default class App extends Vue {
         };
       }
     };
+  }
+
+  async useTicket(ticket: string) {
+    const response = await Auth.authenticator.useTicket(ticket);
+
+    if (!response.hasPassword) {
+      const key = "notices.missingPassword";
+      const shownNotice = window.sessionStorage.getItem(key) === "true";
+
+      if (!shownNotice) {
+        controller.showNotice("info", key);
+        window.sessionStorage.setItem(key, "true");
+      }
+    }
   }
 
   mounted() {
@@ -34,14 +49,18 @@ export default class App extends Vue {
         return;
       }
 
-      Auth.hook({}, {
-        hook: (state: AuthState) => {
-          if (!state.logged) {
-            void Auth.authenticator.useTicket(ticket);
-          }
-          Auth.unhook();
-        }
-      }, []);
+      Auth.hook(
+        {},
+        {
+          hook: (state: AuthState) => {
+            if (!state.logged) {
+              void this.useTicket(ticket);
+            }
+            Auth.unhook();
+          },
+        },
+        []
+      );
     }
   }
 }
