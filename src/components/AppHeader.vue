@@ -169,13 +169,13 @@ export default class AppHeader extends mixins(Images) {
       if (this.player && this.player.cfmRoles) {
         const hasDev = this.player.cfmRoles.includes("dev");
         const hasAdm = this.player.cfmRoles.includes("admin");
-        const hasMod = this.player.cfmRoles.includes("mod");
+        const hasTra = this.player.cfmRoles.includes("translator");
 
-        (hasDev || hasAdm || hasMod) &&
+        (hasDev || hasAdm || hasTra) &&
           dropdown.push({
-            label: this.$t("modPanel"),
+            label: this.$t("translation"),
             icon: "admin_panel_settings",
-            to: { name: "modPanel" },
+            to: { name: "translation" },
           });
         (hasDev || hasAdm) &&
           dropdown.push({

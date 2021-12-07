@@ -63,10 +63,6 @@ export default class AppFooter extends Vue {
         title: this.$t("contribute"),
         items: [
           {
-            label: this.$t("translation"),
-            to: { name: "translation" },
-          },
-          {
             label: this.$t("sourceCode"),
             to: { name: "github" },
           },

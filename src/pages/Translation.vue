@@ -177,6 +177,8 @@
 import { Vue, Watch } from "vue-property-decorator";
 import i18n from "src/i18n";
 import { QTable, copyToClipboard } from "quasar";
+import Auth from "src/auth";
+import { AuthState } from "src/auth/interfaces";
 
 interface TranslationFields {
   [key: string]: string | TranslationFields;
@@ -207,6 +209,8 @@ export default class Translation extends Vue {
   emptyKeys = 0;
   importInput = "";
   result = "";
+
+  hook = -1;
 
   get tableColumns(): QTable["columns"] {
     return [
@@ -296,6 +300,24 @@ export default class Translation extends Vue {
         value: code,
       })),
     ];
+
+    this.hook = Auth.hook(
+      { player: { cfmRoles: ["translator", "admin", "dev"] } },
+      {
+        mismatch: (state: AuthState) => {
+          if (!state.logged) {
+            void this.$router.replace({ name: "login" });
+          } else {
+            void this.$router.replace({ name: "accountProfile" });
+          }
+        },
+      },
+      ["player.cfmRoles"]
+    );
+  }
+
+  unmounted() {
+    Auth.unhook(this.hook);
   }
 
   @Watch("selectedLanguage", { deep: true })
