@@ -228,7 +228,7 @@ export default class AppHeader extends mixins(Images) {
             to: { name: "player", params: { playerName: this.player.name } },
           },
           {
-            label: this.$t("settings"),
+            label: this.$t("account"),
             icon: "settings",
             to: { name: "account" },
           },
