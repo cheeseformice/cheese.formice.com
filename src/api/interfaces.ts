@@ -5,6 +5,7 @@ export type Log<T> = {
 };
 
 export interface ErrorResponse {
+  success: false;
   status: number;
   error?: string;
   message?: string;
