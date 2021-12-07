@@ -20,7 +20,9 @@ export default class AuthAPI {
   public getState(ignoreError: true): AuthState | undefined;
   public getState(ignoreError?: boolean) {
     if (!this.state) {
-      if (ignoreError) { return; }
+      if (ignoreError) {
+        return;
+      }
       throw new Error("No state was set.");
     }
 
@@ -32,7 +34,7 @@ export default class AuthAPI {
 
     this.previousState = this.state;
     if (!account) {
-      this.state = {logged: false};
+      this.state = { logged: false };
     } else {
       this.state = {
         logged: true,

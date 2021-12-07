@@ -48,7 +48,14 @@
           <q-item key="title">
             <q-item-section class="q-table__title">{{ $t("topTenPlayers") }}</q-item-section>
             <router-link :to="{ name: 'playerLeaderboard' }">
-              <q-btn outline no-caps dense class="q-px-sm" :label="$t('showMore')" color="secondary" />
+              <q-btn
+                outline
+                no-caps
+                dense
+                class="q-px-sm"
+                :label="$t('showMore')"
+                color="secondary"
+              />
             </router-link>
           </q-item>
           <q-item

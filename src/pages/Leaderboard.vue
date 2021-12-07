@@ -112,26 +112,56 @@ export default class Leaderboard extends Vue {
 
   // TODO: label key on this array should be from i18n `this.$t("key")`
   get columns(): QTable["columns"] {
-    const defaultColumns: string[][] = [["rounds", "roundsPlayed"], ["cheese", "gatheredCheese"], ["first", "cheeseGatheredFirstShort"], ["savesNormal", "miceSavedNormalShort"], ["score", "score"]];
+    const defaultColumns: string[][] = [
+      ["rounds", "roundsPlayed"],
+      ["cheese", "gatheredCheese"],
+      ["first", "cheeseGatheredFirstShort"],
+      ["savesNormal", "miceSavedNormalShort"],
+      ["score", "score"],
+    ];
 
     const columnMap: Record<LeaderboardType, string[][]> = {
-      "stats": defaultColumns,
-      "rounds": defaultColumns,
-      "cheese": defaultColumns,
-      "first": defaultColumns,
-      "bootcamp": [["bootcamp", "bootcamp"]],
-      "shaman": [["rounds", "roundsPlayed"], ["savesNormal", "miceSavedNormalShort"], ["savesHard", "miceSavedHardShort"], ["savesDivine", "miceSavedDivineShort"], ["cheese", "cheeseGatheredShamanShort"], ["score", "score"]],
-      "racing": [["rounds", "roundsPlayed"], ["finished", "completedRounds"], ["podium", "numberOfPodiums"], ["first", "numberOfFirsts"], ["score", "score"]],
-      "survivor": [["rounds", "roundsPlayed"], ["survivor", "roundsSurvived"], ["shaman", "roundsAsShaman"], ["killed", "killedMice"], ["score", "score"]],
-      "defilante": [["rounds", "roundsPlayed"], ["finished", "completedRounds"], ["points", "pointsGathered"], ["score", "score"]],
-      "overall": [["score", "score"]],
+      stats: defaultColumns,
+      rounds: defaultColumns,
+      cheese: defaultColumns,
+      first: defaultColumns,
+      bootcamp: [["bootcamp", "bootcamp"]],
+      shaman: [
+        ["rounds", "roundsPlayed"],
+        ["savesNormal", "miceSavedNormalShort"],
+        ["savesHard", "miceSavedHardShort"],
+        ["savesDivine", "miceSavedDivineShort"],
+        ["cheese", "cheeseGatheredShamanShort"],
+        ["score", "score"],
+      ],
+      racing: [
+        ["rounds", "roundsPlayed"],
+        ["finished", "completedRounds"],
+        ["podium", "numberOfPodiums"],
+        ["first", "numberOfFirsts"],
+        ["score", "score"],
+      ],
+      survivor: [
+        ["rounds", "roundsPlayed"],
+        ["survivor", "roundsSurvived"],
+        ["shaman", "roundsAsShaman"],
+        ["killed", "killedMice"],
+        ["score", "score"],
+      ],
+      defilante: [
+        ["rounds", "roundsPlayed"],
+        ["finished", "completedRounds"],
+        ["points", "pointsGathered"],
+        ["score", "score"],
+      ],
+      overall: [["score", "score"]],
     };
 
     const columns = columnMap[this.leaderboardOptions.type.value].map((item: string[]) => ({
-        name: item[0],
-        label: this.$t(item[1]),
-        field: item[0],
-        align: "left",
+      name: item[0],
+      label: this.$t(item[1]),
+      field: item[0],
+      align: "left",
     }));
 
     return [

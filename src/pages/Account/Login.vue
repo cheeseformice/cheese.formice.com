@@ -86,12 +86,16 @@ export default class Login extends Vue {
   rememberMe = false;
 
   mounted() {
-    Auth.hook({ logged: false }, {
-      mismatch: () => {
-        void this.$router.push({ name: "account" });
-        Auth.unhook();
-      }
-    }, []);
+    Auth.hook(
+      { logged: false },
+      {
+        mismatch: () => {
+          void this.$router.push({ name: "account" });
+          Auth.unhook();
+        },
+      },
+      []
+    );
   }
 
   async login() {

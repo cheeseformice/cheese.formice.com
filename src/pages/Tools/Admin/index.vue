@@ -36,17 +36,19 @@ export default class AdminPanel extends Vue {
   }
 
   mounted() {
-    this.hook = Auth.hook({ player: { cfmRoles: ["admin", "dev"] } }, {
-      mismatch: (state: AuthState) => {
-        console.log(state);
-        if (!state.logged) {
-          void this.$router.replace({ name: "login" });
-        } else {
-          void this.$router.replace({ name: "accountProfile" });
-        }
-      }
-    }, ["player.cfmRoles"]);
-    console.log("admin", this.hook);
+    this.hook = Auth.hook(
+      { player: { cfmRoles: ["admin", "dev"] } },
+      {
+        mismatch: (state: AuthState) => {
+          if (!state.logged) {
+            void this.$router.replace({ name: "login" });
+          } else {
+            void this.$router.replace({ name: "accountProfile" });
+          }
+        },
+      },
+      ["player.cfmRoles"]
+    );
   }
 
   unmounted() {

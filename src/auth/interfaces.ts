@@ -17,10 +17,12 @@ export interface AuthCallbacks {
   match: AuthCallback;
   mismatch: AuthCallback;
   unhook: AuthCallback;
-};
+}
 
 export type RecursivePartial<T> = {
-  [K in keyof T]?: T[K] extends Array<infer R> ? Array<RecursivePartial<R>> : RecursivePartial<T[K]>;
+  [K in keyof T]?: T[K] extends Array<infer R>
+    ? Array<RecursivePartial<R>>
+    : RecursivePartial<T[K]>;
 };
 
 export interface Hook {

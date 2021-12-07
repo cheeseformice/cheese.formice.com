@@ -17,10 +17,16 @@
               <q-item-label>{{ s.title }}</q-item-label>
               <q-item-label class="text-h6">
                 <span class="q-mr-sm">{{ s.value }}</span>
-                <wbr>
-                <span v-if="s.ratio" class="text-caption text-no-wrap">{{ $t("ratio", { value: s.ratio.toFixed(1) }) }}</span>
+                <wbr />
+                <span v-if="s.ratio" class="text-caption text-no-wrap">{{
+                  $t("ratio", { value: s.ratio.toFixed(1) })
+                }}</span>
               </q-item-label>
-              <q-item-label caption v-if="s.progress !== 0" :class="s.progress >= 0 ? 'text-green' : 'text-red'">
+              <q-item-label
+                caption
+                v-if="s.progress !== 0"
+                :class="s.progress >= 0 ? 'text-green' : 'text-red'"
+              >
                 {{
                   $t("sinceLastSevenDays", {
                     sign: s.progress >= 0 ? "+" : "",

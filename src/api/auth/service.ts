@@ -1,7 +1,13 @@
 import { AxiosResponse } from "axios";
 import { axios } from "../";
 import { CfmRole, ErrorResponse } from "../interfaces";
-import { AuthError, LoginResponse, RefreshResponse, TicketResponse, AccountInformation } from "./interfaces";
+import {
+  AuthError,
+  LoginResponse,
+  RefreshResponse,
+  TicketResponse,
+  AccountInformation,
+} from "./interfaces";
 
 export default class Auth {
   static async useTicket(ticket: string): Promise<AxiosResponse<TicketResponse | AuthError>> {
@@ -41,7 +47,11 @@ export default class Auth {
     return response.status === 204;
   }
 
-  static async updateRoles(accountName: string, roles: CfmRole[], token: string): Promise<ErrorResponse | undefined> {
+  static async updateRoles(
+    accountName: string,
+    roles: CfmRole[],
+    token: string
+  ): Promise<ErrorResponse | undefined> {
     const response: AxiosResponse<unknown> = await axios.put(
       `/users/${accountName.replace("#", "-")}/roles`,
       { roles },

@@ -246,21 +246,25 @@ export default class AppHeader extends mixins(Images) {
     this.links = this.getLinks();
     this.rightLinks = this.getRightLinks();
 
-    this.hook = Auth.hook({}, {
-      match: (state: AuthState) => {
-        const loginBeta = window.localStorage.getItem("login-beta");
-        if (state.logged) {
-          this.player = state.player;
-        } else {
-          this.player = undefined;
-        }
+    this.hook = Auth.hook(
+      {},
+      {
+        match: (state: AuthState) => {
+          const loginBeta = window.localStorage.getItem("login-beta");
+          if (state.logged) {
+            this.player = state.player;
+          } else {
+            this.player = undefined;
+          }
 
-        this.showAccountButton = state.logged || loginBeta === "true";
+          this.showAccountButton = state.logged || loginBeta === "true";
 
-        this.links = this.getLinks();
-        this.rightLinks = this.getRightLinks();
-      }
-    }, ["all"]);
+          this.links = this.getLinks();
+          this.rightLinks = this.getRightLinks();
+        },
+      },
+      ["all"]
+    );
   }
 
   unmounted() {

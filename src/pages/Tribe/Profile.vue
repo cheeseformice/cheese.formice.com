@@ -280,7 +280,7 @@ export default class TribeProfile extends mixins(Images) {
   }
 
   calculateRatio(stat: number, rounds: number) {
-    if (rounds > 0) return (stat / rounds * 100);
+    if (rounds > 0) return (stat / rounds) * 100;
 
     return 0;
   }

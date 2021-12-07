@@ -1,5 +1,12 @@
 import jwtDecode from "jwt-decode";
-import { AccountInformation, AuthError, AuthService, camelCaseDict, LoginResponse, RefreshResponse } from "src/api";
+import {
+  AccountInformation,
+  AuthError,
+  AuthService,
+  camelCaseDict,
+  LoginResponse,
+  RefreshResponse,
+} from "src/api";
 import AuthAPI from "./api";
 import { JWT } from "./interfaces";
 
@@ -15,7 +22,7 @@ const hashPassword = async (password: string): Promise<string> => {
   const hashed = await performHash("SHA-512", password);
   const salt = await performHash("SHA-512", "what are you doing reading this!! dont do it >:(");
   return await performHash("SHA-512", hashed + salt);
-}
+};
 
 interface TicketLoginResponse {
   success: boolean;
@@ -39,7 +46,7 @@ export default class Authenticator {
     } else {
       this.setAccount(undefined);
     }
-  };
+  }
 
   private successfulLogin(response: LoginResponse) {
     this.refresh = response.refresh;
@@ -89,10 +96,14 @@ export default class Authenticator {
     return {
       success: response.data.success,
       hasPassword,
-    }
+    };
   }
 
-  async login(user: string, password: string, remember: boolean): Promise<LoginResponse | AuthError> {
+  async login(
+    user: string,
+    password: string,
+    remember: boolean
+  ): Promise<LoginResponse | AuthError> {
     if (this.api.state?.logged) {
       throw new Error("Trying to log in again when already logged in.");
     }
@@ -147,7 +158,9 @@ export default class Authenticator {
 
       // if the function is still running, session wasn't renewed
       this.logout();
-      if (ignoreError) { return; }
+      if (ignoreError) {
+        return;
+      }
       throw new Error("No session available.");
     }
 

@@ -1,6 +1,13 @@
 import { meetsExpectation } from "src/common/objects";
 import AuthAPI from "./api";
-import { AuthState, Hook, AuthCallbacks, DispatchResult, UserState, RecursivePartial } from "./interfaces";
+import {
+  AuthState,
+  Hook,
+  AuthCallbacks,
+  DispatchResult,
+  UserState,
+  RecursivePartial,
+} from "./interfaces";
 
 /**
  * Handles communication with all the hooks.
@@ -10,20 +17,26 @@ export default class AuthDispatcher {
   hooks: Record<number, Hook> = {};
   hookStack: Hook[] = [];
 
-  constructor(private readonly api: AuthAPI) {};
+  constructor(private readonly api: AuthAPI) {}
 
   getCurrentHook(ignoreError?: false): Hook;
   getCurrentHook(ignoreError: true): Hook | undefined;
   getCurrentHook(ignoreError?: boolean) {
     if (this.hookStack.length === 0) {
-      if (ignoreError) { return; }
+      if (ignoreError) {
+        return;
+      }
       throw new Error("Trying to get current hook outside of a callback.");
     }
 
     return this.hookStack[this.hookStack.length - 1];
   }
 
-  hook(state: RecursivePartial<AuthState>, callbacks: Partial<AuthCallbacks>, dependencies: string[]): number {
+  hook(
+    state: RecursivePartial<AuthState>,
+    callbacks: Partial<AuthCallbacks>,
+    dependencies: string[]
+  ): number {
     const id = ++this.lastHookId;
     this.hooks[id] = {
       id,
@@ -46,27 +59,38 @@ export default class AuthDispatcher {
     }
 
     const hook = this.hooks[hookId];
-    if (!hook) { return; }
+    if (!hook) {
+      return;
+    }
     delete this.hooks[hookId];
 
     this.dispatch(hook, "unhook", true, true);
   }
 
-  dispatch(hook: Hook, callback: keyof AuthCallbacks, callSoon?: boolean, ignoreRemoved?: boolean): DispatchResult {
+  dispatch(
+    hook: Hook,
+    callback: keyof AuthCallbacks,
+    callSoon?: boolean,
+    ignoreRemoved?: boolean
+  ): DispatchResult {
     if (callSoon) {
       // call soon (required if running inside a callback)
       window.setTimeout(() => this.dispatch(hook, callback, false, ignoreRemoved), 1);
-      return {called: false};
+      return { called: false };
     }
 
     if (!this.api.state) {
       throw new Error("Cannot dispatch a callback without a state set previously.");
     }
 
-    if (!ignoreRemoved && this.hooks[hook.id] !== hook) { return {called: false}; } // hook was removed
+    if (!ignoreRemoved && this.hooks[hook.id] !== hook) {
+      return { called: false };
+    } // hook was removed
 
     const fnc = hook.callbacks[callback];
-    if (!fnc) { return {called: false}; }
+    if (!fnc) {
+      return { called: false };
+    }
 
     this.hookStack.push(hook);
     try {

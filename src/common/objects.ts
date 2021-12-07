@@ -1,12 +1,19 @@
-export function meetsExpectation(exp: Record<string, unknown>, obj: Record<string, unknown>): boolean {
+export function meetsExpectation(
+  exp: Record<string, unknown>,
+  obj: Record<string, unknown>
+): boolean {
   for (const key in exp) {
     const expValue = exp[key];
     const objValue = obj[key];
 
-    if (typeof expValue !== typeof objValue) { return false; }
+    if (typeof expValue !== typeof objValue) {
+      return false;
+    }
 
     if (typeof expValue === "object") {
-      if (Array.isArray(expValue) !== Array.isArray(objValue)) { return false; }
+      if (Array.isArray(expValue) !== Array.isArray(objValue)) {
+        return false;
+      }
 
       if (Array.isArray(expValue) && Array.isArray(objValue)) {
         const found: Record<string | number, boolean> = {};
@@ -25,10 +32,14 @@ export function meetsExpectation(exp: Record<string, unknown>, obj: Record<strin
       }
 
       // both dictionaries
-      if (!meetsExpectation(expValue as unknown as Record<string, unknown>, objValue as Record<string, unknown>)) {
+      if (
+        !meetsExpectation(
+          expValue as unknown as Record<string, unknown>,
+          objValue as Record<string, unknown>
+        )
+      ) {
         return false;
       }
-
     } else if (expValue !== objValue) {
       return false;
     }
@@ -37,27 +48,37 @@ export function meetsExpectation(exp: Record<string, unknown>, obj: Record<strin
 }
 
 export function isEqual(a: unknown, b: unknown): boolean {
-  if (typeof a !== typeof b) { return false; }
+  if (typeof a !== typeof b) {
+    return false;
+  }
 
   if (typeof a === "object") {
     if (Array.isArray(a)) {
-      if (!Array.isArray(b)) { return false; }
-      if (a.length !== b.length) { return false; }
+      if (!Array.isArray(b)) {
+        return false;
+      }
+      if (a.length !== b.length) {
+        return false;
+      }
 
       for (let i = 0; i < a.length; i++) {
-        if (!isEqual(a[i], b[i])) { return false; }
+        if (!isEqual(a[i], b[i])) {
+          return false;
+        }
       }
 
       return true;
     } else {
-      const dictA = a as Record<string, unknown>
-      const dictB = b as Record<string, unknown>
+      const dictA = a as Record<string, unknown>;
+      const dictB = b as Record<string, unknown>;
 
       const checked: Record<string, boolean> = {};
 
       for (const key in dictA) {
         checked[key] = true;
-        if (!isEqual(dictA[key], dictB[key])) { return false; }
+        if (!isEqual(dictA[key], dictB[key])) {
+          return false;
+        }
       }
       for (const key in dictB) {
         if (!checked[key]) {
@@ -73,7 +94,11 @@ export function isEqual(a: unknown, b: unknown): boolean {
   }
 }
 
-export function getDifferences(a: Record<string, unknown>, b: Record<string, unknown>, prefix = ""): string[] {
+export function getDifferences(
+  a: Record<string, unknown>,
+  b: Record<string, unknown>,
+  prefix = ""
+): string[] {
   if (prefix) {
     prefix += ".";
   }
@@ -96,7 +121,11 @@ export function getDifferences(a: Record<string, unknown>, b: Record<string, unk
 
     if (typeof childA === "object" && typeof childB == "object") {
       if (!Array.isArray(childA) && !Array.isArray(childB)) {
-        const childUpdates = getDifferences(childA as Record<string, unknown>, childB as Record<string, unknown>, full);
+        const childUpdates = getDifferences(
+          childA as Record<string, unknown>,
+          childB as Record<string, unknown>,
+          full
+        );
         if (childUpdates.length > 0) {
           updates.push(full);
           updates.push(...childUpdates);

@@ -213,7 +213,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: cheese,
         ratio: this.calculateRatio(cheese, rounds),
         progress: progress.cheese,
-        progressRatio: this.calculateRatio(progress.cheese, progress.rounds)
+        progressRatio: this.calculateRatio(progress.cheese, progress.rounds),
       },
       {
         icon: this.getInventory(2254),
@@ -221,7 +221,7 @@ export default class PlayerProfile extends mixins(Images) {
         value: first,
         ratio: this.calculateRatio(first, rounds),
         progress: progress.first,
-        progressRatio: this.calculateRatio(progress.first, progress.rounds)
+        progressRatio: this.calculateRatio(progress.first, progress.rounds),
       },
       {
         icon: this.getInventory(2261),
@@ -340,7 +340,7 @@ export default class PlayerProfile extends mixins(Images) {
   }
 
   calculateRatio(stat: number, rounds: number) {
-    if (rounds > 0) return (stat / rounds * 100);
+    if (rounds > 0) return (stat / rounds) * 100;
 
     return 0;
   }
