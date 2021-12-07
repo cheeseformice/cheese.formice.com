@@ -3,6 +3,7 @@ import { getDifferences } from "src/common/objects";
 import AdminAPI from "./admin";
 import Authenticator from "./authenticator";
 import AuthDispatcher from "./dispatcher";
+import ModAPI from "./mod";
 import { AuthState } from "./interfaces";
 
 export default class AuthAPI {
@@ -12,6 +13,7 @@ export default class AuthAPI {
   public dispatcher = new AuthDispatcher(this);
   public authenticator = new Authenticator(this, this.setAccount.bind(this));
   public admin = new AdminAPI(this);
+  public mod = new ModAPI(this);
 
   public hook = this.dispatcher.hook.bind(this.dispatcher);
   public unhook = this.dispatcher.unhook.bind(this.dispatcher);
