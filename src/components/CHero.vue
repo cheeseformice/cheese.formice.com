@@ -36,6 +36,7 @@
       <div class="container">
         <q-tabs class="text-white" align="left">
           <q-route-tab v-for="tab in tabs" :key="tab.label" :label="tab.label" :to="tab.to" />
+          <q-tab v-for="btn in buttons" :key="btn.label" :label="btn.label" @click="btn.click" />
         </q-tabs>
       </div>
     </div>
@@ -48,6 +49,10 @@ import { RouteLocationRaw } from "vue-router";
 import { CAvatar } from "src/components";
 import { CfmRole, TfmRole } from "src/api";
 
+interface Callback {
+  (): void;
+}
+
 @Options({ components: { CAvatar } })
 export default class Hero extends Vue {
   @Prop({ default: 0 }) id!: number;
@@ -55,6 +60,7 @@ export default class Hero extends Vue {
   @Prop({ default: "" }) title!: string;
   @Prop({ default: "" }) img!: string;
   @Prop({ default: [] }) tabs!: { label: string; to: RouteLocationRaw }[];
+  @Prop({ default: [] }) buttons!: { label: string; click: Callback }[];
   @Prop({ default: [] }) cfmRoles!: CfmRole[];
   @Prop({ default: [] }) tfmRoles!: TfmRole[];
 
