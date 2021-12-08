@@ -26,7 +26,6 @@ export class NoticeController {
 
   showNotice(type: NoticeType, translationKey: string): void {
     this.notices.push({ type, text: translationKey });
-    console.log(this.notices);
     if (this.callback) this.callback("add");
   }
 }
