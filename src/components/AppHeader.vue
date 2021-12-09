@@ -66,6 +66,7 @@
           <q-btn-dropdown
             auto-close
             stretch
+            no-caps
             flat
             :label="link.label"
             class="full-height link-color"
