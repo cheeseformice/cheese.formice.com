@@ -22,6 +22,12 @@ export interface PaginatedResponse<T> {
   page: T[];
 }
 
+export interface LeaderboardPosition {
+  position: number;
+  accurate: boolean;
+  outdated: boolean;
+}
+
 export type LeaderboardType =
   | "rounds"
   | "cheese"

@@ -80,7 +80,13 @@
 <script lang="ts">
 import { Watch, Vue } from "vue-property-decorator";
 import { QTable } from "quasar";
-import { PlayersService, LeaderboardType, TribesService, LeaderboardPeriod } from "src/api";
+import {
+  PlayersService,
+  LeaderboardType,
+  TribesService,
+  LeaderboardPeriod,
+  leaderboardTypes,
+} from "src/api";
 
 interface LeaderboardRow {
   rank: number;
@@ -191,19 +197,7 @@ export default class Leaderboard extends Vue {
   }
 
   get typeOptions(): LeaderboardOptions["type"][] {
-    const sortNames: LeaderboardType[] = [
-      "stats",
-      "rounds",
-      "cheese",
-      "first",
-      "bootcamp",
-      "shaman",
-      "racing",
-      "survivor",
-      "defilante",
-      "overall",
-    ];
-    return sortNames.map((n) => ({
+    return leaderboardTypes.map((n) => ({
       label: this.$t(`sorts.${n}`),
       value: n,
     }));

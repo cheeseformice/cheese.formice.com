@@ -60,6 +60,14 @@ const NullStats: Stats = {
     finished: 0,
     points: 0,
   },
+  score: {
+    stats: 0,
+    shaman: 0,
+    survivor: 0,
+    racing: 0,
+    defilante: 0,
+    overall: 0,
+  },
 };
 
 export const NullPlayer: Player = {
@@ -95,6 +103,7 @@ interface Stats {
   survivor: Survivor;
   racing: Racing;
   defilante: Defilante;
+  score: Scores;
 }
 
 export enum PlayerChangelogTypes {
@@ -178,4 +187,13 @@ interface Survivor {
   killed: number;
   shaman: number;
   survivor: number;
+}
+
+interface Scores {
+  stats: number;
+  shaman: number;
+  survivor: number;
+  racing: number;
+  defilante: number;
+  overall: number;
 }

@@ -1,3 +1,4 @@
+import { LeaderboardType } from "./interfaces";
 import { PlayerChangelogs, PlayerChangelogTypes } from "./players";
 import { TribeChangelogs, TribeChangelogTypes } from "./tribes";
 
@@ -82,3 +83,16 @@ export function camelCaseDict<T = Record<string, unknown>>(dict: T): T {
   }
   return dict;
 }
+
+export const leaderboardTypes: LeaderboardType[] = [
+  "stats",
+  "rounds",
+  "cheese",
+  "first",
+  "bootcamp",
+  "shaman",
+  "racing",
+  "survivor",
+  "defilante",
+  "overall",
+];

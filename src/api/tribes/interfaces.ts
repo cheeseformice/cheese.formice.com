@@ -58,6 +58,7 @@ export interface Stats {
   survivor: Survivor;
   racing: Racing;
   defilante: Defilante;
+  score: Scores;
 }
 
 export interface Defilante {
@@ -92,4 +93,13 @@ export interface Survivor {
   killed: number;
   shaman: number;
   survivor: number;
+}
+
+interface Scores {
+  stats: number;
+  shaman: number;
+  survivor: number;
+  racing: number;
+  defilante: number;
+  overall: number;
 }

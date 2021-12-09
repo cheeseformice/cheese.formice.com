@@ -2,6 +2,22 @@
   <div class="row q-col-gutter-md">
     <div class="col-12 col-lg-2">
       <q-card flat bordered class="q-py-md">
+        <!-- Ranking type selector -->
+        <q-menu
+          v-if="$q.screen.gt.xs && rank.canQualify && !rank.disqualified"
+          target="#player-rank-lb-type-lg"
+        >
+          <leaderboard-selector :callback="selectLeaderboard" />
+        </q-menu>
+        <!-- Couldn't find a better way to make the menu re-attach on screen size change
+              other than duplicating the menu. -->
+        <q-menu
+          v-if="!$q.screen.gt.xs && rank.canQualify && !rank.disqualified"
+          target="#player-rank-lb-type-sm"
+        >
+          <leaderboard-selector :callback="selectLeaderboard" />
+        </q-menu>
+
         <!-- Look -->
         <div class="text-center">
           <svg width="90" viewBox="0 0 100 110">
@@ -15,6 +31,47 @@
 
         <!-- Basic Information -->
         <q-list dense>
+          <q-item v-if="!$q.screen.gt.xs">
+            <q-item-section>
+              <div class="row items-center">
+                <div class="col-auto">
+                  <q-icon name="leaderboard" color="accent" size="24px" class="q-mr-sm">
+                    <q-tooltip
+                      anchor="bottom middle"
+                      self="center middle"
+                      v-if="rank.canQualify && !rank.disqualified && rank.approximate"
+                    >
+                      {{ $t("playerRank.approximate") }}
+                    </q-tooltip>
+                  </q-icon>
+                </div>
+                <div class="col">
+                  <span v-if="!rank.canQualify">
+                    {{ $t("playerRank.cantQualify") }}
+                  </span>
+                  <span v-else-if="rank.disqualified">
+                    {{ $t("playerRank.disqualified") }}
+                  </span>
+                  <div v-else>
+                    <span
+                      v-html="
+                        $t('playerRank.mobile', {
+                          pos: decimal(rank.pos),
+                          total: decimal(rank.total),
+                        })
+                      "
+                    />
+                    <q-badge
+                      outline
+                      class="rank-badge cursor-pointer"
+                      :label="$t(`sorts.${rank.lbType}`).toUpperCase()"
+                      id="player-rank-lb-type-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+            </q-item-section>
+          </q-item>
           <q-item v-for="item in sideItems" :key="item.label">
             <q-item-section>
               <div class="row items-center">
@@ -80,6 +137,16 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+.rank-badge {
+  margin-left: 0.5rem;
+  font-weight: 600;
+  color: $primary;
+  background-color: rgba($accent, 0.6);
+  border: none;
+}
+</style>
+
 <script lang="ts">
 import { mixins, Options } from "vue-property-decorator";
 import { getModule } from "vuex-module-decorators";
@@ -87,12 +154,17 @@ import { getModule } from "vuex-module-decorators";
 import { getExperienceNeeded, getLevel, getTotalExperienceNeeded } from "src/common/level";
 import { Images } from "src/common/mixins";
 import { PlayerModule } from "src/store";
-import { PlayerStats } from "./components";
+import { LeaderboardSelector, PlayerStats } from "./components";
+import { decimal } from "src/common/vars";
+import { LeaderboardType, leaderboardTypes } from "src/api";
 
 @Options({
-  components: { PlayerStats },
+  components: { LeaderboardSelector, PlayerStats },
 })
 export default class PlayerProfile extends mixins(Images) {
+  test = false;
+  decimal = decimal;
+
   get module() {
     return getModule(PlayerModule, this.$store);
   }
@@ -100,6 +172,31 @@ export default class PlayerProfile extends mixins(Images) {
   get player() {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return this.module.player!;
+  }
+
+  mounted() {
+    void this.fetchLeaderboard();
+  }
+
+  selectLeaderboard(type: LeaderboardType) {
+    window.localStorage.setItem("playerRank.sort", type);
+    void this.fetchLeaderboard();
+  }
+
+  async fetchLeaderboard() {
+    let sort = window.localStorage.getItem("playerRank.sort");
+    if (!sort || !leaderboardTypes.includes(sort as LeaderboardType)) {
+      sort = "stats";
+    }
+
+    await this.module.getRank({
+      player: this.player,
+      rank: sort as LeaderboardType,
+    });
+  }
+
+  get rank() {
+    return this.module.rank;
   }
 
   get title() {

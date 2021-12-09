@@ -66,6 +66,7 @@
       :img="banner"
       :cfmRoles="player.cfmRoles"
       :tfmRoles="player.tfmRoles"
+      :rank="module.rank"
     />
     <div class="container q-py-md">
       <router-view v-slot="{ Component }">
@@ -109,9 +110,12 @@ export default class PlayerPage extends mixins(Images) {
     return this.getImage("x_transformice/x_evt/x_evt_03/0or8meuj/map-mongolfiere.jpg");
   }
 
+  get module() {
+    return getModule(PlayerModule, this.$store);
+  }
+
   get player() {
-    const playerModule = getModule(PlayerModule, this.$store);
-    return playerModule.player;
+    return this.module.player;
   }
 
   get tabs() {
@@ -199,25 +203,23 @@ export default class PlayerPage extends mixins(Images) {
 
   @Watch("playerName")
   async onPlayerNameChange() {
-    const playerModule = getModule(PlayerModule, this.$store);
-    playerModule.setPlayer(null);
-    playerModule.setLanguage(this.$i18n.locale);
+    this.module.setPlayer(null);
+    this.module.setLanguage(this.$i18n.locale);
     this.showSanctionDialog = false;
     this.sanctionInfoError = "";
     this.sanctionInformation = null;
 
-    await playerModule.getPlayer(this.playerName);
+    await this.module.getPlayer(this.playerName);
     if (!this.player) return await this.$router.push({ name: "home" });
 
     this.meta.setPlayer(this.player);
-    await playerModule.getChangelogs();
+    await this.module.getChangelogs();
   }
 
   /** SSR */
   async serverPrefetch() {
-    const playerModule = getModule(PlayerModule, this.$store);
-    playerModule.setLanguage(this.$i18n.locale);
-    await playerModule.getPlayer(this.playerName);
+    this.module.setLanguage(this.$i18n.locale);
+    await this.module.getPlayer(this.playerName);
     if (this.player) this.meta.setPlayer(this.player);
   }
 }

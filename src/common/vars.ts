@@ -12,3 +12,18 @@ switch (window.location.hostname) {
 }
 
 export const DOMAIN = tmp;
+
+export const decimal = (x: number): string => {
+  const slices: string[] = [];
+  do {
+    slices.unshift((x % 1000).toString(10));
+    x = Math.floor(x / 1000);
+  } while (x > 0);
+
+  for (let index = 1; index < slices.length; index++) {
+    const padded = "00" + slices[index];
+    slices[index] = padded.substr(-3);
+  }
+
+  return slices.join(",");
+};

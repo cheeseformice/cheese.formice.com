@@ -8,6 +8,7 @@ import {
   SearchOptions,
   PaginatedResponse,
   orderChangelogs,
+  LeaderboardPosition,
 } from "../";
 import {
   BaseTribe,
@@ -105,5 +106,12 @@ export default class Tribes {
         limit,
       },
     });
+  }
+
+  static async getPosition(order: LeaderboardType, value: number): Promise<LeaderboardPosition> {
+    const response: AxiosResponse<LeaderboardPosition> = await axios.get(`/position/${order}`, {
+      params: { value, entity: "tribe" },
+    });
+    return response.data;
   }
 }

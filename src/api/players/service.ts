@@ -8,6 +8,7 @@ import {
   SearchOptions,
   PaginatedResponse,
   orderChangelogs,
+  LeaderboardPosition,
 } from "../";
 import {
   BasePlayer,
@@ -81,6 +82,13 @@ export default class Players {
       `${BASE}/${playerId}/changelogs/${summedTypes}`
     );
     orderChangelogs(response.data);
+    return response.data;
+  }
+
+  static async getPosition(order: LeaderboardType, value: number): Promise<LeaderboardPosition> {
+    const response: AxiosResponse<LeaderboardPosition> = await axios.get(`/position/${order}`, {
+      params: { value, entity: "player" },
+    });
     return response.data;
   }
 }

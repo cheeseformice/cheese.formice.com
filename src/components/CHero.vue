@@ -1,12 +1,12 @@
 <template>
-  <q-parallax :src="img" :height="225">
+  <q-parallax :src="img" :height="250">
     <div class="container">
       <div class="row top-hero q-gutter-x-md items-center">
-        <c-avatar size="128px" :id="id" :tribe="tribe" />
-        <div class="tribe-shadow text-weight-medium text-white text-h3" v-if="tribe">
+        <c-avatar size="128px" :id="id" :tribe="tribe" v-if="$q.screen.gt.sm" />
+        <div :class="tribeClass" v-if="tribe">
           {{ title }}
         </div>
-        <div class="shadow text-h3 soopafresh" v-else>
+        <div :class="playerClass" v-else>
           <span :class="`${namecolor} name`">{{ name }}</span>
           <span class="tag">{{ tag }}</span>
           <div class="row" v-if="cfmRoles.length + tfmRoles.length > 0">
@@ -30,6 +30,39 @@
             />
           </div>
         </div>
+        <q-space v-if="showRank" />
+        <div
+          class="shadow soopafresh rank q-mr-xl"
+          v-if="showRank && rank.canQualify && !rank.disqualified"
+        >
+          <q-tooltip anchor="top middle" self="center middle" class="q-md" v-if="rank.approximate">
+            <span style="font-size: 1.25em">{{ $t("playerRank.approximate") }}</span>
+          </q-tooltip>
+          <span class="text-h4" v-if="rank.pos < 1000">#{{ decimal(rank.pos) }}</span>
+          <span class="text-h5" v-else>#{{ decimal(rank.pos) }}</span>
+          <br />
+          <span>{{ $t("playerRank.total", { total: decimal(rank.total) }) }}</span>
+          <br />
+          <q-badge
+            outline
+            class="rank-badge cursor-pointer"
+            :label="$t(`sorts.${rank.lbType}`).toUpperCase()"
+            id="player-rank-lb-type-lg"
+          />
+        </div>
+        <div class="shadow soopafresh rank q-mr-xl" v-else-if="showRank">
+          <span class="text-h4">?</span><br />
+          <q-badge
+            outline
+            class="rank-badge"
+            :label="
+              (!rank.canQualify
+                ? $t('playerRank.cantQualify')
+                : $t('playerRank.disqualified')
+              ).toUpperCase()
+            "
+          />
+        </div>
       </div>
     </div>
     <div class="absolute-bottom tabs">
@@ -43,15 +76,35 @@
   </q-parallax>
 </template>
 
+<style lang="scss" scoped>
+.rank-badge {
+  color: $rank-color;
+  background-color: rgba($rank-color, 0.6);
+  text-shadow: 1px 1px 2px black, -1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black !important;
+}
+.rank {
+  color: $rank-color;
+  text-align: right;
+  text-shadow: 1px 1px 4px black, -1px 1px 4px black, -1px -1px 4px black, 1px -1px 4px black !important;
+}
+</style>
+
 <script lang="ts">
 import { Options, Prop, Vue } from "vue-property-decorator";
 import { RouteLocationRaw } from "vue-router";
 import { CAvatar } from "src/components";
 import { CfmRole, TfmRole } from "src/api";
+import { RankInfo } from "src/store/modules/Player";
+import { decimal } from "src/common/vars";
 
 interface Callback {
   (): void;
 }
+
+const defaultRank: RankInfo = {
+  canQualify: false,
+  disqualified: false,
+};
 
 @Options({ components: { CAvatar } })
 export default class Hero extends Vue {
@@ -63,6 +116,33 @@ export default class Hero extends Vue {
   @Prop({ default: [] }) buttons!: { label: string; click: Callback }[];
   @Prop({ default: [] }) cfmRoles!: CfmRole[];
   @Prop({ default: [] }) tfmRoles!: TfmRole[];
+  @Prop({ default: defaultRank }) rank!: RankInfo;
+
+  decimal = decimal;
+
+  get tribeClass() {
+    let cls = "tribe-shadow text-weight-medium text-white";
+    if (!this.$q.screen.gt.sm) {
+      cls += " text-h5 q-ml-xl";
+    } else {
+      cls += " text-h3";
+    }
+    return cls;
+  }
+
+  get playerClass() {
+    let cls = "shadow soopafresh";
+    if (!this.$q.screen.gt.sm) {
+      cls += " text-h5 q-ml-xl";
+    } else {
+      cls += " text-h3";
+    }
+    return cls;
+  }
+
+  get showRank() {
+    return !this.tribe && this.$q.screen.gt.xs;
+  }
 
   get name() {
     return this.title.split("#", 2)[0];
