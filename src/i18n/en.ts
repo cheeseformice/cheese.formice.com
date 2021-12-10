@@ -119,6 +119,42 @@ export default {
   sinceLastSevenDays: "{sign}{value} since last 7 days",
   ratio: "Ratio: {value}%",
 
+  notices: {
+    "missingPassword": "Your CFM account does not have a password. Click here to set up one.",
+    "disqualified": "Your account has been disqualified from the leaderboard.",
+    "cantQualify": "Your account does not meet the requirements to be qualified in the leaderboard.",
+  },
+  playerRank: {
+    approximate: "(approximate)",
+    disqualified: "Disqualified",
+    cantQualify: "Can't qualify",
+    total: "of {total}",
+    mobile: "<b>#{pos}</b> of <b>{total}</b>",
+  },
+
+  account: "Account",
+  accountOverview: "Account Overview",
+  progress: "Progress",
+  preferences: "Preferences",
+  privacySettings: "Privacy Settings",
+  logout: "Logout",
+
+  sanction: {
+    btn: "Sanctions",
+    apply: "Apply",
+    cancel: "Cancel",
+    edit: "Edit",
+  },
+
+  staffTools: "Staff Tools",
+  adminPanel: "Admin Panel",
+  stats: "Stats",
+  rightsManagement: "Role Manager",
+
+  showMore: "Show more",
+  close: "Close",
+  error: "Error",
+
   // Server healthcheck
   help: {
     api: "The API is responsible for the functionality of the website",
