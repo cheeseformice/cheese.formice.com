@@ -63,7 +63,6 @@ export default class PlayerModule extends VuexModule {
   @Mutation
   setRank(rank: RankInfo) {
     this.rank = rank;
-    console.log("set rank", rank);
   }
 
   @Mutation
@@ -132,8 +131,8 @@ export default class PlayerModule extends VuexModule {
     //     canQualify: player.canQualify as false,
     //     disqualified: player.disqualified as false,
     //   });
+    //   return;
     // }
-    console.log("get rank", player.name, rank);
 
     let value = 0;
     switch (rank) {
