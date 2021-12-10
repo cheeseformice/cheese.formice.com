@@ -88,8 +88,8 @@ export default class PlayerModule extends VuexModule {
     const response = await PlayersService.getById(name);
     if (response.status === 200) {
       this.setPlayer(response.data);
-      await this.getTitle(response.data.title);
       this.setRank(defaultRank);
+      await this.getTitle(response.data.title);
     } else {
       this.setPlayer(null);
       this.setTitle("");
