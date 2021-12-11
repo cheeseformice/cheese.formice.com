@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { Player, PlayerChangelogs, PlayerChangelogTypes, PlayersService } from "src/api";
+import { Player, PlayerChangelogs, PlayerChangelogTypes, PlayersService, Tribe, TribesService } from "src/api";
 import AuthAPI from "./api";
 
 export default class MiscAPI {
@@ -19,6 +19,13 @@ export default class MiscAPI {
     return await PlayersService.getChangelogs(
       playerId,
       types,
+      await this.api.authenticator.getSession()
+    );
+  }
+
+  async getTribe(playerId: number | string): Promise<AxiosResponse<Tribe>> {
+    return await TribesService.getById(
+      playerId,
       await this.api.authenticator.getSession()
     );
   }
