@@ -2,22 +2,6 @@
   <div class="row q-col-gutter-md">
     <div class="col-12 col-lg-2">
       <q-card flat bordered class="q-py-md">
-        <!-- Ranking type selector -->
-        <q-menu
-          v-if="$q.screen.gt.xs && rank.canQualify && !rank.disqualified"
-          target="#player-rank-lb-type-lg"
-        >
-          <leaderboard-selector :callback="selectLeaderboard" />
-        </q-menu>
-        <!-- Couldn't find a better way to make the menu re-attach on screen size change
-              other than duplicating the menu. -->
-        <q-menu
-          v-if="!$q.screen.gt.xs && rank.canQualify && !rank.disqualified"
-          target="#player-rank-lb-type-sm"
-        >
-          <leaderboard-selector :callback="selectLeaderboard" />
-        </q-menu>
-
         <!-- Look -->
         <div class="text-center">
           <svg width="90" viewBox="0 0 100 110">
@@ -154,12 +138,11 @@ import { getModule } from "vuex-module-decorators";
 import { getExperienceNeeded, getLevel, getTotalExperienceNeeded } from "src/common/level";
 import { Images } from "src/common/mixins";
 import { PlayerModule } from "src/store";
-import { LeaderboardSelector, PlayerStats } from "./components";
+import { PlayerStats } from "./components";
 import { decimal } from "src/common/vars";
-import { LeaderboardType, leaderboardTypes } from "src/api";
 
 @Options({
-  components: { LeaderboardSelector, PlayerStats },
+  components: { PlayerStats },
 })
 export default class PlayerProfile extends mixins(Images) {
   test = false;
@@ -172,27 +155,6 @@ export default class PlayerProfile extends mixins(Images) {
   get player() {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return this.module.player!;
-  }
-
-  mounted() {
-    void this.fetchLeaderboard();
-  }
-
-  selectLeaderboard(type: LeaderboardType) {
-    window.localStorage.setItem("playerRank.sort", type);
-    void this.fetchLeaderboard();
-  }
-
-  async fetchLeaderboard() {
-    let sort = window.localStorage.getItem("playerRank.sort");
-    if (!sort || !leaderboardTypes.includes(sort as LeaderboardType)) {
-      sort = "stats";
-    }
-
-    await this.module.getRank({
-      player: this.player,
-      rank: sort as LeaderboardType,
-    });
   }
 
   get rank() {

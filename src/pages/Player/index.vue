@@ -75,6 +75,22 @@
         <!-- </keep-alive> -->
       </router-view>
     </div>
+
+    <!-- Ranking type selector -->
+    <q-menu
+      v-if="$q.screen.gt.xs && rank.canQualify && !rank.disqualified"
+      target="#player-rank-lb-type-lg"
+    >
+      <leaderboard-selector :callback="selectLeaderboard" />
+    </q-menu>
+    <!-- Couldn't find a better way to make the menu re-attach on screen size change
+          other than duplicating the menu. -->
+    <q-menu
+      v-if="!$q.screen.gt.xs && rank.canQualify && !rank.disqualified"
+      target="#player-rank-lb-type-sm"
+    >
+      <leaderboard-selector :callback="selectLeaderboard" />
+    </q-menu>
   </template>
 </template>
 
@@ -86,12 +102,13 @@ import { CHero } from "src/components";
 import { PlayerModule } from "src/store";
 import { Images } from "src/common/mixins";
 import useReactiveMeta from "./meta";
+import { LeaderboardSelector } from "./components";
 import { setup } from "vue-class-component";
 import Auth from "src/auth";
 import { AuthState } from "src/auth/interfaces";
-import { SanctionInformation } from "src/api";
+import { LeaderboardType, leaderboardTypes, SanctionInformation } from "src/api";
 
-@Options({ components: { CHero } })
+@Options({ components: { CHero, LeaderboardSelector } })
 export default class PlayerPage extends mixins(Images) {
   @Prop() playerName!: string;
 
@@ -116,6 +133,30 @@ export default class PlayerPage extends mixins(Images) {
 
   get player() {
     return this.module.player;
+  }
+
+  selectLeaderboard(type: LeaderboardType) {
+    console.log("test");
+    window.localStorage.setItem("playerRank.sort", type);
+    void this.fetchLeaderboard();
+  }
+
+  async fetchLeaderboard() {
+    if (!this.player) return;
+
+    let sort = window.localStorage.getItem("playerRank.sort");
+    if (!sort || !leaderboardTypes.includes(sort as LeaderboardType)) {
+      sort = "stats";
+    }
+
+    await this.module.getRank({
+      player: this.player,
+      rank: sort as LeaderboardType,
+    });
+  }
+
+  get rank() {
+    return this.module.rank;
   }
 
   get tabs() {
@@ -212,6 +253,7 @@ export default class PlayerPage extends mixins(Images) {
 
     await this.module.getPlayer(this.playerName);
     if (!this.player) return await this.$router.push({ name: "home" });
+    await this.fetchLeaderboard();
 
     this.meta.setPlayer(this.player);
     await this.module.getChangelogs();
