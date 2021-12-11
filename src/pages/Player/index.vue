@@ -178,6 +178,11 @@ export default class PlayerPage extends mixins(Images) {
     this.hook = Auth.hook(
       { player: { cfmRoles: ["mod", "admin", "dev"] } },
       {
+        hook: () => {
+          if (!this.player || this.playerName.toUpperCase() !== this.player?.name.toUpperCase()) {
+            void this.onPlayerNameChange();
+          }
+        },
         match: (state: AuthState) => {
           if (!state.logged) {
             return;
@@ -191,10 +196,6 @@ export default class PlayerPage extends mixins(Images) {
       },
       ["player.cfmRoles"]
     );
-
-    if (!this.player || this.playerName.toUpperCase() !== this.player?.name.toUpperCase()) {
-      void this.onPlayerNameChange();
-    }
   }
 
   unmounted() {

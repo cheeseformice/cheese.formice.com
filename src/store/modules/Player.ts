@@ -7,6 +7,7 @@ import {
   PlayerChangelogs,
   LeaderboardType,
 } from "src/api";
+import Auth from "src/auth";
 
 interface GetRankParameter {
   player: Player;
@@ -84,7 +85,13 @@ export default class PlayerModule extends VuexModule {
 
   @Action
   async getPlayer(name: string) {
-    const response = await PlayersService.getById(name);
+    let response;
+    if (Auth.loggedIn) {
+      response = await Auth.misc.getPlayer(name);
+    } else {
+      response = await PlayersService.getById(name);
+    }
+
     if (response.status === 200) {
       this.setPlayer(response.data);
       this.setRank(defaultRank);
@@ -168,13 +175,19 @@ export default class PlayerModule extends VuexModule {
   @Action
   async getChangelogs() {
     if (!this.player) return;
-    const response = await PlayersService.getChangelogs(this.player.id, [
+    const changelogs = [
       T.Racing,
       T.Shaman,
       T.Survivor,
       T.Defilante,
       T.Mouse,
-    ]);
+    ]
+    let response;
+    if (Auth.loggedIn) {
+      response = await Auth.misc.getPlayerChangelogs(this.player.id, changelogs);
+    } else {
+      response = await PlayersService.getChangelogs(this.player.id, changelogs);
+    }
     this.setChangelogs(response);
     return response;
   }

@@ -4,6 +4,7 @@ import AccountAPI from "./account";
 import AdminAPI from "./admin";
 import Authenticator from "./authenticator";
 import AuthDispatcher from "./dispatcher";
+import MiscAPI from "./misc";
 import ModAPI from "./mod";
 import { AuthState } from "./interfaces";
 
@@ -15,6 +16,7 @@ export default class AuthAPI {
   public authenticator = new Authenticator(this, this.setAccount.bind(this));
   public account = new AccountAPI(this);
   public admin = new AdminAPI(this);
+  public misc = new MiscAPI(this);
   public mod = new ModAPI(this);
 
   public hook = this.dispatcher.hook.bind(this.dispatcher);
@@ -31,6 +33,11 @@ export default class AuthAPI {
     }
 
     return this.state;
+  }
+
+  public get loggedIn(): boolean {
+    if (!this.state) { return false; }
+    return this.state.logged;
   }
 
   private setAccount(account?: AccountInformation) {

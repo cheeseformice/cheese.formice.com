@@ -1,5 +1,6 @@
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators";
 import { Tribe, TribesService, TribeChangelogTypes as T, TribeChangelogs } from "src/api";
+import Auth from "src/auth";
 
 @Module({ namespaced: true, name: "tribe", stateFactory: true })
 export default class TribeModule extends VuexModule {
@@ -24,7 +25,12 @@ export default class TribeModule extends VuexModule {
 
   @Action
   async getTribe(name: string) {
-    const response = await TribesService.getById(name);
+    let response;
+    if (Auth.loggedIn) {
+      response = await Auth.misc.getTribe(name);
+    } else {
+      response = await TribesService.getById(name);
+    }
     this.setTribe(response.status === 200 ? response.data : null);
     return response;
   }

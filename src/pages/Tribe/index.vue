@@ -25,10 +25,13 @@ import { TribeModule } from "src/store";
 import { Images } from "src/common/mixins";
 import useReactiveMeta from "./meta";
 import { setup } from "vue-class-component";
+import Auth from "src/auth";
 
 @Options({ components: { CHero } })
 export default class TribePage extends mixins(Images) {
   @Prop() tribeName!: string;
+
+  hook = -1;
 
   meta = setup(function () {
     const { setTribe } = useReactiveMeta();
@@ -58,10 +61,22 @@ export default class TribePage extends mixins(Images) {
     ];
   }
 
-  async mounted() {
-    if (!this.tribe || this.tribeName.toUpperCase() !== this.tribe?.name.toUpperCase()) {
-      await this.onTribeNameChange();
-    }
+  mounted() {
+    this.hook = Auth.hook(
+      {},
+      {
+        hook: () => {
+          if (!this.tribe || this.tribeName.toUpperCase() !== this.tribe?.name.toUpperCase()) {
+            void this.onTribeNameChange();
+          }
+        }
+      },
+      []
+    );
+  }
+
+  unmounted() {
+    Auth.unhook(this.hook);
   }
 
   @Watch("tribeName")
