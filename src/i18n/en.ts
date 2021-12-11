@@ -5,6 +5,15 @@ export default {
   translation: "Translation",
   language: "Language",
 
+  errors: {
+    internal: "Internal server error",
+    calmDown: "Too many requests!",
+    wrongPassword: "Wrong password",
+    wrongCredentials: "Wrong username or password",
+    accountNotInDb: "Account has been created less than 24 hours ago.",
+    notSanctioned: "The player is not sanctioned.",
+  },
+
   welcome: "Welcome to CheeseForMice!",
   lastTenPlayers: "Last 10 seen players",
   lastTenTribes: "Last 10 seen tribes",
