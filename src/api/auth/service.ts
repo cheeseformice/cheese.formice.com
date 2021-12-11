@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+import { PrivacySettings } from ".";
 import { axios } from "../";
 import { CfmRole, ErrorResponse } from "../interfaces";
 import {
@@ -45,6 +46,22 @@ export default class Auth {
       { headers: { Authorization: `Bearer ${token}` } }
     );
     return response.status === 204;
+  }
+
+  static async updatePrivacy(
+    privacy: Partial<PrivacySettings>,
+    token: string
+  ): Promise<ErrorResponse | true> {
+    const response: AxiosResponse<unknown> = await axios.patch(
+      "/@me/privacy",
+      privacy,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (response.status === 204) {
+      return true;
+    }
+
+    return response.data as ErrorResponse;
   }
 
   static async updateRoles(

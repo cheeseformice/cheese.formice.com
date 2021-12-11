@@ -1,5 +1,6 @@
 import { AccountInformation } from "src/api";
 import { getDifferences } from "src/common/objects";
+import AccountAPI from "./account";
 import AdminAPI from "./admin";
 import Authenticator from "./authenticator";
 import AuthDispatcher from "./dispatcher";
@@ -12,6 +13,7 @@ export default class AuthAPI {
 
   public dispatcher = new AuthDispatcher(this);
   public authenticator = new Authenticator(this, this.setAccount.bind(this));
+  public account = new AccountAPI(this);
   public admin = new AdminAPI(this);
   public mod = new ModAPI(this);
 

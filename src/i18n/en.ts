@@ -131,6 +131,21 @@ export default {
     total: "of {total}",
     mobile: "<b>#{pos}</b> of <b>{total}</b>",
   },
+  privacy: {
+    information:
+      "These are your privacy settings. " +
+      "Turn them off if you don't want other players to see your stat changelogs. " +
+      "Please note that making a field private will still allow other players to see your <b>current</b> stats.",
+
+    soulmate: "Show my soulmate",
+    tribe: "Show my tribe",
+    titles: "Show my titles",
+    shaman: "Show my shaman stats",
+    mouse: "Show my mouse stats",
+    survivor: "Show my survivor stats",
+    racing: "Show my racing stats",
+    defilante: "Show my defilante stats",
+  },
 
   account: "Account",
   accountOverview: "Account Overview",

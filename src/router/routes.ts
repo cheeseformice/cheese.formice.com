@@ -49,6 +49,11 @@ const routes: RouteRecordRaw[] = [
             name: "accountProgress",
             component: () => import("src/pages/Account/Progress.vue"),
           },
+          {
+            path: "privacy",
+            name: "accountPrivacy",
+            component: () => import("src/pages/Account/Privacy.vue"),
+          },
         ],
       },
       {
