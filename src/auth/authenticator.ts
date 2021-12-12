@@ -118,20 +118,22 @@ export default class Authenticator {
     return response.data;
   }
 
-  async changePassword(password: string): Promise<boolean> {
+  async changePassword(oldPassword: string, newPassword: string): Promise<string | undefined | true> {
     if (!this.api.state?.logged) {
       throw new Error("Trying to change password as a guest.");
     }
 
-    password = await hashPassword(password);
+    oldPassword = await hashPassword(oldPassword);
+    newPassword = await hashPassword(newPassword);
     const session = await this.getSession();
-    const success = await AuthService.changePassword(password, session);
+    const success = await AuthService.changePassword(oldPassword, newPassword, session);
 
-    if (success) {
+    if (success === true) {
       this.logout();
+      return true;
     }
 
-    return success;
+    return success.translationKey || success.message;
   }
 
   async getSession(ignoreError?: false): Promise<string>;

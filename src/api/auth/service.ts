@@ -39,13 +39,16 @@ export default class Auth {
     return await axios.get("/@me", { headers: { Authorization: `Bearer ${token}` } });
   }
 
-  static async changePassword(hashedPassword: string, token: string): Promise<boolean> {
-    const response = await axios.post(
+  static async changePassword(oldPassword: string, newPassword: string, token: string): Promise<ErrorResponse | true> {
+    const response: AxiosResponse<ErrorResponse> = await axios.post(
       "/@me/password",
-      { password: hashedPassword },
+      { oldPassword, newPassword },
       { headers: { Authorization: `Bearer ${token}` } }
     );
-    return response.status === 204;
+    if (response.status === 204) {
+      return true;
+    }
+    return response.data;
   }
 
   static async updatePrivacy(

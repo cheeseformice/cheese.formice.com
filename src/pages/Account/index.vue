@@ -50,6 +50,10 @@ export default class Account extends Vue {
           label: this.$t("privacySettings"),
           to: { name: "accountPrivacy" },
         },
+        {
+          label: this.$t("changePassword"),
+          to: { name: "accountPassword" },
+        },
       ],
     };
 

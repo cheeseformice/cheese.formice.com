@@ -128,10 +128,24 @@ export default {
   sinceLastSevenDays: "{sign}{value} since last 7 days",
   ratio: "Ratio: {value}%",
 
+  changePassword: "Change Password",
+  currentPassword: "Your current password",
+  newPassword: "Your new password",
+  repeatPassword: "Repeat your new password",
+  passwordTooShort: "Password must be at least 8 characters long.",
+  passwordMismatch: "The passwords do not match.",
+  save: "Save",
+  changePasswordSuccess: "Password changed",
+  passwordChanged: "Your password has been successfully changed. You will now be logged off.",
+  missingPassword:
+    "You don't have a password in your account. " +
+    "You can set one up to be able to log into CFM without needing to use TFM login.",
+  dontReusePassword: "Please remember to NOT use your Transformice password in Cheeseformice.",
+
   notices: {
-    "missingPassword": "Your CFM account does not have a password. Click here to set up one.",
-    "disqualified": "Your account has been disqualified from the leaderboard.",
-    "cantQualify": "Your account does not meet the requirements to be qualified in the leaderboard.",
+    missingPassword: "Your CFM account does not have a password. Go to your account to set one up.",
+    disqualified: "Your account has been disqualified from the leaderboard.",
+    cantQualify: "Your account does not meet the requirements to be qualified in the leaderboard.",
   },
   playerRank: {
     approximate: "(approximate)",

@@ -25,13 +25,7 @@ export default class App extends Vue {
     const response = await Auth.authenticator.useTicket(ticket);
 
     if (!response.hasPassword) {
-      const key = "notices.missingPassword";
-      const shownNotice = window.sessionStorage.getItem(key) === "true";
-
-      if (!shownNotice) {
-        controller.showNotice("info", key);
-        window.sessionStorage.setItem(key, "true");
-      }
+      controller.showNotice("info", "notices.missingPassword");
     }
   }
 

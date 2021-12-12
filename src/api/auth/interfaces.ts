@@ -34,4 +34,5 @@ export interface AccountInformation {
   privacy: PrivacySettings;
   disqualified: boolean;
   canQualify: boolean;
+  hasPassword: boolean;
 }

@@ -54,6 +54,11 @@ const routes: RouteRecordRaw[] = [
             name: "accountPrivacy",
             component: () => import("src/pages/Account/Privacy.vue"),
           },
+          {
+            path: "password",
+            name: "accountPassword",
+            component: () => import("src/pages/Account/Password.vue"),
+          },
         ],
       },
       {
