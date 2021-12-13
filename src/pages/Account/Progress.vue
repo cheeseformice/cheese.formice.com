@@ -18,7 +18,11 @@
       <div :key="section.title" v-for="section in sections">
         <div class="text-grey q-pl-sm">{{ section.title }}</div>
         <div class="row">
-          <div class="q-pa-xs col-12 col-sm-6 col-md-4 col-lg-3" :key="stat.title" v-for="stat in section.stats">
+          <div
+            class="q-pa-xs col-12 col-sm-6 col-md-4 col-lg-3"
+            :key="stat.title"
+            v-for="stat in section.stats"
+          >
             <q-card flat bordered class="full-height">
               <q-item class="full-height">
                 <q-item-section>
@@ -32,11 +36,16 @@
                   </q-item-label>
                   <q-item-label
                     caption
-                    :class="stat.difference > 0 ? 'text-green' : stat.difference < 0 ? 'text-red' : ''"
+                    :class="
+                      stat.difference > 0 ? 'text-green' : stat.difference < 0 ? 'text-red' : ''
+                    "
                   >
                     {{
                       $t(`progressSince.${period.value}`, {
-                        per: typeof stat.percentage === "number" ? stat.percentage.toFixed(1) : stat.percentage,
+                        per:
+                          typeof stat.percentage === "number"
+                            ? stat.percentage.toFixed(1)
+                            : stat.percentage,
                         diff: stat.difference,
                       })
                     }}
@@ -109,11 +118,16 @@ export default class AccountProgress extends Vue {
         translation: "cheeseGatheredShaman",
         key: "cheese" as keyof typeof recent,
       },
-    ].map(({translation, key}) => ({
+    ].map(({ translation, key }) => ({
       title: this.$t(translation),
       value: recent[key],
       ratio: this.calculateRatio(recent[key], rounds),
-      percentage: last[key] === 0 ? (recent[key] > 0 ? "Inf" : 0) : (recent[key] - last[key]) / last[key] * 100,
+      percentage:
+        last[key] === 0
+          ? recent[key] > 0
+            ? "Inf"
+            : 0
+          : ((recent[key] - last[key]) / last[key]) * 100,
       difference: recent[key] - last[key],
     }));
   }
@@ -143,11 +157,16 @@ export default class AccountProgress extends Vue {
         key: "bootcamp" as keyof typeof recent,
         noRatio: true,
       },
-    ].map(({translation, key, noRatio}) => ({
+    ].map(({ translation, key, noRatio }) => ({
       title: this.$t(translation),
       value: recent[key],
       ratio: noRatio ? 0 : this.calculateRatio(recent[key], rounds),
-      percentage: last[key] === 0 ? (recent[key] > 0 ? "Inf" : 0) : (recent[key] - last[key]) / last[key] * 100,
+      percentage:
+        last[key] === 0
+          ? recent[key] > 0
+            ? "Inf"
+            : 0
+          : ((recent[key] - last[key]) / last[key]) * 100,
       difference: recent[key] - last[key],
     }));
   }
@@ -176,11 +195,16 @@ export default class AccountProgress extends Vue {
         translation: "numberOfFirsts",
         key: "first" as keyof typeof recent,
       },
-    ].map(({translation, key, noRatio}) => ({
+    ].map(({ translation, key, noRatio }) => ({
       title: this.$t(translation),
       value: recent[key],
       ratio: noRatio ? 0 : this.calculateRatio(recent[key], rounds),
-      percentage: last[key] === 0 ? (recent[key] > 0 ? "Inf" : 0) : (recent[key] - last[key]) / last[key] * 100,
+      percentage:
+        last[key] === 0
+          ? recent[key] > 0
+            ? "Inf"
+            : 0
+          : ((recent[key] - last[key]) / last[key]) * 100,
       difference: recent[key] - last[key],
     }));
   }
@@ -209,11 +233,16 @@ export default class AccountProgress extends Vue {
         translation: "roundsSurvived",
         key: "survivor" as keyof typeof recent,
       },
-    ].map(({translation, key, noRatio}) => ({
+    ].map(({ translation, key, noRatio }) => ({
       title: this.$t(translation),
       value: recent[key],
       ratio: noRatio ? 0 : this.calculateRatio(recent[key], rounds),
-      percentage: last[key] === 0 ? (recent[key] > 0 ? "Inf" : 0) : (recent[key] - last[key]) / last[key] * 100,
+      percentage:
+        last[key] === 0
+          ? recent[key] > 0
+            ? "Inf"
+            : 0
+          : ((recent[key] - last[key]) / last[key]) * 100,
       difference: recent[key] - last[key],
     }));
   }
@@ -238,11 +267,16 @@ export default class AccountProgress extends Vue {
         translation: "pointsGathered",
         key: "points" as keyof typeof recent,
       },
-    ].map(({translation, key, noRatio}) => ({
+    ].map(({ translation, key, noRatio }) => ({
       title: this.$t(translation),
       value: recent[key],
       ratio: noRatio ? 0 : this.calculateRatio(recent[key], rounds),
-      percentage: last[key] === 0 ? (recent[key] > 0 ? "Inf" : 0) : (recent[key] - last[key]) / last[key] * 100,
+      percentage:
+        last[key] === 0
+          ? recent[key] > 0
+            ? "Inf"
+            : 0
+          : ((recent[key] - last[key]) / last[key]) * 100,
       difference: recent[key] - last[key],
     }));
   }
@@ -259,22 +293,26 @@ export default class AccountProgress extends Vue {
   }
 
   mounted() {
-    Auth.hook({}, {
-      hook: () => {
-        Auth.unhook();
+    Auth.hook(
+      {},
+      {
+        hook: () => {
+          Auth.unhook();
 
-        const period = window.localStorage.getItem("progressPeriod");
-        for (let index = 0; index < this.periods.length; index++) {
-          const option = this.periods[index];
-          if (option.value === period) {
-            this.period.value = period;
-            break;
+          const period = window.localStorage.getItem("progressPeriod");
+          for (let index = 0; index < this.periods.length; index++) {
+            const option = this.periods[index];
+            if (option.value === period) {
+              this.period.value = period;
+              break;
+            }
           }
-        }
 
-        this.period.label = this.$t(`periods.${this.period.value}`);
-      }
-    }, []);
+          this.period.label = this.$t(`periods.${this.period.value}`);
+        },
+      },
+      []
+    );
   }
 
   async fetchPeriods() {
@@ -299,22 +337,22 @@ export default class AccountProgress extends Vue {
         recent = {
           start: dayjs().day(-13), // previous week to last week's monday
           end: dayjs().day(-7), // last week's sunday
-        }
+        };
       } else {
         recent = {
           start: dayjs().day(-6), // last week's monday
           end: dayjs().day(0), // last sunday
-        }
+        };
       }
       last = {
         start: recent.start?.day(-6),
         end: recent.start?.day(0),
-      }
+      };
     } else {
       last = {
         start: dayjs().date(0).date(0).date(1), // start day of previous to last month
         end: dayjs().date(0).date(0), // last day of previous to last month
-      }
+      };
       recent = {
         start: dayjs().date(0).date(1), // start day of last month
         end: dayjs().date(0), // last day of last month

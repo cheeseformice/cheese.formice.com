@@ -40,14 +40,17 @@ export default class Auth {
   }
 
   static async getProgress(period: Period, token: string): Promise<PeriodStats> {
-    const response: AxiosResponse<PeriodStats> = await axios.get(
-      "/@me/progress",
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    const response: AxiosResponse<PeriodStats> = await axios.get("/@me/progress", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return response.data;
   }
 
-  static async changePassword(oldPassword: string, newPassword: string, token: string): Promise<ErrorResponse | true> {
+  static async changePassword(
+    oldPassword: string,
+    newPassword: string,
+    token: string
+  ): Promise<ErrorResponse | true> {
     const response: AxiosResponse<ErrorResponse> = await axios.post(
       "/@me/password",
       { oldPassword, newPassword },
@@ -63,11 +66,9 @@ export default class Auth {
     privacy: Partial<PrivacySettings>,
     token: string
   ): Promise<ErrorResponse | true> {
-    const response: AxiosResponse<unknown> = await axios.patch(
-      "/@me/privacy",
-      privacy,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    const response: AxiosResponse<unknown> = await axios.patch("/@me/privacy", privacy, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     if (response.status === 204) {
       return true;
     }

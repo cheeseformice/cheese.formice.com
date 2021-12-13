@@ -68,7 +68,7 @@
         type="password"
         class="col-6"
         :label="$t('repeatPassword')"
-        :rules="[(val) => (val === newerModel) || $t('passwordMismatch')]"
+        :rules="[(val) => val === newerModel || $t('passwordMismatch')]"
       />
       <q-btn
         type="submit"
@@ -129,11 +129,11 @@ export default class Password extends Vue {
       this.newer.validate(),
       this.confirm.validate(),
     ]);
-    return result.every(v => v === true);
+    return result.every((v) => v === true);
   }
 
   async submitPassword() {
-    if (!await this.validateInputs()) return;
+    if (!(await this.validateInputs())) return;
 
     this.submitting = true;
     const result = await Auth.authenticator.changePassword(this.currentModel, this.newerModel);

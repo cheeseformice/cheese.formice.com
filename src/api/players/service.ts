@@ -47,11 +47,13 @@ export default class Players {
       headers = { Authorization: `Bearer ${token}` };
     }
     return await axios.get(`${BASE}/${encodeURIComponent(playerId)}`, {
-      params: period ? {
-        start: period.start?.format("YYYY-MM-DD"),
-        end: period.end?.format("YYYY-MM-DD"),
-        recent: period.recent ? "true" : "false",
-      } : undefined,
+      params: period
+        ? {
+            start: period.start?.format("YYYY-MM-DD"),
+            end: period.end?.format("YYYY-MM-DD"),
+            recent: period.recent ? "true" : "false",
+          }
+        : undefined,
       headers,
     });
   }

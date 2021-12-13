@@ -36,7 +36,9 @@ export default class AuthAPI {
   }
 
   public get loggedIn(): boolean {
-    if (!this.state) { return false; }
+    if (!this.state) {
+      return false;
+    }
     return this.state.logged;
   }
 

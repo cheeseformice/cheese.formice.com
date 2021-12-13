@@ -21,7 +21,11 @@ interface ToggleCallback {
 }
 
 class Field {
-  constructor(public key: keyof PrivacySettings, private _public: boolean, private cb: ToggleCallback) {}
+  constructor(
+    public key: keyof PrivacySettings,
+    private _public: boolean,
+    private cb: ToggleCallback
+  ) {}
 
   get public(): boolean {
     return this._public;

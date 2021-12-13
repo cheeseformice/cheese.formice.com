@@ -69,7 +69,7 @@ export default class TribePage extends mixins(Images) {
           if (!this.tribe || this.tribeName.toUpperCase() !== this.tribe?.name.toUpperCase()) {
             void this.onTribeNameChange();
           }
-        }
+        },
       },
       []
     );

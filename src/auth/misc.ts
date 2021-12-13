@@ -1,5 +1,13 @@
 import { AxiosResponse } from "axios";
-import { Period, Player, PlayerChangelogs, PlayerChangelogTypes, PlayersService, Tribe, TribesService } from "src/api";
+import {
+  Period,
+  Player,
+  PlayerChangelogs,
+  PlayerChangelogTypes,
+  PlayersService,
+  Tribe,
+  TribesService,
+} from "src/api";
 import AuthAPI from "./api";
 
 export default class MiscAPI {
@@ -25,10 +33,6 @@ export default class MiscAPI {
   }
 
   async getTribe(playerId: number | string, period?: Period): Promise<AxiosResponse<Tribe>> {
-    return await TribesService.getById(
-      playerId,
-      period,
-      await this.api.authenticator.getSession()
-    );
+    return await TribesService.getById(playerId, period, await this.api.authenticator.getSession());
   }
 }

@@ -118,7 +118,10 @@ export default class Authenticator {
     return response.data;
   }
 
-  async changePassword(oldPassword: string, newPassword: string): Promise<string | undefined | true> {
+  async changePassword(
+    oldPassword: string,
+    newPassword: string
+  ): Promise<string | undefined | true> {
     if (!this.api.state?.logged) {
       throw new Error("Trying to change password as a guest.");
     }

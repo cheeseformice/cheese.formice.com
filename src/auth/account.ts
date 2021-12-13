@@ -4,7 +4,10 @@ import AuthAPI from "./api";
 export default class AccountAPI {
   constructor(private readonly api: AuthAPI) {}
 
-  async updatePrivacyField(key: keyof PrivacySettings, value: boolean): Promise<string | undefined> {
+  async updatePrivacyField(
+    key: keyof PrivacySettings,
+    value: boolean
+  ): Promise<string | undefined> {
     const privacy: Partial<PrivacySettings> = {};
     privacy[key] = value;
 
@@ -20,9 +23,6 @@ export default class AccountAPI {
   }
 
   async getProgress(period: Period): Promise<PeriodStats> {
-    return await AuthService.getProgress(
-      period,
-      await this.api.authenticator.getSession()
-    );
+    return await AuthService.getProgress(period, await this.api.authenticator.getSession());
   }
 }

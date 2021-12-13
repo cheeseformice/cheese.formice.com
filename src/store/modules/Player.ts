@@ -182,13 +182,7 @@ export default class PlayerModule extends VuexModule {
   @Action
   async getChangelogs() {
     if (!this.player) return;
-    const changelogs = [
-      T.Racing,
-      T.Shaman,
-      T.Survivor,
-      T.Defilante,
-      T.Mouse,
-    ]
+    const changelogs = [T.Racing, T.Shaman, T.Survivor, T.Defilante, T.Mouse];
     let response;
     if (Auth.loggedIn) {
       response = await Auth.misc.getPlayerChangelogs(this.player.id, changelogs);
