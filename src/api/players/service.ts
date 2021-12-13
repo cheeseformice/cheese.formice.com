@@ -1,5 +1,4 @@
 import { AxiosResponse } from "axios";
-import dayjs from "dayjs";
 import {
   axios,
   LeaderboardType,
@@ -9,6 +8,7 @@ import {
   PaginatedResponse,
   orderChangelogs,
   LeaderboardPosition,
+  Period,
 } from "../";
 import {
   BasePlayer,
@@ -37,16 +37,21 @@ export default class Players {
   }
 
   /** Get player by name / id */
-  static async getById(playerId: number | string, token?: string): Promise<AxiosResponse<Player>> {
+  static async getById(
+    playerId: number | string,
+    period?: Period,
+    token?: string
+  ): Promise<AxiosResponse<Player>> {
     let headers;
     if (!!token) {
       headers = { Authorization: `Bearer ${token}` };
     }
     return await axios.get(`${BASE}/${encodeURIComponent(playerId)}`, {
-      params: {
-        start: dayjs().subtract(7, "days").format("YYYY-MM-DD"),
-        recent: "true",
-      },
+      params: period ? {
+        start: period.start?.format("YYYY-MM-DD"),
+        end: period.end?.format("YYYY-MM-DD"),
+        recent: period.recent ? "true" : "false",
+      } : undefined,
       headers,
     });
   }

@@ -6,8 +6,10 @@ import {
   PlayerChangelogTypes as T,
   PlayerChangelogs,
   LeaderboardType,
+  Period,
 } from "src/api";
 import Auth from "src/auth";
+import dayjs from "dayjs";
 
 interface GetRankParameter {
   player: Player;
@@ -85,11 +87,16 @@ export default class PlayerModule extends VuexModule {
 
   @Action
   async getPlayer(name: string) {
+    const period: Period = {
+      start: dayjs().subtract(7, "days"),
+      recent: true,
+    };
+
     let response;
     if (Auth.loggedIn) {
-      response = await Auth.misc.getPlayer(name);
+      response = await Auth.misc.getPlayer(name, period);
     } else {
-      response = await PlayersService.getById(name);
+      response = await PlayersService.getById(name, period);
     }
 
     if (response.status === 200) {

@@ -23,11 +23,13 @@ export interface Player extends BasePlayer {
   stats: Stats;
   disqualified: boolean;
   canQualify: boolean;
-  period: Stats & {
-    start: string;
-    end: string;
-  };
+  period: PeriodStats;
 }
+
+export type PeriodStats = Stats & {
+  start: string;
+  end: string;
+};
 
 const NullStats: Stats = {
   shaman: {

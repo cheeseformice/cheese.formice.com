@@ -142,6 +142,12 @@ export default {
     "You can set one up to be able to log into CFM without needing to use TFM login.",
   dontReusePassword: "Please remember to NOT use your Transformice password in Cheeseformice.",
 
+  progressSince: {
+    daily: "{per}% ({diff}) since yesterday",
+    weekly: "{per}% ({diff}) since last week",
+    monthly: "{per}% ({diff}) since last month",
+  },
+
   notices: {
     missingPassword: "Your CFM account does not have a password. Go to your account to set one up.",
     disqualified: "Your account has been disqualified from the leaderboard.",

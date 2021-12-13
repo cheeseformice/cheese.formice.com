@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 export type DateIndex = number;
 
 export type Log<T> = {
@@ -59,3 +61,9 @@ export type TfmRole =
   | "module"
   | "funcorp"
   | "fashion";
+
+export interface Period {
+  start?: Dayjs;
+  end?: Dayjs;
+  recent?: boolean;
+}

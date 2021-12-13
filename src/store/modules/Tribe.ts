@@ -1,6 +1,7 @@
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators";
-import { Tribe, TribesService, TribeChangelogTypes as T, TribeChangelogs } from "src/api";
+import { Tribe, TribesService, TribeChangelogTypes as T, TribeChangelogs, Period } from "src/api";
 import Auth from "src/auth";
+import dayjs from "dayjs";
 
 @Module({ namespaced: true, name: "tribe", stateFactory: true })
 export default class TribeModule extends VuexModule {
@@ -25,11 +26,16 @@ export default class TribeModule extends VuexModule {
 
   @Action
   async getTribe(name: string) {
+    const period: Period = {
+      start: dayjs().subtract(7, "days"),
+      recent: true,
+    };
+
     let response;
     if (Auth.loggedIn) {
-      response = await Auth.misc.getTribe(name);
+      response = await Auth.misc.getTribe(name, period);
     } else {
-      response = await TribesService.getById(name);
+      response = await TribesService.getById(name, period);
     }
     this.setTribe(response.status === 200 ? response.data : null);
     return response;

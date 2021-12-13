@@ -1,4 +1,4 @@
-import { PrivacySettings, AuthService } from "src/api";
+import { PrivacySettings, AuthService, Period, PeriodStats } from "src/api";
 import AuthAPI from "./api";
 
 export default class AccountAPI {
@@ -17,5 +17,12 @@ export default class AccountAPI {
       return;
     }
     return result.message;
+  }
+
+  async getProgress(period: Period): Promise<PeriodStats> {
+    return await AuthService.getProgress(
+      period,
+      await this.api.authenticator.getSession()
+    );
   }
 }

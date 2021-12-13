@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { PrivacySettings } from ".";
-import { axios } from "../";
-import { CfmRole, ErrorResponse } from "../interfaces";
+import { axios, PeriodStats } from "../";
+import { CfmRole, ErrorResponse, Period } from "../interfaces";
 import {
   AuthError,
   LoginResponse,
@@ -37,6 +37,14 @@ export default class Auth {
 
   static async fetchMyself(token: string): Promise<AxiosResponse<AccountInformation>> {
     return await axios.get("/@me", { headers: { Authorization: `Bearer ${token}` } });
+  }
+
+  static async getProgress(period: Period, token: string): Promise<PeriodStats> {
+    const response: AxiosResponse<PeriodStats> = await axios.get(
+      "/@me/progress",
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response.data;
   }
 
   static async changePassword(oldPassword: string, newPassword: string, token: string): Promise<ErrorResponse | true> {
