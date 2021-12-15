@@ -78,12 +78,12 @@
 
 <style lang="scss" scoped>
 .rank-badge {
-  color: $rank-color;
-  background-color: rgba($rank-color, 0.6);
+  color: $secondary;
+  background-color: rgba($secondary, 0.6);
   text-shadow: 1px 1px 2px black, -1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black !important;
 }
 .rank {
-  color: $rank-color;
+  color: $secondary;
   text-align: right;
   text-shadow: 1px 1px 4px black, -1px 1px 4px black, -1px -1px 4px black, 1px -1px 4px black !important;
 }
