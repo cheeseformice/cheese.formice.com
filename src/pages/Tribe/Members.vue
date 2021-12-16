@@ -6,7 +6,14 @@
     <div class="row items-center q-gutter-y-md">
       <div class="col-12">
         <div class="q-col-gutter-md" :class="$q.screen.gt.sm ? 'row float-right' : ''">
-          <q-input outlined :dark="$dark.enabled" dense type="text" v-model="search" :placeholder="$t('search')" />
+          <q-input
+            outlined
+            :dark="$dark.enabled"
+            dense
+            type="text"
+            v-model="search"
+            :placeholder="$t('search')"
+          />
 
           <q-select
             outlined
@@ -36,7 +43,13 @@
 
     <div class="q-gutter-y-sm">
       <div class="q-py-md flex flex-center">
-        <q-pagination v-model="lookup.page" outline :max="totalPages" :max-pages="7" :color="$dark.enabled ? 'dark-contrast' : 'light-contrast'" />
+        <q-pagination
+          v-model="lookup.page"
+          outline
+          :max="totalPages"
+          :max-pages="7"
+          :color="$dark.enabled ? 'dark-contrast' : 'light-contrast'"
+        />
       </div>
 
       <div class="row">
@@ -52,7 +65,13 @@
       </div>
 
       <div class="q-py-md flex flex-center">
-        <q-pagination v-model="lookup.page" outline :max="totalPages" :max-pages="7" :color="$dark.enabled ? 'dark-contrast' : 'light-contrast'" />
+        <q-pagination
+          v-model="lookup.page"
+          outline
+          :max="totalPages"
+          :max-pages="7"
+          :color="$dark.enabled ? 'dark-contrast' : 'light-contrast'"
+        />
       </div>
     </div>
   </div>

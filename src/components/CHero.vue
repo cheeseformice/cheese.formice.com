@@ -68,8 +68,20 @@
     <div class="absolute-bottom tabs">
       <div class="container">
         <q-tabs class="text-white" align="left">
-          <q-route-tab class="text-white" v-for="tab in tabs" :key="tab.label" :label="tab.label" :to="tab.to" />
-          <q-tab class="text-white" v-for="btn in buttons" :key="btn.label" :label="btn.label" @click="btn.click" />
+          <q-route-tab
+            class="text-white"
+            v-for="tab in tabs"
+            :key="tab.label"
+            :label="tab.label"
+            :to="tab.to"
+          />
+          <q-tab
+            class="text-white"
+            v-for="btn in buttons"
+            :key="btn.label"
+            :label="btn.label"
+            @click="btn.click"
+          />
         </q-tabs>
       </div>
     </div>

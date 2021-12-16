@@ -60,7 +60,13 @@
         What types of cookies/tracking technologies do we use?
       </q-card-section>
       <q-card-section>
-        <q-table :rows="tracking" :columns="trackingColumns" row-key="name" wrap-cells :dark="$dark.enabled" />
+        <q-table
+          :rows="tracking"
+          :columns="trackingColumns"
+          row-key="name"
+          wrap-cells
+          :dark="$dark.enabled"
+        />
       </q-card-section>
 
       <q-separator inset />
