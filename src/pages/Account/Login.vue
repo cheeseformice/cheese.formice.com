@@ -3,7 +3,7 @@
     <q-dialog v-model="showError">
       <q-card class="bg-contrast">
         <q-card-section>
-          <div class="text-h6">Error</div>
+          <div class="text-h6">{{ $t("error") }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
@@ -20,16 +20,16 @@
     </q-dialog>
 
     <q-dialog v-model="showRegister">
-      <q-card class="bg-contrast">
+      <q-card class="bg-contrast full-width">
         <q-card-section>
-          <div class="text-h6">Register</div>
+          <div class="text-h6">{{ $t("register") }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          <span class="text-negative">
-            <q-icon name="warning" color="warning" size="1rem" />
-            Registration is currently disabled.<br />
-          </span>
+          {{ $t("registrationInfo") }}<br />
+          <div class="text-center q-mt-sm">
+            <img src="img/register.png" />
+          </div>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -61,10 +61,10 @@
         />
         <q-checkbox v-model="rememberMe" label="Remember me" />
         <div class="row items-center">
-          <div class="col-12 col-sm-6 text-left">
+          <div class="col-6 text-left">
             <q-btn outline color="secondary" type="submit" :label="$t('login')" @click="login" />
           </div>
-          <div class="col-12 col-sm-6 text-right">
+          <div class="col-6 text-right">
             <div
               class="text-secondary cursor-pointer"
               @click="register"
@@ -108,7 +108,11 @@ export default class Login extends Vue {
 
     if (!response.success) {
       this.showError = true;
-      this.errorMessage = response.message || "Something went wrong.";
+      if (response.translationKey) {
+        this.errorMessage = this.$t(`errors.${response.translationKey}`);
+      } else {
+        this.errorMessage = response.message || "Something went wrong.";
+      }
     }
   }
 

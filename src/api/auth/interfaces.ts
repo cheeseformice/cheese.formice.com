@@ -3,6 +3,7 @@ import { BasePlayer } from "..";
 export interface AuthError {
   success: false;
   message: string;
+  translationKey?: string;
 }
 
 export interface RefreshResponse {

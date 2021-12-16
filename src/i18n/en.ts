@@ -192,6 +192,10 @@ export default {
     edit: "Edit",
   },
 
+  registrationInfo:
+    'To register in CFM, first log in to Transformice and open the "Community" tab, as shown in the image. ' +
+    'From there, click "CheeseForMice" and you\'ll be registered.',
+
   staffTools: "Staff Tools",
   adminPanel: "Admin Panel",
   stats: "Stats",
