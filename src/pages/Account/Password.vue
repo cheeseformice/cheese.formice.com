@@ -47,6 +47,8 @@
         dense
         type="password"
         class="col-6"
+        :dark="$dark.enabled"
+        standout="text-contrast"
         :label="$t('currentPassword')"
         :rules="[(val) => (val && val.length > 0) || '']"
       />
@@ -57,6 +59,8 @@
         dense
         type="password"
         class="col-6"
+        :dark="$dark.enabled"
+        standout="text-contrast"
         :label="$t('newPassword')"
         :rules="[(val) => (val && val.length >= 8) || $t('passwordTooShort')]"
       />
@@ -67,6 +71,8 @@
         dense
         type="password"
         class="col-6"
+        :dark="$dark.enabled"
+        standout="text-contrast"
         :label="$t('repeatPassword')"
         :rules="[(val) => val === newerModel || $t('passwordMismatch')]"
       />

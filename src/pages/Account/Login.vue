@@ -45,6 +45,8 @@
           v-model="username"
           outlined
           type="text"
+          :dark="$dark.enabled"
+          standout="text-contrast"
           :label="$t('username')"
           :rules="[(val) => (val && val.length > 0) || '']"
         />
@@ -52,6 +54,8 @@
           v-model="password"
           outlined
           type="password"
+          :dark="$dark.enabled"
+          standout="text-contrast"
           :label="$t('password')"
           :rules="[(val) => (val && val.length > 0) || '']"
         />
