@@ -155,7 +155,6 @@ interface Link {
 @Options({ components: { CEntitySearch } })
 export default class AppHeader extends mixins(Images) {
   player?: void | BasePlayer;
-  showAccountButton = false;
   showDrawer = false;
 
   links: Link[] = [];
@@ -166,25 +165,23 @@ export default class AppHeader extends mixins(Images) {
   getLinks(): Link[] {
     const dropdown: Link[] = [];
 
-    if (this.showAccountButton) {
-      if (this.player && this.player.cfmRoles) {
-        const hasDev = this.player.cfmRoles.includes("dev");
-        const hasAdm = this.player.cfmRoles.includes("admin");
-        const hasTra = this.player.cfmRoles.includes("translator");
+    if (this.player && this.player.cfmRoles) {
+      const hasDev = this.player.cfmRoles.includes("dev");
+      const hasAdm = this.player.cfmRoles.includes("admin");
+      const hasTra = this.player.cfmRoles.includes("translator");
 
-        (hasDev || hasAdm || hasTra) &&
-          dropdown.push({
-            label: this.$t("translation"),
-            icon: "admin_panel_settings",
-            to: { name: "translation" },
-          });
-        (hasDev || hasAdm) &&
-          dropdown.push({
-            label: this.$t("adminPanel"),
-            icon: "admin_panel_settings",
-            to: { name: "adminPanel" },
-          });
-      }
+      (hasDev || hasAdm || hasTra) &&
+        dropdown.push({
+          label: this.$t("translation"),
+          icon: "admin_panel_settings",
+          to: { name: "translation" },
+        });
+      (hasDev || hasAdm) &&
+        dropdown.push({
+          label: this.$t("adminPanel"),
+          icon: "admin_panel_settings",
+          to: { name: "adminPanel" },
+        });
     }
 
     return [
@@ -206,9 +203,6 @@ export default class AppHeader extends mixins(Images) {
   }
 
   getRightLinks(): Link[] {
-    if (!this.showAccountButton) {
-      return [];
-    }
     if (!this.player) {
       return [
         {
@@ -251,14 +245,11 @@ export default class AppHeader extends mixins(Images) {
       {},
       {
         match: (state: AuthState) => {
-          const loginBeta = window.localStorage.getItem("login-beta");
           if (state.logged) {
             this.player = state.player;
           } else {
             this.player = undefined;
           }
-
-          this.showAccountButton = state.logged || loginBeta === "true";
 
           this.links = this.getLinks();
           this.rightLinks = this.getRightLinks();

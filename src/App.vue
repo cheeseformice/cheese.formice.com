@@ -44,7 +44,7 @@ export default class App extends Vue {
 
       window.history.replaceState(null, "CFM", url.toString());
 
-      if (!ticket || window.localStorage.getItem("login-beta") !== "true") {
+      if (!ticket) {
         return;
       }
 
