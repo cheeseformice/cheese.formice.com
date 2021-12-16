@@ -30,6 +30,16 @@
               popup-content-class="z-max"
             />
           </q-item>
+          <q-item class="row items-center q-ma-none" style="padding-left: 0; padding-right: 0;">
+            <q-toggle
+              v-model="darkTheme"
+              size="xs"
+              color="secondary"
+              checked-icon="nights_stay"
+              unchecked-icon="wb_sunny"
+            />
+            {{ $t("darkTheme") }}
+          </q-item>
         </q-list>
       </template>
     </footer-section>
@@ -50,6 +60,7 @@ interface FooterSectionInfo {
 @Options({ components: { FooterSection } })
 export default class AppFooter extends Vue {
   language = "en";
+  darkTheme = false;
 
   get languageOptions() {
     return Object.entries(i18n).map(([value, language]) => ({
@@ -100,12 +111,22 @@ export default class AppFooter extends Vue {
 
   mounted() {
     this.language = this.$i18n.locale;
+    this.darkTheme = this.$dark.enabled;
   }
 
   @Watch("language")
   onLanguageChange() {
     this.$i18n.locale = this.language;
     window.localStorage.setItem("language", this.language);
+  }
+
+  @Watch("darkTheme")
+  onThemeChange() {
+    window.localStorage.setItem("dark", this.darkTheme ? "true" : "false");
+    this.$dark.enabled = this.darkTheme;
+
+    const body = document.getElementById("cfm-body") as HTMLBodyElement;
+    body.setAttribute("theme", this.$dark.enabled ? "dark" : "light");
   }
 }
 </script>

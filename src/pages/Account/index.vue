@@ -44,10 +44,6 @@ export default class Account extends Vue {
           to: { name: "accountProgress" },
         },
         {
-          label: this.$t("preferences"),
-          to: { name: "accountPreferences" },
-        },
-        {
           label: this.$t("privacySettings"),
           to: { name: "accountPrivacy" },
         },
