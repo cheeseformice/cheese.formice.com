@@ -3,7 +3,7 @@
     <current-server-status :services="services" :startHidden="true" />
 
     <div v-for="property in properties" :key="property" class="col-12 q-my-lg">
-      <q-card flat bordered>
+      <q-card flat bordered class="bg-contrast">
         <q-item>
           <q-item-section>
             <q-item-label class="text-h6">{{ $t(`chart.${property}`) }}</q-item-label>

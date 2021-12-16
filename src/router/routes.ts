@@ -50,6 +50,11 @@ const routes: RouteRecordRaw[] = [
             component: () => import("src/pages/Account/Progress.vue"),
           },
           {
+            path: "preferences",
+            name: "accountPreferences",
+            component: () => import("src/pages/Account/Preferences.vue"),
+          },
+          {
             path: "privacy",
             name: "accountPrivacy",
             component: () => import("src/pages/Account/Privacy.vue"),

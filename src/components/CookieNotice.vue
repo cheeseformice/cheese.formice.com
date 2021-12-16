@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-if="$route.name !== 'cookie-policy'" v-model="showNotice" persistent>
-    <q-card>
+    <q-card class="bg-contrast">
       <q-card-section>
         <div class="text-h6">Cookies</div>
       </q-card-section>

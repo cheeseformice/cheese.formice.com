@@ -7,6 +7,7 @@
           :key="section.key"
           :label="section.label"
           :links="section.links"
+          :dark="$q.dark.isActive"
         />
       </div>
 

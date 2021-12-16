@@ -1,6 +1,6 @@
 <template>
   <q-page padding class="container q-pa-lg">
-    <q-card flat bordered>
+    <q-card flat bordered class="bg-contrast">
       <q-card-section class="text-center text-h6"> Cookie Policy </q-card-section>
 
       <q-separator inset />
@@ -60,7 +60,7 @@
         What types of cookies/tracking technologies do we use?
       </q-card-section>
       <q-card-section>
-        <q-table :rows="tracking" :columns="trackingColumns" row-key="name" wrap-cells />
+        <q-table :rows="tracking" :columns="trackingColumns" row-key="name" wrap-cells :dark="$dark.enabled" />
       </q-card-section>
 
       <q-separator inset />

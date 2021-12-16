@@ -14,11 +14,18 @@
 
 // $primary   : #1976D2;
 // $primary: #646f92;
+
+$dark-bg: darken(#1d1d1d, 2%);
+$dark-contrast: #ededed;
+$dark-bg-contrast: #1d1d1d;
+
+$light-bg: #ededed;
+$light-contrast: #1d1d1d;
+$light-bg-contrast: #ffffff;
+
 $primary: #1d1d1d;
 $secondary: #e91e63;
 $accent: #26a69a;
-
-$dark: #1d1d1d;
 
 $positive: #21ba45;
 $negative: #c10015;

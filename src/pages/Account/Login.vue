@@ -1,7 +1,7 @@
 <template>
   <q-page class="container text-center">
     <q-dialog v-model="showError">
-      <q-card>
+      <q-card class="bg-contrast">
         <q-card-section>
           <div class="text-h6">Error</div>
         </q-card-section>
@@ -20,7 +20,7 @@
     </q-dialog>
 
     <q-dialog v-model="showRegister">
-      <q-card>
+      <q-card class="bg-contrast">
         <q-card-section>
           <div class="text-h6">Register</div>
         </q-card-section>

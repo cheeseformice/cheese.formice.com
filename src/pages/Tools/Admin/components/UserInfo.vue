@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-dialog v-model="showError">
-      <q-card>
+      <q-card class="bg-contrast">
         <q-card-section>
           <div class="text-h6">{{ $t("error") }}</div>
         </q-card-section>
@@ -22,10 +22,15 @@
     <h5 class="q-my-none">{{ $t("rightsManagement") }}</h5>
     <q-separator spaced />
     <div>
-      <c-entity-search :players="true" :tribes="false" color="black" :onSelect="selectPlayer" />
+      <c-entity-search
+        :players="true"
+        :tribes="false"
+        :color="$dark.enabled ? 'white' : 'black'"
+        :onSelect="selectPlayer"
+      />
 
       <div class="q-mb-sm" v-if="player.id > 0"></div>
-      <q-card flat bordered v-if="player.id > 0">
+      <q-card flat bordered v-if="player.id > 0" class="bg-contrast">
         <q-item>
           <q-item-section avatar>
             <q-avatar square>
@@ -41,16 +46,15 @@
               <q-badge
                 v-for="role in player.cfmRoles || []"
                 outline
-                class="q-mr-sm cursor-pointer"
-                color="primary"
+                class="q-mr-sm cursor-pointer text-contrast"
                 :key="'cfm-' + role"
                 :label="'cfm-' + role"
                 @click="void removeRole(role)"
               />
               <q-btn-dropdown
-                color="primary"
+                content-class="bg-contrast"
                 flat
-                class="q-pa-none"
+                class="q-pa-none text-contrast"
                 style="height: auto; min-height: 0"
               >
                 <q-list>

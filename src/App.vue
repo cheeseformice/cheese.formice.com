@@ -30,6 +30,11 @@ export default class App extends Vue {
   }
 
   mounted() {
+    this.$dark.enabled = window.localStorage.getItem("dark") === "true";
+
+    const body = document.getElementById("cfm-body") as HTMLBodyElement;
+    body.setAttribute("theme", this.$dark.enabled ? "dark" : "light");
+
     const url = new URL(document.location.href);
     const params = url.searchParams;
 

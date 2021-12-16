@@ -1,7 +1,7 @@
 <template>
   <div class="row q-col-gutter-md">
     <div class="col-12 col-lg-2">
-      <q-card flat bordered class="q-py-md">
+      <q-card flat bordered class="q-py-md bg-contrast">
         <!-- Look -->
         <div class="text-center">
           <svg width="90" viewBox="0 0 100 110">
@@ -47,7 +47,7 @@
                     />
                     <q-badge
                       outline
-                      class="rank-badge cursor-pointer"
+                      class="rank-badge cursor-pointer text-contrast"
                       :label="$t(`sorts.${rank.lbType}`).toUpperCase()"
                       id="player-rank-lb-type-sm"
                     />
@@ -60,7 +60,7 @@
             <q-item-section>
               <div class="row items-center">
                 <div class="col-auto">
-                  <q-icon :name="item.icon" color="primary" size="24px" class="q-mr-sm">
+                  <q-icon :name="item.icon" size="24px" class="q-mr-sm text-contrast">
                     <q-tooltip anchor="bottom middle" self="center middle">
                       {{ item.label }}
                     </q-tooltip>
@@ -88,7 +88,7 @@
       <!-- Stats -->
       <div class="q-gutter-y-xs text-center">
         <div class="text-h5">{{ $t("level", { level: experience.level }) }}</div>
-        <q-linear-progress :value="experience.percentage" color="cyan-4" size="xl" />
+        <q-linear-progress :value="experience.percentage" color="cyan-4" :dark="$dark.enabled" size="xl" />
         <div class="text-caption">{{ experience.current }} / {{ experience.needed }}</div>
       </div>
 
@@ -125,7 +125,6 @@
 .rank-badge {
   margin-left: 0.5rem;
   font-weight: 600;
-  color: $primary;
   background-color: rgba($accent, 0.6);
   border: none;
 }

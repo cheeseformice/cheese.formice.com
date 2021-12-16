@@ -17,14 +17,14 @@
             flat
             class="full-height link-color"
             :label="link.label"
-            content-class="z-max"
+            content-class="z-max bg-contrast"
             v-if="!!link.dropdown && link.dropdown.length > 1"
           >
             <q-list>
               <div v-for="sub of link.dropdown" :key="sub.label">
                 <q-item clickable v-close-popup @click="sub.click" :to="sub.to">
                   <q-item-section>
-                    <q-item-label>{{ sub.label }}</q-item-label>
+                    <q-item-label class="text-contrast">{{ sub.label }}</q-item-label>
                   </q-item-section>
                 </q-item>
               </div>
@@ -70,14 +70,14 @@
             flat
             :label="link.label"
             class="full-height link-color"
-            content-class="z-max"
+            content-class="z-max bg-contrast"
             v-if="!!link.dropdown && link.dropdown.length > 1"
           >
             <q-list>
               <div v-for="sub of link.dropdown" :key="sub.label">
                 <q-item clickable v-close-popup @click="sub.click" :to="sub.to">
                   <q-item-section>
-                    <q-item-label>{{ sub.label }}</q-item-label>
+                    <q-item-label class="text-contrast">{{ sub.label }}</q-item-label>
                   </q-item-section>
                 </q-item>
               </div>
@@ -96,11 +96,11 @@
         </div>
       </q-tabs>
     </q-toolbar>
-    <q-drawer v-if="$q.screen.xs" v-model="showDrawer" :width="280" bordered class="bg-grey-1">
+    <q-drawer v-if="$q.screen.xs" v-model="showDrawer" :width="280" bordered class="bg-contrast">
       <q-scroll-area class="fit">
         <q-list>
           <q-item>
-            <q-item-section class="text-primary text-h6">Cheese For Mice</q-item-section>
+            <q-item-section class="text-contrast text-h6">Cheese For Mice</q-item-section>
           </q-item>
 
           <q-separator />
@@ -115,9 +115,9 @@
               @click="sub.click"
             >
               <q-item-section avatar>
-                <q-icon class="text-dark" :name="sub.icon" />
+                <q-icon class="text-contrast" :name="sub.icon" />
               </q-item-section>
-              <q-item-section class="text-dark">{{ sub.label }}</q-item-section>
+              <q-item-section class="text-contrast">{{ sub.label }}</q-item-section>
             </q-item>
           </div>
         </q-list>
@@ -126,7 +126,7 @@
   </q-header>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .link-color {
   color: #d5d5d5;
 }

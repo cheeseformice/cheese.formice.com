@@ -3,7 +3,7 @@
     <div class="text-grey q-pl-sm">{{ title }}</div>
     <div class="row">
       <div v-for="(s, i) in stats" :key="i" class="q-pa-xs" :class="col">
-        <q-card flat bordered class="full-height">
+        <q-card flat bordered class="full-height bg-contrast">
           <q-item class="full-height">
             <q-item-section avatar v-if="s.icon">
               <q-avatar square>

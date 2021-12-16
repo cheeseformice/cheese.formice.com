@@ -6,7 +6,7 @@
 
     <div class="row q-col-gutter-md">
       <div class="col-12 col-md-4">
-        <q-list dense bordered padding class="rounded-borders bg-white">
+        <q-list dense bordered padding class="rounded-borders bg-contrast">
           <q-item key="title">
             <q-item-section class="q-table__title">{{ $t("lastTenPlayers") }}</q-item-section>
           </q-item>
@@ -25,7 +25,7 @@
       </div>
 
       <div class="col-12 col-md-4">
-        <q-list dense bordered padding class="rounded-borders bg-white">
+        <q-list dense bordered padding class="rounded-borders bg-contrast">
           <q-item key="title">
             <q-item-section class="q-table__title">{{ $t("lastTenTribes") }}</q-item-section>
           </q-item>
@@ -44,7 +44,7 @@
       </div>
 
       <div class="col-12 col-md-4">
-        <q-list dense bordered padding class="rounded-borders bg-white">
+        <q-list dense bordered padding class="rounded-borders bg-contrast">
           <q-item key="title">
             <q-item-section class="q-table__title">{{ $t("topTenPlayers") }}</q-item-section>
             <router-link :to="{ name: 'playerLeaderboard' }">

@@ -18,6 +18,9 @@
             :options="periodOptions"
             :label="$t('period')"
             :class="$q.screen.gt.sm ? 'selector' : ''"
+            :dark="$dark.enabled"
+            options-selected-class="text-contrast"
+            standout="text-contrast"
           />
           <q-select
             outlined
@@ -26,6 +29,9 @@
             :options="typeOptions"
             :label="$t('leaderboard')"
             :class="$q.screen.gt.sm ? 'selector' : ''"
+            :dark="$dark.enabled"
+            options-selected-class="text-contrast"
+            standout="text-contrast"
           />
         </div>
       </div>
@@ -35,6 +41,7 @@
       <q-pagination
         v-model="leaderboardOptions.page"
         outline
+        :color="$dark.enabled ? 'dark-contrast' : 'light-contrast'"
         :max="leaderboardOptions.page + 10"
         :max-pages="7"
         :boundary-numbers="false"
@@ -48,7 +55,7 @@
       :columns="columns"
       :rows-per-page-options="[0]"
       :v-model:pagination="{ page: 1, rowsPerPage: 0 }"
-      class="q-mt-lg"
+      class="q-mt-lg bg-contrast text-contrast"
     >
       <template v-slot:body-cell-name="props">
         <q-td :props="props">
@@ -57,7 +64,7 @@
               name: leaderboardOptions.tab,
               params: { playerName: props.value, tribeName: props.value },
             }"
-            class="text-dark"
+            class="text-contrast"
           >
             {{ props.value }}
           </router-link>
@@ -69,6 +76,7 @@
       <q-pagination
         v-model="leaderboardOptions.page"
         outline
+        :color="$dark.enabled ? 'dark-contrast' : 'light-contrast'"
         :max="leaderboardOptions.page + 10"
         :max-pages="7"
         :boundary-numbers="false"

@@ -15,6 +15,7 @@
       row-key="name"
       :rows-per-page-options="[0]"
       hide-bottom
+      class="bg-contrast text-contrast"
     >
       <template v-slot:body-cell-date="props">
         <q-td class="text-center">

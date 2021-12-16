@@ -1,13 +1,13 @@
 <template>
   <div class="row">
-    <q-card flat bordered class="col-12">
+    <q-card flat bordered class="col-12 bg-contrast">
       <q-item clickable @click="dropdown(servicesDropdown)">
         <q-item-section>
           <q-item-label class="text-left text-h6">
             <div class="row">
               <div class="col-auto">API services</div>
               <div class="col">
-                <q-icon name="help_outline" color="primary" size="1rem" class="q-ml-sm">
+                <q-icon name="help_outline" size="1rem" class="q-ml-sm text-contrast">
                   <q-tooltip
                     anchor="top middle"
                     content-style="font-size: 1rem;"
@@ -34,7 +34,7 @@
                 {{ capitalize(service) }}
               </div>
               <div class="col" v-if="$te(`help.${service}`)">
-                <q-icon name="help_outline" color="primary" size="1em" class="q-ml-sm">
+                <q-icon name="help_outline" size="1em" class="q-ml-sm text-contrast">
                   <q-tooltip
                     anchor="top middle"
                     content-style="font-size: 1rem;"

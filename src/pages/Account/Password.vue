@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="showDialog">
-    <q-card v-if="!error">
+    <q-card class="bg-contrast" v-if="!error">
       <q-card-section>
         <div class="text-h6">{{ $t("changePasswordSuccess") }}</div>
       </q-card-section>
@@ -14,7 +14,7 @@
       </q-card-actions>
     </q-card>
 
-    <q-card v-else>
+    <q-card class="bg-contrast" v-else>
       <q-card-section>
         <div class="text-h6">{{ $t("error") }}</div>
       </q-card-section>

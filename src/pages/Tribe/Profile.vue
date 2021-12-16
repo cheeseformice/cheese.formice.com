@@ -1,14 +1,14 @@
 <template>
   <div class="row q-col-gutter-md">
     <div class="col-12 col-lg-2">
-      <q-card flat bordered class="q-py-md">
+      <q-card flat bordered class="q-py-md bg-contrast">
         <!-- Basic Information -->
         <q-list dense>
           <q-item v-for="item in sideItems" :key="item.label">
             <q-item-section>
               <div class="row items-center">
                 <div class="col-auto">
-                  <q-icon :name="item.icon" color="primary" size="24px" class="q-mr-sm">
+                  <q-icon :name="item.icon" size="24px" class="q-mr-sm text-contrast">
                     <q-tooltip anchor="bottom middle" self="center middle">
                       {{ item.label }}
                     </q-tooltip>

@@ -9,6 +9,9 @@
       :options="periods"
       :label="$t('period')"
       :class="$q.screen.gt.sm ? 'selector' : ''"
+      :dark="$dark.enabled"
+      options-selected-class="text-contrast"
+      standout="text-contrast"
     />
   </div>
   <q-separator spaced />
@@ -23,7 +26,7 @@
             :key="stat.title"
             v-for="stat in section.stats"
           >
-            <q-card flat bordered class="full-height">
+            <q-card flat bordered class="full-height bg-contrast">
               <q-item class="full-height">
                 <q-item-section>
                   <q-item-label>{{ stat.title }}</q-item-label>

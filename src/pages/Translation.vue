@@ -1,7 +1,7 @@
 <template>
   <q-page padding class="container q-pt-lg">
     <q-dialog v-model="showWork">
-      <q-card>
+      <q-card class="bg-contrast">
         <q-card-section>
           <div class="text-h6">Your work</div>
         </q-card-section>
@@ -35,7 +35,7 @@
     </q-dialog>
 
     <q-dialog v-model="showImport">
-      <q-card>
+      <q-card class="bg-contrast">
         <q-card-section>
           <div class="text-h6">Import translations</div>
         </q-card-section>
@@ -44,6 +44,7 @@
           <q-input
             outlined
             dense
+            :dark="$dark.enabled"
             v-model="importInput"
             type="text"
             placeholder="Exported translation"
@@ -80,6 +81,9 @@
           :options="validLanguages"
           :label="$t('language')"
           :class="$q.screen.gt.sm ? 'selector' : ''"
+          :dark="$dark.enabled"
+          options-selected-class="text-contrast"
+          standout="text-contrast"
         />
       </div>
     </div>
@@ -92,6 +96,7 @@
       hide-bottom
       flat
       row-key="key"
+      class="bg-contrast text-contrast"
     >
       <template #body-cell-key="props">
         <q-td :props="props">
@@ -110,7 +115,7 @@
               @click="viewField(props.row.key)"
             />
             <q-dialog v-model="props.row.view">
-              <q-card>
+              <q-card class="bg-contrast">
                 <q-card-section>
                   <div class="text-h6">Translation</div>
                 </q-card-section>
@@ -129,6 +134,7 @@
                   <q-input
                     outlined
                     dense
+                    :dark="$dark.enabled"
                     type="textarea"
                     placeholder="Translation"
                     v-model="props.row.translation"

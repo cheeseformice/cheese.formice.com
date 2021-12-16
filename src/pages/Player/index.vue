@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="showSanctionDialog">
-    <q-card>
+    <q-card class="bg-contrast">
       <q-card-section>
         <div class="text-h6">Player sanction</div>
       </q-card-section>
@@ -80,6 +80,7 @@
     <q-menu
       v-if="$q.screen.gt.xs && rank.canQualify && !rank.disqualified"
       target="#player-rank-lb-type-lg"
+      class="bg-contrast"
     >
       <leaderboard-selector :callback="selectLeaderboard" />
     </q-menu>
@@ -88,6 +89,7 @@
     <q-menu
       v-if="!$q.screen.gt.xs && rank.canQualify && !rank.disqualified"
       target="#player-rank-lb-type-sm"
+      class="bg-contrast"
     >
       <leaderboard-selector :callback="selectLeaderboard" />
     </q-menu>

@@ -9,6 +9,7 @@
         v-for="section of sections"
         :key="section.label"
         dark
+        :contrast="false"
         :label="section.label"
         :links="section.links"
       />

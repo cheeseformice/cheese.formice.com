@@ -5,12 +5,36 @@ $sm-breakpoint: 1024px;
 $md-breakpoint: 1439px;
 $lg-breakpoint: 1920px;
 
-body {
-  background-color: #ededed;
+body[theme="dark"] {
+  background-color: $dark-bg;
+  color: $dark-contrast;
+}
+body[theme="dark"] .text-contrast {
+  color: $dark-contrast;
+}
+body[theme="dark"] .bg-contrast {
+  background-color: $dark-bg-contrast;
+}
+
+body[theme="light"] {
+  background-color: $light-bg;
+  color: $light-contrast;
+}
+body[theme="light"] .text-contrast {
+  color: $light-contrast;
+}
+body[theme="light"] .bg-contrast {
+  background-color: $light-bg-contrast;
 }
 
 a {
   text-decoration: none;
+}
+body[theme="dark"] a {
+  color: lighten($dark-contrast, 10%);
+}
+body[theme="light"] a {
+  color: lighten($light-contrast, 10%);
 }
 
 .soopafresh {

@@ -6,7 +6,7 @@
 
     <div class="row q-col-gutter-sm">
       <div v-for="question in questions" :key="question" class="col-12 col-md-4 full-height">
-        <q-card flat bordered>
+        <q-card flat bordered class="bg-contrast">
           <q-card-section
             v-ripple
             class="q-hoverable cursor-pointer"

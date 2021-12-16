@@ -16,7 +16,7 @@
     >
       <template v-slot:preference>
         <q-list dense class="q-px-sm">
-          <q-item style="padding-left: 0; padding-right: 0">
+          <q-item style="padding-left: 0; padding-right: 0;">
             <q-select
               dark
               color="secondary"
@@ -27,6 +27,7 @@
               emit-value
               map-options
               options-dense
+              popup-content-class="z-max"
             />
           </q-item>
         </q-list>

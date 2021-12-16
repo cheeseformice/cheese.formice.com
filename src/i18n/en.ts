@@ -148,6 +148,8 @@ export default {
     monthly: "{per}% ({diff}) since last month",
   },
 
+  darkTheme: "Dark theme",
+
   notices: {
     missingPassword: "Your CFM account does not have a password. Go to your account to set one up.",
     disqualified: "Your account has been disqualified from the leaderboard.",

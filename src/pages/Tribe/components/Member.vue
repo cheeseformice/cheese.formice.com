@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-xs" :class="col">
-    <q-card flat bordered>
+    <q-card flat bordered class="bg-contrast">
       <q-item
         :to="{
           name: 'player',

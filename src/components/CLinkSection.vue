@@ -1,5 +1,5 @@
 <template>
-  <q-card :dark="dark" flat bordered class="q-py-none q-mb-sm text-left">
+  <q-card :dark="dark" flat bordered :class="'q-py-none q-mb-sm text-left ' + (contrast ? 'bg-contrast' : '')">
     <div v-if="!!label">
       <q-card-section class="q-py-sm q-px-md">
         <b>{{ label }}</b>
@@ -44,5 +44,6 @@ export default class CLinkSection extends Vue {
   @Prop({ default: "" }) label!: string;
   @Prop({ required: true }) links!: Link[];
   @Prop({ default: false }) dark!: boolean;
+  @Prop({ default: true }) contrast!: boolean;
 }
 </script>
