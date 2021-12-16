@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="showSanctionDialog">
-    <q-card class="bg-contrast">
+    <q-card class="bg-contrast full-width">
       <q-card-section>
         <div class="text-h6">Player sanction</div>
       </q-card-section>
@@ -10,11 +10,16 @@
           <q-icon name="warning" color="warning" size="1rem" />
           {{ sanctionInfoError }}<br />
         </span>
-        <span v-else>
-          TFM permaban: <b>{{ sanctionInformation?.tfm ? "yes" : "no" }}</b
-          ><br />
-          CFM sanction: <b>{{ sanctionInformation?.cfm ? "yes" : "no" }}</b
-          ><br /><br />
+        <span v-for="notice in notices" :key="notice.id" :class="`text-${notice.color}`">
+          <q-icon name="warning" color="warning" size="1rem" />
+          {{ notice.text }}<br />
+        </span>
+        <span v-if="!sanctionInfoError">
+          TFM permaban: <b>{{ sanctionInformation?.tfm ? "yes" : "no" }}</b>
+          <br />
+          CFM sanction: <b>{{ sanctionInformation?.cfm ? "yes" : "no" }}</b>
+          <br />
+          <br />
 
           <span v-if="sanctionInformation?.cfm">
             Responsible moderator: <b>{{ sanctionInformation.disqInfo.moderator.name }}</b
@@ -22,30 +27,43 @@
             Reason:
             <pre style="white-space: pre-wrap">{{ sanctionInformation.disqInfo.reason }}</pre>
           </span>
+
+          <q-input
+            v-if="editing"
+            outlined
+            dense
+            :dark="$dark.enabled"
+            type="textarea"
+            placeholder="Reason"
+            v-model="newReason"
+          />
         </span>
       </q-card-section>
 
       <q-card-actions align="right">
         <q-btn
-          v-if="sanctionInformation?.cfm"
+          v-if="!sanctionInfoError && sanctionInformation?.cfm"
           outline
           no-caps
           :label="$t('sanction.cancel')"
           color="secondary"
+          @click="cancelSanction"
         />
         <q-btn
-          v-if="sanctionInformation?.cfm"
+          v-if="!sanctionInfoError"
           outline
           no-caps
           :label="$t('sanction.edit')"
           color="secondary"
+          @click="editSanction"
         />
         <q-btn
-          v-if="!sanctionInformation?.cfm"
+          v-if="!sanctionInfoError && editing"
           outline
           no-caps
           :label="$t('sanction.apply')"
           color="secondary"
+          @click="applySanction"
         />
         <q-btn outline no-caps :label="$t('close')" color="secondary" v-close-popup />
       </q-card-actions>
@@ -110,6 +128,12 @@ import Auth from "src/auth";
 import { AuthState } from "src/auth/interfaces";
 import { LeaderboardType, leaderboardTypes, SanctionInformation } from "src/api";
 
+interface Notice {
+  id: number;
+  text: string;
+  color: "negative" | "contrast" | "positive";
+}
+
 @Options({ components: { CHero, LeaderboardSelector } })
 export default class PlayerPage extends mixins(Images) {
   @Prop() playerName!: string;
@@ -119,6 +143,12 @@ export default class PlayerPage extends mixins(Images) {
   showSanctionDialog = false;
   sanctionInfoError = "";
   sanctionInformation: SanctionInformation | null = null;
+
+  notices: Notice[] = [];
+  lastNotice = 0;
+
+  editing = false;
+  newReason = "";
 
   meta = setup(function () {
     const { setPlayer } = useReactiveMeta();
@@ -183,38 +213,85 @@ export default class PlayerPage extends mixins(Images) {
     return [];
   }
 
-  /*async*/ showSanctionPanel() {
+  pushNotice(text: string, color: "negative" | "contrast" | "positive", duration = 5000) {
+    const id = ++this.lastNotice;
+    this.notices.push({
+      id,
+      text,
+      color,
+    });
+    window.setTimeout(() => {
+      for (let index = 0; index < this.notices.length; index++) {
+        const notice = this.notices[index];
+        if (notice.id === id) {
+          this.notices.splice(index, 1);
+          return;
+        }
+      }
+    }, duration);
+  }
+
+  async fetchSanction() {
+    if (!this.player) return;
+
+    const result = await Auth.mod.getSanction(this.player.id);
+
+    this.sanctionInfoError = "";
+    this.sanctionInformation = null;
+    if (!result) {
+      this.sanctionInfoError = "Unknown error.";
+    } else if (typeof result === "string") {
+      this.sanctionInfoError = result;
+    } else {
+      this.sanctionInformation = result;
+    }
+  }
+
+  showSanctionPanel() {
     if (!this.player) return;
     if (!this.sanctionInformation) {
-      // const result = await Auth.mod.getSanction(this.player.id);
-      const result: SanctionInformation = {
-        success: undefined,
-        tfm: false,
-        cfm: true,
-        disqInfo: {
-          moderator: {
-            id: 51058033,
-            name: "Tocutoeltuco#0000",
-            cfmRoles: ["dev"],
-            tfmRoles: ["module"],
-          },
-          reason:
-            "test asdkasldjalk wkleniowjeqowiemndaopjepaowjeo pawjepoawjewdmnoawino iwdjioawdjaiowejioawprjiaworaiow",
-        },
-      };
-
-      this.sanctionInfoError = "";
-      this.sanctionInformation = null;
-      if (!result) {
-        this.sanctionInfoError = "Unknown error.";
-      } else if (typeof result === "string") {
-        this.sanctionInfoError = result;
-      } else {
-        this.sanctionInformation = result;
-      }
+      void this.fetchSanction();
     }
 
+    this.notices = [];
     this.showSanctionDialog = true;
+  }
+
+  async cancelSanction() {
+    if (!this.player) return;
+    if (!this.sanctionInformation) return;
+
+    const result = await Auth.mod.cancelSanction(this.player.id);
+    if (typeof result === "string") {
+      this.pushNotice(result, "negative");
+    } else {
+      this.pushNotice("Sanction has been cancelled successfully.", "positive");
+    }
+
+    void this.fetchSanction();
+  }
+
+  editSanction() {
+    this.editing = true;
+  }
+
+  async applySanction() {
+    if (!this.player) return;
+    if (!this.sanctionInformation) return;
+
+    if (this.newReason.length < 1) {
+      this.pushNotice("Sanction reason can't be empty.", "negative");
+      return;
+    }
+
+    const result = await Auth.mod.sanctionPlayer(this.player.id, this.newReason);
+    if (typeof result === "string") {
+      this.pushNotice(result, "negative");
+    } else {
+      this.pushNotice("Sanction applied successfully.", "positive");
+    }
+
+    void this.fetchSanction();
   }
 
   mounted() {
