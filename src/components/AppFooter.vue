@@ -30,7 +30,7 @@
               popup-content-class="z-max"
             />
           </q-item>
-          <q-item class="row items-center q-ma-none" style="padding-left: 0; padding-right: 0;">
+          <q-item class="row items-center q-ma-none" style="padding-left: 0; padding-right: 0">
             <q-toggle
               v-model="darkTheme"
               size="xs"
