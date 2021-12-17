@@ -40,7 +40,11 @@
                   <q-item-label
                     caption
                     :class="
-                      stat.difference > 0 ? 'text-green' : stat.difference < 0 ? 'text-red' : 'text-contrast'
+                      stat.difference > 0
+                        ? 'text-green'
+                        : stat.difference < 0
+                        ? 'text-red'
+                        : 'text-contrast'
                     "
                   >
                     {{
