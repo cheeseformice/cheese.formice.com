@@ -37,6 +37,10 @@ body[theme="light"] a {
   color: lighten($light-contrast, 10%);
 }
 
+.fullscreen {
+  z-index: 9999 !important;
+}
+
 .soopafresh {
   font-family: "Soopafresh";
   font-weight: 400;
