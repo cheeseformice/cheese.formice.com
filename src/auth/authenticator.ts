@@ -132,7 +132,6 @@ export default class Authenticator {
     const success = await AuthService.changePassword(oldPassword, newPassword, session);
 
     if (success === true) {
-      this.logout();
       return true;
     }
 
