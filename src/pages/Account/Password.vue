@@ -130,11 +130,15 @@ export default class Password extends Vue {
   }
 
   async validateInputs(): Promise<boolean> {
-    const result = await Promise.all([
-      this.current.validate(),
+    const promises = [
       this.newer.validate(),
       this.confirm.validate(),
-    ]);
+    ];
+    if (this.hasPassword) {
+      promises.push(this.current.validate());
+    }
+
+    const result = await Promise.all(promises);
     return result.every((v) => v === true);
   }
 
