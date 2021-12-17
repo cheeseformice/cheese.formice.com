@@ -60,7 +60,7 @@
           :name="player.name"
           :pos="itemsPerPage * (lookup.page - 1) + index + 1"
           :sort="lookup.sort ? lookup.sort.value : null"
-          :stat="lookup.sort ? player[lookup.sort.value] : null"
+          :stat="lookup.sort ? player[lookup.sort.isScore ? 'score' : lookup.sort.value] : null"
         />
       </div>
 
@@ -93,7 +93,7 @@ import { TribeModule } from "src/store";
 import { TribeMember } from "./components";
 
 interface LookupOptions {
-  sort?: { label: string; value: LeaderboardType | "" };
+  sort?: { label: string; value: LeaderboardType | ""; isScore: boolean };
   period?: { label: string; value: LeaderboardPeriod };
   page: number;
 }
@@ -147,14 +147,17 @@ export default class TribeProfile extends mixins(Images) {
       "racing",
       "defilante",
     ];
+    const notScores: LeaderboardType[] = ["rounds", "cheese", "first", "bootcamp"];
     return [
       {
         label: this.$t("sorts.none"),
         value: "",
+        isScore: false,
       },
       ...sortNames.map((n) => ({
         label: this.$t(`sorts.${n}`),
         value: n,
+        isScore: !notScores.includes(n),
       })),
     ];
   }
@@ -163,6 +166,7 @@ export default class TribeProfile extends mixins(Images) {
     this.lookup.sort = {
       label: this.$t("sorts.none"),
       value: "",
+      isScore: false,
     };
     this.lookup.period = {
       label: this.$t("periods.overall"),
