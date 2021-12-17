@@ -140,13 +140,13 @@ export default class PlayerModule extends VuexModule {
 
   @Action
   async getRank({ player, rank }: GetRankParameter) {
-    // if (!player.canQualify || player.disqualified) {
-    //   this.setRank({
-    //     canQualify: player.canQualify as false,
-    //     disqualified: player.disqualified as false,
-    //   });
-    //   return;
-    // }
+    if (!player.canQualify || player.disqualified) {
+      this.setRank({
+        canQualify: player.canQualify as false,
+        disqualified: player.disqualified as false,
+      });
+      return;
+    }
 
     let value = 0;
     switch (rank) {
