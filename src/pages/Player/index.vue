@@ -289,6 +289,7 @@ export default class PlayerPage extends mixins(Images) {
       this.pushNotice(result, "negative");
     } else {
       this.pushNotice("Sanction applied successfully.", "positive");
+      this.editing = false;
     }
 
     void this.fetchSanction();
