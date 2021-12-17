@@ -30,15 +30,13 @@
               popup-content-class="z-max"
             />
           </q-item>
-          <q-item class="row items-center q-ma-none" style="padding-left: 0; padding-right: 0">
-            <q-toggle
-              v-model="darkTheme"
-              size="xs"
-              color="secondary"
-              checked-icon="nights_stay"
-              unchecked-icon="wb_sunny"
+          <q-item style="padding-left: 0; padding-right: 0">
+            <q-icon
+              style="cursor: pointer"
+              size="sm"
+              :name="darkTheme ? 'nights_stay' : 'light_mode'"
+              @click="toggleTheme"
             />
-            {{ $t("darkTheme") }}
           </q-item>
         </q-list>
       </template>
@@ -120,11 +118,11 @@ export default class AppFooter extends Vue {
     window.localStorage.setItem("language", this.language);
   }
 
-  @Watch("darkTheme")
-  onThemeChange() {
-    window.localStorage.setItem("dark", this.darkTheme ? "true" : "false");
-    this.$dark.enabled = this.darkTheme;
+  toggleTheme() {
+    this.$dark.enabled = !this.$dark.enabled;
+    this.darkTheme = this.$dark.enabled;
 
+    window.localStorage.setItem("dark", this.$dark.enabled ? "true" : "false");
     const body = document.getElementById("cfm-body") as HTMLBodyElement;
     body.setAttribute("theme", this.$dark.enabled ? "dark" : "light");
   }
