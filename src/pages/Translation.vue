@@ -156,6 +156,7 @@
             dense
             type="text"
             placeholder="Translation"
+            :dark="$dark.enabled"
             :input-class="props.row.translation.length === 0 ? 'text-negative' : ''"
             v-model="props.row.translation"
             v-if="props.row.en.length < 35"
