@@ -6,7 +6,7 @@
   </template>
   <div v-show="changelogsRaw">
     <template v-if="!changelogs.length"> Changelogs Empty :( </template>
-    <canvas class="q-mx-auto q-pb-lg" style="max-width: 800px" ref="canvas" />
+    <canvas class="q-mx-auto q-pb-lg chart" style="max-width: 800px" ref="canvas" />
 
     <q-table
       flat
@@ -41,6 +41,12 @@
     </q-table>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.chart {
+  height: auto !important;
+}
+</style>
 
 <script lang="ts">
 import { QTable } from "quasar";

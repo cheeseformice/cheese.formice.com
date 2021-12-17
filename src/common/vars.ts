@@ -11,7 +11,7 @@ switch (window.location.hostname) {
     break;
 
   default:
-    tmp = "cfmtest.tk";
+    tmp = "cfmtest.tk:8080";
 }
 
 export const DOMAIN = tmp;
