@@ -1,10 +1,13 @@
 let tmp: string;
 
 switch (window.location.hostname) {
-  case "cfmtest.tk":
   case "cheese.formice.com":
   case "beta.formice.com":
     tmp = window.location.hostname;
+    break;
+
+  case "cfmtest.tk":
+    tmp = window.location.host;
     break;
 
   default:
