@@ -41,6 +41,11 @@ export default class Auth {
 
   static async getProgress(period: Period, token: string): Promise<PeriodStats> {
     const response: AxiosResponse<PeriodStats> = await axios.get("/@me/progress", {
+      params: {
+        start: period.start?.format("YYYY-MM-DD"),
+        end: period.end?.format("YYYY-MM-DD"),
+        recent: period.recent ? "true" : "false",
+      },
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
