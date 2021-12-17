@@ -42,7 +42,7 @@
       <q-input
         ref="current"
         v-model="currentModel"
-        v-if="!hasPassword"
+        v-if="hasPassword"
         outlined
         dense
         type="password"
