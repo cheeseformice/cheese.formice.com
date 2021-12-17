@@ -52,9 +52,11 @@ export default class App extends Vue {
         {},
         {
           hook: (state: AuthState) => {
-            if (!state.logged) {
-              void this.useTicket(ticket);
+            if (state.logged) {
+              Auth.authenticator.logout();
             }
+
+            void this.useTicket(ticket);
             Auth.unhook();
           },
         },
