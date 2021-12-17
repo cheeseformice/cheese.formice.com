@@ -34,7 +34,7 @@
             <q-icon
               style="cursor: pointer"
               size="sm"
-              :name="darkTheme ? 'nights_stay' : 'light_mode'"
+              :name="darkTheme ? 'light_mode' : 'nights_stay'"
               @click="toggleTheme"
             />
           </q-item>
