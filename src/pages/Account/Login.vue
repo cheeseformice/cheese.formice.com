@@ -109,7 +109,7 @@ export default class Login extends Vue {
     if (!response.success) {
       this.showError = true;
       if (response.translationKey) {
-        this.errorMessage = this.$t(`errors.${response.translationKey}`);
+        this.errorMessage = this.$t(response.translationKey);
       } else {
         this.errorMessage = response.message || "Something went wrong.";
       }
