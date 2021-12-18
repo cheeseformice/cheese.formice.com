@@ -46,7 +46,7 @@
 
 <style lang="scss" scoped>
 .z-max {
-  z-index: 5998!important;
+  z-index: 5998 !important;
 }
 </style>
 
