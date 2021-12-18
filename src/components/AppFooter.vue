@@ -44,6 +44,12 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+.z-max {
+  z-index: 5998!important;
+}
+</style>
+
 <script lang="ts">
 import { Options, Vue, Watch } from "vue-property-decorator";
 import i18n from "src/i18n";

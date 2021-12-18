@@ -96,7 +96,7 @@
         </div>
       </q-tabs>
     </q-toolbar>
-    <q-drawer v-if="$q.screen.xs" v-model="showDrawer" :width="280" bordered class="bg-contrast">
+    <q-drawer v-if="$q.screen.xs" v-model="showDrawer" :width="280" bordered class="bg-contrast z-max">
       <q-scroll-area class="fit">
         <q-list>
           <q-item>

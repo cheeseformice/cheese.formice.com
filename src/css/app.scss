@@ -37,8 +37,8 @@ body[theme="light"] a {
   color: lighten($light-contrast, 10%);
 }
 
-.fullscreen {
-  z-index: 9999 !important;
+.z-max {
+  z-index: 5999!important;
 }
 
 .soopafresh {
