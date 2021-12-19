@@ -63,7 +63,17 @@ export default class Authenticator {
   }
 
   private async checkAccount() {
-    const session = await this.getSession();
+    const session = await this.getSession(true);
+    if (session === undefined) {
+      // session was expired
+      this.refresh = undefined;
+      this.session = undefined;
+      window.localStorage.removeItem("refresh");
+      window.sessionStorage.removeItem("session");
+      this.setAccount(undefined);
+      return;
+    }
+
     const response = await AuthService.fetchMyself(session);
     this.setAccount(response.data);
   }
