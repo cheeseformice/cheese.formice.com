@@ -15,12 +15,12 @@ export default {
   lastTenPlayers: "Ultimii 10 șoareci căutați",
   lastTenTribes: "Ultimele 10 triburi căutate",
   topTenPlayers: "Top 10 jucători",
-  login: "Logare",
+  login: "Login",
   register: "Înregistrare",
   username: "Nume de utilizator",
   password: "Parolă",
   cookies: {
-    alert: "Acest website folosește cookies pentru a îmbunătăți experiența utilizatorilor. Continuând navigarea pe website, sunteți de acord să primiți toate cookie-urile în acord cu {open}Politica noastră Cookie{close}.",
+    alert: "Acest site utilizează cookie-uri pentru a îmbunătăți experiența utilizatorilor. Continuând navigarea pe site, ești de acord cu toate cookie-urile în acord cu {open}Politica noastră Cookie{close}.",
     acceptAll: "Acceptă tot",
     acceptEssentials: "Acceptă esențialul"
   },
@@ -88,16 +88,16 @@ export default {
   date: "Dată",
   level: "Nivel {level}",
   miceSavedNormal: "Șoareci salvați (Normal)",
-  miceSavedNormalShort: "Salvări Normal",
+  miceSavedNormalShort: "Normal",
   miceSavedHard: "Șoareci salvați (Greu)",
-  miceSavedHardShort: "Salvări Greu",
+  miceSavedHardShort: "Greu",
   miceSavedDivine: "Șoareci salvați (Divin)",
-  miceSavedDivineShort: "Salvări Divin",
+  miceSavedDivineShort: "Divin",
   roundsPlayed: "Runde jucate",
   completedRounds: "Runde completate",
   gatheredCheese: "Brânză adunată",
   cheeseGatheredFirst: "Brânză adunată primul",
-  cheeseGatheredFirstShort: "Premieri",
+  cheeseGatheredFirstShort: "Primul",
   cheeseGatheredShaman: "Brânză adunată ca șaman",
   cheeseGatheredShamanShort: "Brânză șaman",
   experience: "Experiență",
@@ -117,12 +117,12 @@ export default {
   newPassword: "Parola nouă",
   repeatPassword: "Repetă parola nouă",
   passwordTooShort: "Parola trebuie să aibă cel puțin 8 caractere.",
-  passwordMismatch: "Parolele nu sunt aceleași",
+  passwordMismatch: "Parolele nu sunt identice",
   save: "Salvează",
   changePasswordSuccess: "Parolă schimbată",
   passwordChanged: "Parola ta a fost schimbată cu succes. Vei fi deconectat.",
-  missingPassword: "Nu ai o parolă pentru cont. Poți configura una pentru a te putea conecta la CFM fără a fi nevoie să accesezi TFM.",
-  dontReusePassword: "Te rugăm să nu uiți să NU folosești parola de pe Transformice pe Cheeseformice.",
+  missingPassword: "Nu ai setat nicio parolă pentru cont. Poți configura una pentru a te putea conecta la Cheeseformice fără a fi nevoit să accesezi Transformice.",
+  dontReusePassword: "Te rugăm să NU folosești parola de pe Transformice pe Cheeseformice.",
   progressSince: {
     daily: "{per}% ({diff}) față de ieri",
     weekly: "{per}% ({diff}) față de săptămâna trecută",
@@ -130,7 +130,7 @@ export default {
   },
   darkTheme: "Modul întunecat",
   notices: {
-    missingPassword: "Contul tău CFM nu are o parolă. Du-te în setări ca să configurezi una nouă.",
+    missingPassword: "Contul tău Cheeseformice nu deține o parolă. Poți configura una nouă în setările contului.",
     disqualified: "Contul tău a fost descalificat din clasament.",
     cantQualify: "Contul tău nu îndeplinește cerințele pentru a fi calificat în clasament."
   },
@@ -164,7 +164,7 @@ export default {
     cancel: "Anulează",
     edit: "Editează"
   },
-  registrationInfo: "Pentru a te înregistra pe CFM, mai întâi trebuie să te conectezi pe Transformice și să deschizi tab-ul \"Comunitate\", cum se poate vedea în imagine. De acolo, apasă pe \"CheeseForMice\" pentru a te înregistra.",
+  registrationInfo: "Pentru a te înregistra pe Cheeseformice, mai întâi trebuie să te conectezi pe Transformice și să deschizi tab-ul \"Comunitate\", cum se poate vedea în imagine. De acolo, apasă pe \"Cheeseformice\" pentru a te înregistra.",
   staffTools: "Unelte Staff",
   adminPanel: "Panou administrator",
   stats: "Statistici",
@@ -173,13 +173,13 @@ export default {
   close: "Închide",
   error: "Eroare",
   help: {
-    api: "API-ul este responsabil pentru funcționalitatea site-ului web",
+    api: "API-ul este responsabil pentru funcționalitatea site-ului",
     changelogs: "Serviciu responsabil de urmărirea progresului jucătorilor și triburilor",
-    profile: "Serviciu responsabil cu afișarea profilului jucătorilor și triburilor",
-    auth: "Serviciul responsabil cu autentificarea site-ului web",
+    profile: "Serviciu responsabil de afișarea profilului jucătorilor și triburilor",
+    auth: "Serviciul responsabil de autentificarea site-ului",
     router: "Serviciul responsabil de gestionarea cererilor",
-    lookup: "Serviciu responsabil cu clasamentele și căutarea jucătorilor",
-    dressroom: "Serviciu responsabil cu generarea ținutelor jucătorilor"
+    lookup: "Serviciu responsabil de clasamentele și căutarea jucătorilor",
+    dressroom: "Serviciu responsabil de generarea ținutelor jucătorilor"
   },
   status: {
     operational: "Operațional",
@@ -193,7 +193,7 @@ export default {
   },
   questions: {
     update: {
-      title: "Cât de des se actualizează?",
+      title: "Cât de des sunt actualizate clasamentele?",
       answer: "În fiecare zi la 14:00 UTC."
     },
     leaderboard: {
@@ -205,24 +205,24 @@ export default {
       answer: "În prezent, nu. Dar plănuim să le facem să conteze."
     },
     suggestion: {
-      title: "Am o sugestie / bug de raportat",
-      answer: "Vă rugăm să o raportați în {open}serverul nostru de Discord{close}."
+      title: "Am o sugestie / o problemă de raportat",
+      answer: "Te rugăm să o raportezi pe serverul nostru de {open}Discord{close}."
     },
     dislikeLeaderboard: {
       title: "Nu-mi plac clasamentele",
-      answer: "În prezent, suntem în versiunea beta, așa că vor fi modificate mai târziu pe drum.<br>Dacă aveți vreo sugestie sau feedback specific despre cum să le îmbunătățiți, vă rugăm să ni le adresați pe {open}serverul de Discord{close}."
+      answer: "În prezent, suntem în versiunea beta, așa că vor fi modificate mai târziu pe drum.<br>Dacă ai vreo sugestie sau feedback specific despre cum am putea să le îmbunătățim, te rugăm să ni le adresezi pe serverul nostru de {open}Discord{close}."
     },
     weirdTribeStats: {
       title: "Statisticile tribului meu sunt ciudate",
       answer: "Statisticile tribului sunt calculate prin împărțirea totalului statisticilor la rădăcina pătrată a numărului de membri din trib.<br>Acest lucru înseamnă că scorurile pot fluctua foarte mult atunci când un membru se alătură sau părăsește tribul."
     },
     activeMembers: {
-      title: "Cine este considerat „membru activ al tribului”?",
+      title: "Cine este considerat \"membru activ al tribului\"?",
       answer: "Un membru al tribului activ este cineva care s-a conectat la joc în ultimele 24 de ore."
     },
     contribute: {
       title: "Cum pot contribui?",
-      answer: "Acesta este un proiect open-source și acceptăm orice fel de contribuție.<br>Dacă puteți programa, {ghopen} accesați github-ul nostru{close}.<br>Dacă doriți să traduceți site-ul, puteți utiliza {tropen}panoul nostru de traducere{close}.<br>Dacă doriți să contribuiți în orice alt mod, vă rugăm să ne anunțați prin {dopen}Discord{close}."
+      answer: "Acesta este un proiect open-source și acceptăm orice fel de contribuție.<br>Dacă deții cunoștințe de programare, {ghopen} accesează GitHub-ul nostru{close}.<br>Dacă dorești să traduci site-ul, poți utiliza {tropen}panoul nostru de traducere{close}.<br>Dacă dorești să contribui în orice alt mod, te rugăm să ne anunți pe serverul nostru de {dopen}Discord{close}."
     }
   },
   roles: {
