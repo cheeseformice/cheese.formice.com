@@ -171,7 +171,9 @@ export default class Authenticator {
       }
 
       // if the function is still running, session wasn't renewed
-      this.logout();
+      if (this.api.state?.logged) {
+        this.logout();
+      }
       if (ignoreError) {
         return;
       }
