@@ -1,19 +1,19 @@
 export default {
-  languageName: "Hungarian",
+  languageName: "Magyar",
   home: "Kezdőlap",
   translation: "Fordítás",
   language: "Nyelv",
   errors: {
     internal: "Belső szerverhiba",
     calmDown: "Túl sok hibás próbálkozás!",
-    wrongPassword: "Helytelen jelszó",
-    wrongCredentials: "Rossz felhasználónév vagy jelszó",
+    wrongPassword: "Helytelen jelszó!",
+    wrongCredentials: "Hibás felhasználónév vagy jelszó!",
     accountNotInDb: "A fiókot kevesebb mint 24 órája hozták létre.",
     notSanctioned: "A játékos nincs szankcionálva.",
   },
-  welcome: "Üdvözli a CheeseForMice!",
-  lastTenPlayers: "Az utolsó 10 látott játékos",
-  lastTenTribes: "Az utolsó 10 látott törzsek",
+  welcome: " Üdvözöl a CheeseForMice!",
+  lastTenPlayers: "Utolsó 10 keresett játékos",
+  lastTenTribes: "Utolsó 10 keresett törzs",
   topTenPlayers: "Top 10 játékos",
   login: "Belépés",
   register: "Regisztráció",
@@ -21,12 +21,12 @@ export default {
   password: "Jelszó",
   cookies: {
     alert:
-      "Ez a weboldal sütiket („cookie”) használ a felhasználói élmény javítása érdekében. Weboldalunk használatával Ön elfogadja az összes sütit („cookie”) a {open}Cookie -irányelveinknek megfelelően{close}. ",
-    acceptAll: "Mindent elfogad",
-    acceptEssentials: "Az alapműködést biztosító sütik",
+      "Ez a weboldal sütiket („cookie”) használ a felhasználói élmény javítása érdekében. Weboldalunk használatával elfogadod az összes sütit („cookie”) a {open}Cookie -irányelveinknek megfelelően{close}. ",
+    acceptAll: "Elfogadom",
+    acceptEssentials: "Létfontosságú sütik elfogadása",
   },
-  nothingHere: "Hoppá, valami nem stimmel...Váratlan hiba",
-  redirect: "Ha nem kerül átirányításra, {open}kattintson ide{close} ",
+  nothingHere: "Hoppá. Nincs itt semmi látnivaló...",
+  redirect: "Ha nem kerülsz átirányításra, {open}kattints ide{close} ",
   members: "Tagok",
   mouse: "Normál",
   shaman: "Sámán",
@@ -38,7 +38,7 @@ export default {
   badges: "Jelvények",
   search: "Keresés",
   contribute: "Hozzájárulás",
-  contactUs: "Lépjen kapcsolatba Velünk",
+  contactUs: "Kapcsolat",
   information: "Információ",
   preference: "Preferencia",
   sourceCode: "Forráskód",
@@ -55,12 +55,12 @@ export default {
   score: "Pontszám",
   playerLeaderboards: "Játékos Ranglisták",
   tribeLeaderboards: "Törzs Ranglisták",
-  periods: { overall: "Mindig", daily: "Napi", weekly: "Heti", monthly: "Havi" },
+  periods: { overall: "Mindenkori", daily: "Napi", weekly: "Heti", monthly: "Havi" },
   sorts: {
     none: "Nincs ranglista",
-    rounds: "Játszott Körök",
-    cheese: "Összegyűjtött Sajt",
-    first: "Elsőként Megszerzett Sajt",
+    rounds: "Játszott körök",
+    cheese: "Összegyűjtött sajt",
+    first: "Elsőként megszerzett sajt",
     bootcamp: "Teljesített Bootcamp",
     stats: "Normál",
     shaman: "Sámán",
@@ -111,16 +111,16 @@ export default {
   changePassword: "Jelszó módosítása",
   currentPassword: "A jelenlegi jelszó",
   newPassword: "Az új jelszó",
-  repeatPassword: "Ismételje meg az új jelszót",
+  repeatPassword: "Ismételd meg az új jelszót",
   passwordTooShort: "A jelszónak legalább 8 karakter hosszúnak kell lennie.",
   passwordMismatch: "A jelszavak nem egyeznek.",
   save: "Mentés",
   changePasswordSuccess: "Jelszó megváltoztatva",
-  passwordChanged: "A jelszavát sikeresen megváltoztattuk. Most ki lesz jelentkeztetve.",
+  passwordChanged: "A jelszavad sikeresen megváltoztattuk. Most ki leszel jelentkeztetve.",
   missingPassword:
-    "Nincs jelszó a fiókjában. Beállíthat egyet, hogy be tudjon jelentkezni a CFM-be anélkül, hogy a TFM bejelentkezést kellene használnia.",
+    "Nincs jelszó a fiókodban. Beállíthatsz egyet, hogy be tudjd jelentkezni a CFM-be anélkül, hogy a TFM bejelentkezést kellene használnod.",
   dontReusePassword:
-    "Kérjük, ne feledje, hogy NE használja a Transformice jelszavát a Cheeseformice-ban.",
+    "Kérjük, ne feledd, hogy NE használd a Transformice jelszavad a Cheeseformice-ban.",
   progressSince: {
     daily: "{per}% ({diff}) tegnap óta",
     weekly: "{per}% ({diff}) múlt hét óta",
@@ -128,10 +128,9 @@ export default {
   },
   darkTheme: "Sötét mód",
   notices: {
-    missingPassword:
-      "Az Ön CFM-fiókjának nincs jelszava. Nyissa meg a fiókját, és állítson be egyet.",
-    disqualified: "Fiókját kizártuk a ranglistáról.",
-    cantQualify: "Fiókja nem felel meg a ranglistán való részvétel követelményeinek.",
+    missingPassword: "A CFM-fiókodnak nincs jelszava. Nyisd meg a fiókod, és állíts be egyet.",
+    disqualified: "Fiókod kizártuk a ranglistáról.",
+    cantQualify: "Fiókod nem felel meg a ranglistán való részvétel követelményeinek.",
   },
   playerRank: {
     approximate: "(megközelítőleg)",
@@ -142,7 +141,7 @@ export default {
   },
   privacy: {
     information:
-      "Ezek az Ön adatvédelmi beállításai. Kapcsolja ki őket, ha nem szeretné, hogy a többi játékos lássa a statisztikai változásnaplóit. Kérjük, vegye figyelembe, hogy a mező priváttá tétele továbbra is lehetővé teszi a többi játékos számára az Ön <b>current</b> statisztikáinak megtekintéséhez. ",
+      "Ezek az adatvédelmi beállításaid. Kapcsold ki őket, ha nem szeretnéd, hogy a többi játékos lássa a statisztikai változásnaplóid. Kérjük, vedd figyelembe, hogy a mező priváttá tétele továbbra is lehetővé teszi a többi játékos számára a <b>jelenlegi</b> statisztikáid megtekintését. ",
     soulmate: "Lélektársam megjelenítése ",
     tribe: "Törzsem megjelenítése",
     titles: "Címeim megjelenítése",
@@ -154,13 +153,13 @@ export default {
   },
   account: "Fiók",
   accountOverview: "Fiók Áttekintése",
-  progress: "Folyamat",
+  progress: "Előrehaladás",
   preferences: "Preferenciák",
   privacySettings: "Adatvédelmi Beállítások",
   logout: "Kijelentkezés",
   sanction: { btn: "Szankciók", apply: "Alkalmaz", cancel: "Mégsem", edit: "Szerkesztés" },
   registrationInfo:
-    'A CFM-be való regisztrációhoz először jelentkezzen be a Transformice játékba, és nyissa meg a "Közösség" fület, a képen látható módon. Innen kattintson a "CheeseForMice" gombra, és máris regisztrált.',
+    'A CFM-be való regisztrációhoz először jelentkezz be a Transformice játékba, és nyissd meg a "Közösség" fület, a képen látható módon. Innen kattints a "CheeseForMice" gombra, és máris regisztráltál.',
   staffTools: "Személyzeti Eszközök",
   adminPanel: "Adminisztrátor Panel",
   stats: "Statisztikák",
@@ -196,12 +195,12 @@ export default {
     },
     suggestion: {
       title: "Van egy javaslatom / hibajelentésem",
-      answer: "Kérjük, jelentse a {open}discord szerverünkön{close}. ",
+      answer: "Kérjük, jelentsd a {open}discord szerverünkön{close}. ",
     },
     dislikeLeaderboard: {
       title: "Nem szeretem a ranglistákat",
       answer:
-        "Jelenleg a béta verzióban vagyunk, ezért később módosítani fogják őket.<br>Ha bármilyen javaslata vagy konkrét visszajelzése van ezek javításával kapcsolatban, kérjük, látogasson el {open}discord szerverünkre{close}.",
+        "Jelenleg a béta verzióban vagyunk, ezért később módosítani fogják őket.<br>Ha bármilyen javaslata vagy konkrét visszajelzésed van ezek javításával kapcsolatban, kérjük, látogass el {open}discord szerverünkre{close}.",
     },
     weirdTribeStats: {
       title: "A törzsem statisztikái furcsák",
@@ -215,7 +214,7 @@ export default {
     contribute: {
       title: "Hogyan tudok hozzájárulni? ",
       answer:
-        "Ez egy nyílt forráskódú projekt, és bármilyen hozzájárulást elfogadunk.<br>Ha tudja, hogyan kell kódolni, {ghopen}keresse fel GitHubunkat{close}.<br>Ha le szeretné fordítani az oldalt, használhatja {tropen}fordítópanelünket{close}.<br>Ha bármilyen más módon szeretne hozzájárulni, kérjük, tudassa velünk a {dopen}discord{close}segítségével.",
+        "Ez egy nyílt forráskódú projekt, és bármilyen hozzájárulást elfogadunk.<br>Ha tudod, hogyan kell kódolni, {ghopen}keresd fel GitHubunkat{close}.<br>Ha le szeretnéd fordítani az oldalt, használhatod {tropen}fordítópanelünket{close}.<br>Ha bármilyen más módon szeretnél hozzájárulni, kérjük, tudasd velünk a {dopen}discord{close}segítségével.",
     },
   },
   roles: {
