@@ -11,7 +11,7 @@ export default {
     accountNotInDb: "A fiókot kevesebb mint 24 órája hozták létre.",
     notSanctioned: "A játékos nincs szankcionálva.",
   },
-  welcome: " Üdvözöl a CheeseForMice!",
+  welcome: "Üdvözlünk a CheeseForMice oldalán!",
   lastTenPlayers: "Utolsó 10 keresett játékos",
   lastTenTribes: "Utolsó 10 keresett törzs",
   topTenPlayers: "Top 10 játékos",
@@ -23,7 +23,7 @@ export default {
     alert:
       "Ez a weboldal sütiket („cookie”) használ a felhasználói élmény javítása érdekében. Weboldalunk használatával elfogadod az összes sütit („cookie”) a {open}Cookie -irányelveinknek megfelelően{close}. ",
     acceptAll: "Elfogadom",
-    acceptEssentials: "Létfontosságú sütik elfogadása",
+    acceptEssentials: "Csak a szükségszerű sütik",
   },
   nothingHere: "Hoppá. Nincs itt semmi látnivaló...",
   redirect: "Ha nem kerülsz átirányításra, {open}kattints ide{close} ",
@@ -130,7 +130,8 @@ export default {
   notices: {
     missingPassword: "A CFM-fiókodnak nincs jelszava. Nyisd meg a fiókod, és állíts be egyet.",
     disqualified: "Fiókod kizártuk a ranglistáról.",
-    cantQualify: "Fiókod nem felel meg a ranglistán való részvétel követelményeinek.",
+    cantQualify:
+      "A fiókod nem felel meg a ranglistán való szerepléshez szükséges követelményeknek.",
   },
   playerRank: {
     approximate: "(megközelítőleg)",
@@ -187,7 +188,7 @@ export default {
     leaderboard: {
       title: "Hogyan számítják ki a ranglistákat?",
       answer:
-        "Minden nap, közvetlenül a statisztika frissítése után különböző pontszámokat számítunk ki.<br>A <b>Normal</b> pontszámot az összegyűjtött sajt, az első és a lejátszott fordulók alapján kapjuk meg.<br>Minden más pontszám csak a saját statisztikáját veszi figyelembe.<br>A <b>Overall</b> pontszámot az összes többi generált pontszám felhasználásával kapjuk meg.",
+        "Minden nap, közvetlenül a statisztika frissítése után különböző pontszámokat számítunk ki. A <b>Normál</b> pontszámot az összegyűjtött sajt, a a győzelmek és a lejátszott fordulók alapján kapjuk meg. Minden más pontszám csak a saját statisztikáját veszi figyelembe. Az <b>Összpontszámot</b> az összes többi generált pontszám felhasználásával kapjuk meg.",
     },
     moduleStats: {
       title: "Számít a modul statisztikája?",
@@ -200,21 +201,21 @@ export default {
     dislikeLeaderboard: {
       title: "Nem szeretem a ranglistákat",
       answer:
-        "Jelenleg a béta verzióban vagyunk, ezért később módosítani fogják őket.<br>Ha bármilyen javaslata vagy konkrét visszajelzésed van ezek javításával kapcsolatban, kérjük, látogass el {open}discord szerverünkre{close}.",
+        "Jelenleg a béta verzióban vagyunk, így a későbbiekben még finomítani fogunk rajtuk. Ha bármilyen javaslatod vagy konkrét visszajelzésed van ezek javításával kapcsolatban, kérjük, látogass el {open}discord szerverünkre{close}.",
     },
     weirdTribeStats: {
       title: "A törzsem statisztikái furcsák",
       answer:
-        "A törzs statisztikáit úgy számítják ki, hogy a stat összes összegét elosztják a törzs tagjainak négyzetgyökével.<br>Ez azt jelenti, hogy nagyon ingadozhatnak, amikor egy tag csatlakozik a törzshez vagy elhagyja azt.",
+        "A törzs statisztikái úgy kerülnek kiszámítására, hogy a stat összes összegét elosztják a törzs tagjainak négyzetgyökével. Ez azt jelenti, hogy nagyon ingadozhatnak, amikor egy tag csatlakozik a törzshöz vagy elhagyja azt.",
     },
     activeMembers: {
-      title: "Mit tekintünk „aktív törzstagnak”?",
+      title: "Kit tekintünk 'aktív törzstagnak'?",
       answer: "Aktív törzstag az, aki az elmúlt 24 órában kapcsolódott a játékhoz.",
     },
     contribute: {
       title: "Hogyan tudok hozzájárulni? ",
       answer:
-        "Ez egy nyílt forráskódú projekt, és bármilyen hozzájárulást elfogadunk.<br>Ha tudod, hogyan kell kódolni, {ghopen}keresd fel GitHubunkat{close}.<br>Ha le szeretnéd fordítani az oldalt, használhatod {tropen}fordítópanelünket{close}.<br>Ha bármilyen más módon szeretnél hozzájárulni, kérjük, tudasd velünk a {dopen}discord{close}segítségével.",
+        "Ez egy nyílt forráskódú projekt, és bármilyen hozzájárulást elfogadunk.Ha tudod, hogyan kell kódolni, {ghopen}keresd fel GitHubunkat{close}. Ha le szeretnéd fordítani az oldalt, használhatod {tropen}fordítópanelünket{close}. Ha bármilyen más módon szeretnél hozzájárulni, kérjük, tudasd velünk a {dopen}discord{close} segítségével.",
     },
   },
   roles: {
