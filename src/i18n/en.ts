@@ -176,6 +176,7 @@ export default {
     survivor: "Show my survivor stats",
     racing: "Show my racing stats",
     defilante: "Show my defilante stats",
+    outfits: "Show my saved outfits",
   },
 
   account: "Account",

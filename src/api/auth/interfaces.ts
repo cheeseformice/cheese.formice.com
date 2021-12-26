@@ -28,6 +28,7 @@ export interface PrivacySettings {
   survivor: boolean;
   racing: boolean;
   defilante: boolean;
+  outfits: boolean;
 }
 
 export interface AccountInformation {
