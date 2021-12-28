@@ -289,5 +289,6 @@ export default {
     module: "Module team",
     funcorp: "Funcorp",
     fashion: "Fashion squad",
+    flash: "Flash squad",
   },
 };

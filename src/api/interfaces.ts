@@ -57,10 +57,10 @@ export type TfmRole =
   | "mod"
   | "sentinel"
   | "mapcrew"
-  | "mapcrew"
   | "module"
   | "funcorp"
-  | "fashion";
+  | "fashion"
+  | "flash";
 
 export interface Period {
   start?: Dayjs;
