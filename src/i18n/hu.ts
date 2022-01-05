@@ -151,6 +151,7 @@ export default {
     survivor: "Túlélő statisztikáim megjelenítése",
     racing: "Verseny statisztikáim megjelenítése",
     defilante: "Gördülő statisztikáim megjelenítése",
+    outfits: "Mentett kinézetek megjelenítése",
   },
   account: "Fiók",
   accountOverview: "Fiók Áttekintése",
@@ -230,5 +231,6 @@ export default {
     module: "Modul csapat",
     funcorp: "Funcorp",
     fashion: "Divat Osztag",
+    flash: "Flash Osztag",
   },
 };

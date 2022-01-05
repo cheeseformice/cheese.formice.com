@@ -149,6 +149,7 @@ export default {
     survivor: "Zobacz moje statystyki survivor",
     racing: "Zobacz moje statystyki racing",
     defilante: "Zobacz moje statystyki defilante",
+    outfits: "Pokaż moje zapisane stroje",
   },
   account: "Konto",
   accountOverview: "Przegląd konta",
@@ -225,5 +226,6 @@ export default {
     module: "Module team",
     funcorp: "Funcorp",
     fashion: "Fashion squad",
+    flash: "Flash squad",
   },
 };
