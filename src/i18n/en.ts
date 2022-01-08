@@ -201,6 +201,7 @@ export default {
   adminPanel: "Admin Panel",
   stats: "Stats",
   rightsManagement: "Role Manager",
+  privilegedPlayers: "Privileged Players",
 
   showMore: "Show more",
   close: "Close",

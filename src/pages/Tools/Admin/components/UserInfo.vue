@@ -46,7 +46,8 @@
               <q-badge
                 v-for="role in player.cfmRoles || []"
                 outline
-                class="q-mr-sm cursor-pointer text-contrast"
+                class="q-mr-sm cursor-pointer"
+                :class="'cfm-' + role"
                 :key="'cfm-' + role"
                 :label="'cfm-' + role"
                 @click="void removeRole(role)"
@@ -77,8 +78,74 @@
               <q-badge
                 v-for="role in player.tfmRoles || []"
                 outline
-                class="q-mr-sm"
-                color="secondary"
+                class="q-mr-sm text-contrast"
+                :key="role"
+                :label="role"
+              />
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-card>
+    </div>
+
+    <h5 class="q-mb-none">{{ $t("privilegedPlayers") }}</h5>
+    <q-separator spaced />
+    <div class="row col-12">
+      <q-card
+        flat
+        bordered
+        v-for="player in privilegedPlayers"
+        :key="player.id"
+        class="bg-contrast col-lg-4 col-md-6 col-12"
+      >
+        <q-item>
+          <q-item-section avatar>
+            <q-avatar square>
+              <img :src="getAvatar(player.id || 0, false, false)" />
+            </q-avatar>
+          </q-item-section>
+
+          <q-separator vertical size="2px" />
+
+          <q-item-section class="q-ml-md">
+            <q-item-label class="text-h6">{{ player.name }}</q-item-label>
+            <q-item-label>
+              <q-badge
+                v-for="role in player.cfmRoles || []"
+                outline
+                class="q-mr-sm cursor-pointer"
+                :class="'cfm-' + role"
+                :key="'cfm-' + role"
+                :label="'cfm-' + role"
+                @click="void removeRole(role)"
+              />
+              <q-btn-dropdown
+                content-class="bg-contrast"
+                flat
+                class="q-pa-none text-contrast"
+                style="height: auto; min-height: 0"
+              >
+                <q-list>
+                  <q-item
+                    clickable
+                    v-close-popup
+                    v-for="role in availableRoles"
+                    :key="role"
+                    class="q-pa-sm"
+                    @click="void addRole(role)"
+                  >
+                    <q-item-section>
+                      <q-item-label>{{ role }}</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-btn-dropdown>
+            </q-item-label>
+            <q-item-label>
+              <q-badge
+                v-for="role in player.tfmRoles || []"
+                outline
+                class="q-mr-sm text-contrast"
                 :key="role"
                 :label="role"
               />
@@ -90,8 +157,26 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+.cfm-translator {
+  color: rgb(204, 79, 242);
+}
+
+.cfm-mod {
+  color: rgb(215, 232, 42);
+}
+
+.cfm-admin {
+  color: rgb(235, 29, 81);
+}
+
+.cfm-dev {
+  color: rgb(235, 29, 81);
+}
+</style>
+
 <script lang="ts">
-import { CfmRole, TfmRole } from "src/api";
+import { BasePlayer, CfmRole, TfmRole } from "src/api";
 import { mixins } from "vue-property-decorator";
 import { Images } from "src/common/mixins";
 import { RouteLocationRaw } from "vue-router";
@@ -131,6 +216,7 @@ export default class UserInfo extends mixins(Images) {
   error = "";
 
   availableRoles: CfmRole[] = ["dev", "admin", "mod", "translator"];
+  privilegedPlayers: BasePlayer[] = [];
 
   selectPlayer(player: SearchOption) {
     this.player = player;
@@ -148,6 +234,17 @@ export default class UserInfo extends mixins(Images) {
     return false;
   }
 
+  async fetchPrivilegedPlayers() {
+    const result = await Auth.admin.getPrivilegedPlayers();
+    if (typeof result === "string") {
+      this.showError = true;
+      this.error = result;
+      return;
+    }
+
+    this.privilegedPlayers = result;
+  }
+
   async addRole(role: CfmRole, dontUpdate?: boolean) {
     if (this.player.cfmRoles) {
       this.player.cfmRoles.push(role);
@@ -155,9 +252,13 @@ export default class UserInfo extends mixins(Images) {
       this.player.cfmRoles = [role];
     }
 
-    if (!dontUpdate && !(await this.sendNewRoles())) {
-      // unsucessful to add role, remove it locally
-      await this.removeRole(role, true);
+    if (!dontUpdate) {
+      if (!(await this.sendNewRoles())) {
+        // unsucessful to add role, remove it locally
+        await this.removeRole(role, true);
+      } else {
+        await this.fetchPrivilegedPlayers();
+      }
     }
   }
 
@@ -171,10 +272,18 @@ export default class UserInfo extends mixins(Images) {
       this.player.cfmRoles.splice(index, 1);
     }
 
-    if (!dontUpdate && !(await this.sendNewRoles())) {
-      // unsucessful to remove role, add it locally
-      await this.addRole(role, true);
+    if (!dontUpdate) {
+      if (!(await this.sendNewRoles())) {
+        // unsucessful to remove role, add it locally
+        await this.addRole(role, true);
+      } else {
+        await this.fetchPrivilegedPlayers();
+      }
     }
+  }
+
+  mounted() {
+    void this.fetchPrivilegedPlayers();
   }
 }
 </script>
