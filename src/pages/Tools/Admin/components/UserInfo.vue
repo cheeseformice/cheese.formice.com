@@ -50,7 +50,7 @@
                 :class="'cfm-' + role"
                 :key="'cfm-' + role"
                 :label="'cfm-' + role"
-                @click="void removeRole(role)"
+                @click="void removeRole(player, role)"
               />
               <q-btn-dropdown
                 content-class="bg-contrast"
@@ -65,7 +65,7 @@
                     v-for="role in availableRoles"
                     :key="role"
                     class="q-pa-sm"
-                    @click="void addRole(role)"
+                    @click="void addRole(player, role)"
                   >
                     <q-item-section>
                       <q-item-label>{{ role }}</q-item-label>
@@ -117,7 +117,7 @@
                 :class="'cfm-' + role"
                 :key="'cfm-' + role"
                 :label="'cfm-' + role"
-                @click="void removeRole(role)"
+                @click="void removeRole(player, role)"
               />
               <q-btn-dropdown
                 content-class="bg-contrast"
@@ -132,7 +132,7 @@
                     v-for="role in availableRoles"
                     :key="role"
                     class="q-pa-sm"
-                    @click="void addRole(role)"
+                    @click="void addRole(player, role)"
                   >
                     <q-item-section>
                       <q-item-label>{{ role }}</q-item-label>
@@ -222,9 +222,9 @@ export default class UserInfo extends mixins(Images) {
     this.player = player;
   }
 
-  async sendNewRoles(): Promise<boolean> {
+  async sendNewRoles(player: BasePlayer | SearchOption): Promise<boolean> {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const result = await Auth.admin.updateRoles(this.player.name, this.player.cfmRoles!);
+    const result = await Auth.admin.updateRoles(player.name, player.cfmRoles!);
     if (result === undefined) {
       return true;
     }
@@ -245,37 +245,37 @@ export default class UserInfo extends mixins(Images) {
     this.privilegedPlayers = result;
   }
 
-  async addRole(role: CfmRole, dontUpdate?: boolean) {
-    if (this.player.cfmRoles) {
-      this.player.cfmRoles.push(role);
+  async addRole(player: BasePlayer | SearchOption, role: CfmRole, dontUpdate?: boolean) {
+    if (player.cfmRoles) {
+      player.cfmRoles.push(role);
     } else {
-      this.player.cfmRoles = [role];
+      player.cfmRoles = [role];
     }
 
     if (!dontUpdate) {
-      if (!(await this.sendNewRoles())) {
+      if (!(await this.sendNewRoles(player))) {
         // unsucessful to add role, remove it locally
-        await this.removeRole(role, true);
+        await this.removeRole(player, role, true);
       } else {
         await this.fetchPrivilegedPlayers();
       }
     }
   }
 
-  async removeRole(role: CfmRole, dontUpdate?: boolean) {
-    if (!this.player.cfmRoles) {
+  async removeRole(player: BasePlayer | SearchOption, role: CfmRole, dontUpdate?: boolean) {
+    if (!player.cfmRoles) {
       return;
     }
 
-    const index = this.player.cfmRoles.indexOf(role);
+    const index = player.cfmRoles.indexOf(role);
     if (index > -1) {
-      this.player.cfmRoles.splice(index, 1);
+      player.cfmRoles.splice(index, 1);
     }
 
     if (!dontUpdate) {
-      if (!(await this.sendNewRoles())) {
+      if (!(await this.sendNewRoles(player))) {
         // unsucessful to remove role, add it locally
-        await this.addRole(role, true);
+        await this.addRole(player, role, true);
       } else {
         await this.fetchPrivilegedPlayers();
       }
