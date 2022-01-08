@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { PrivacySettings } from ".";
-import { axios, PeriodStats } from "../";
+import { axios, BasePlayer, PeriodStats } from "../";
 import { CfmRole, ErrorResponse, Period } from "../interfaces";
 import {
   AuthError,
@@ -79,6 +79,18 @@ export default class Auth {
     }
 
     return response.data as ErrorResponse;
+  }
+
+  static async getPrivilegedPlayers(token: string): Promise<string | undefined | BasePlayer[]> {
+    const response: AxiosResponse<ErrorResponse | BasePlayer[]> = await axios.get("/users/roles", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (response.status === 200) {
+      return response.data as BasePlayer[];
+    }
+    const error = response.data as ErrorResponse;
+    return error.message;
   }
 
   static async updateRoles(

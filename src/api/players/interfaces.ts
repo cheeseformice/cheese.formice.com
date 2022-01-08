@@ -1,10 +1,10 @@
-import { Log } from "..";
+import { CfmRole, Log, TfmRole } from "..";
 
 export interface BasePlayer {
   id: number;
   name: string;
-  cfmRoles: string[];
-  tfmRoles: string[];
+  cfmRoles: CfmRole[];
+  tfmRoles: TfmRole[];
 }
 
 export interface Player extends BasePlayer {
