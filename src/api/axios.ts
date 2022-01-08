@@ -3,7 +3,12 @@ import axios from "axios";
 import applyCaseMiddleware from "axios-case-converter";
 import { DOMAIN } from "src/common/vars";
 
-const http = DOMAIN !== "cheese.formice.com" ? window.location.protocol : "https:";
+let http;
+if (window.location.hostname === "localhost" || DOMAIN === "cheese.formice.com") {
+  http = "https:";
+} else {
+  http = window.location.protocol;
+}
 const ws = http === "http:" ? "ws:" : "wss:";
 
 const URL = `${DOMAIN}/api`;
