@@ -245,6 +245,10 @@ export default class Hero extends Vue {
   --color: 0, 157, 157;
 }
 
+.event {
+  --color: 240, 211, 173;
+}
+
 .flash {
   --color: 194, 194, 218;
 }

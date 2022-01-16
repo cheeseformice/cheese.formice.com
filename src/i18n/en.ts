@@ -291,5 +291,6 @@ export default {
     funcorp: "Funcorp",
     fashion: "Fashion squad",
     flash: "Flash squad",
+    event: "Event squad",
   },
 };

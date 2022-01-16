@@ -60,7 +60,8 @@ export type TfmRole =
   | "module"
   | "funcorp"
   | "fashion"
-  | "flash";
+  | "flash"
+  | "event";
 
 export interface Period {
   start?: Dayjs;
