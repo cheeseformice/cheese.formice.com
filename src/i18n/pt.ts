@@ -164,6 +164,7 @@ export default {
   adminPanel: "Painel de administração",
   stats: "Estatísticas",
   rightsManagement: "Gerenciar cargos",
+  privilegedPlayers: "Jogadores privilegiados",
   showMore: "Mostrar mais",
   close: "Fechar",
   error: "Erro",
