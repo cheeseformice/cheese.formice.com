@@ -149,6 +149,7 @@ export default {
     survivor: "Mostrar mis estadísticas de survivor",
     racing: "Mostrar mis estadísticas de racing",
     defilante: "Mostrar mis estadísticas de defilante",
+    outfits: "Mostrar mis vestuarios guardados",
   },
   account: "Cuenta",
   accountOverview: "Cuenta",
@@ -163,6 +164,7 @@ export default {
   adminPanel: "Panel de Administración",
   stats: "Estadísticas",
   rightsManagement: "Cambiar Roles",
+  privilegedPlayers: "Jugadores con Roles",
   showMore: "Mostrar más",
   close: "Cerrar",
   error: "Error",
@@ -231,5 +233,7 @@ export default {
     module: "Module Team",
     funcorp: "FunCorp",
     fashion: "Fashion Squad",
+    flash: "Flash Squad",
+    event: "Event Squad",
   },
 };
