@@ -245,6 +245,10 @@ export default class Hero extends Vue {
   --color: 0, 157, 157;
 }
 
+.discorderator {
+  --color: 231, 142, 226;
+}
+
 .event {
   --color: 240, 211, 173;
 }

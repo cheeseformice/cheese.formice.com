@@ -61,7 +61,8 @@ export type TfmRole =
   | "funcorp"
   | "fashion"
   | "flash"
-  | "event";
+  | "event"
+  | "discorderator";
 
 export interface Period {
   start?: Dayjs;

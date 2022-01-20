@@ -292,5 +292,6 @@ export default {
     fashion: "Fashion squad",
     flash: "Flash squad",
     event: "Event squad",
+    discorderator: "Discorderator",
   },
 };
