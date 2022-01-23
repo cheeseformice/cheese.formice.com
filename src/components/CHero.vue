@@ -2,7 +2,7 @@
   <q-parallax :src="img" :height="250">
     <div class="container">
       <div class="row top-hero q-gutter-x-md items-center">
-        <c-avatar size="128px" :id="id" :tribe="tribe" v-if="$q.screen.gt.sm" />
+        <!-- <c-avatar size="128px" :id="id" :tribe="tribe" v-if="$q.screen.gt.sm" /> -->
         <div :class="tribeClass" v-if="tribe">
           {{ title }}
         </div>
