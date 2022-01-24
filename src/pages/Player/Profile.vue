@@ -171,7 +171,7 @@ export default class PlayerProfile extends mixins(Images) {
 
   get sideItems() {
     const { name, tribe, soulmate } = this.player;
-    const registration = new Date(this.player.registration).toLocaleString();
+    const registration = new Date(this.player.registration).toLocaleDateString();
     let lastLogin;
     if (this.player.lastLogin) {
       lastLogin = new Date(this.player.lastLogin).toLocaleString();
