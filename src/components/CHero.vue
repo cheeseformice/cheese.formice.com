@@ -173,9 +173,9 @@ export default class Hero extends Vue {
       case "dev":
         return "shield-bug";
       case "admin":
-        return "crown-circle";
+        return "crown";
       case "mod":
-        return "shield-star";
+        return "gavel";
       case "translator":
         return "web-plus";
     }
