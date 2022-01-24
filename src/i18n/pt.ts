@@ -81,6 +81,8 @@ export default {
     defilante: "Pontuação de defilante: {stat}",
     overall: "Pontuação geral: {stat}",
   },
+  registration: "Data de registro",
+  lastLogin: "Último login",
   date: "Data",
   level: "Nível {level}",
   miceSavedNormal: "Ratos salvos (Normal)",
@@ -236,5 +238,7 @@ export default {
     funcorp: "FunCorp",
     fashion: "Fashion Squad",
     flash: "Flash Squad",
+    event: "Event Squad",
+    discorderator: "Discorderator",
   },
 };

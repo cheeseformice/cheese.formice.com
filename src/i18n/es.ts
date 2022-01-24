@@ -81,6 +81,8 @@ export default {
     defilante: "{stat} puntos de defilante",
     overall: "{stat} puntos generales",
   },
+  registration: "Fecha de registro",
+  lastLogin: "Último login",
   date: "Fecha",
   level: "Nivel {level}",
   miceSavedNormal: "Ratones Salvados (Normal)",
@@ -235,5 +237,6 @@ export default {
     fashion: "Fashion Squad",
     flash: "Flash Squad",
     event: "Event Squad",
+    discorderator: "Discorderador",
   },
 };
