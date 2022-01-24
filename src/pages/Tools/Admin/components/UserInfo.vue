@@ -158,6 +158,10 @@
 </template>
 
 <style lang="scss" scoped>
+.cfm-trainee {
+  color: rgb(220, 187, 221);
+}
+
 .cfm-translator {
   color: rgb(204, 79, 242);
 }
