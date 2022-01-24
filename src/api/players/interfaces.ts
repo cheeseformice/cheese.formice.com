@@ -8,6 +8,7 @@ export interface BasePlayer {
 }
 
 export interface Player extends BasePlayer {
+  registration: string;
   gender: "male" | "female" | null;
   title: number;
   tribe: Tribe | null;
@@ -75,6 +76,7 @@ const NullStats: Stats = {
 export const NullPlayer: Player = {
   id: 0,
   name: "Null#0001",
+  registration: "2010-05-14T07:51:50.455000Z",
   cfmRoles: [],
   tfmRoles: [],
   gender: null,

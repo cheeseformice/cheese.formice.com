@@ -100,6 +100,7 @@ export default {
   },
 
   // For stats
+  registration: "Registration date",
   date: "Date",
   level: "Level {level}",
   miceSavedNormal: "Mice Saved (Normal)",
