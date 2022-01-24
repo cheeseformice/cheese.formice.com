@@ -215,7 +215,7 @@ export default class UserInfo extends mixins(Images) {
   showError = false;
   error = "";
 
-  availableRoles: CfmRole[] = ["dev", "admin", "mod", "translator"];
+  availableRoles: CfmRole[] = ["dev", "admin", "mod", "translator", "trainee"];
   privilegedPlayers: BasePlayer[] = [];
 
   selectPlayer(player: SearchOption) {

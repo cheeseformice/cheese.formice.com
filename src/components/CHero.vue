@@ -9,9 +9,9 @@
         <div :class="playerClass" v-else>
           <span :class="`${namecolor} name`">{{ name }}</span>
           <span class="tag">{{ tag }}</span>
-          <div class="row" v-if="cfmRoles.length + tfmRoles.length > 0">
+          <div class="row" v-if="filteredCfmRoles.length + tfmRoles.length > 0">
             <q-icon
-              v-for="role in cfmRoles"
+              v-for="role in filteredCfmRoles"
               size="sm"
               :name="`mdi:${cfmBadge(role)}`"
               :key="role"
@@ -132,6 +132,10 @@ export default class Hero extends Vue {
 
   decimal = decimal;
 
+  get filteredCfmRoles() {
+    return this.cfmRoles.filter((role) => role !== "trainee");
+  }
+
   get tribeClass() {
     let cls = "tribe-shadow text-weight-medium text-white";
     if (!this.$q.screen.gt.sm) {
@@ -168,7 +172,7 @@ export default class Hero extends Vue {
     return this.tfmRoles.length > 0 ? this.tfmRoles[0] : "player";
   }
 
-  cfmBadge(role: CfmRole): string {
+  cfmBadge(role: CfmRole): string | void {
     switch (role) {
       case "dev":
         return "shield-bug";
@@ -178,6 +182,8 @@ export default class Hero extends Vue {
         return "gavel";
       case "translator":
         return "web-plus";
+      case "trainee":
+        return;
     }
   }
 }

@@ -297,7 +297,7 @@ export default class PlayerPage extends mixins(Images) {
 
   mounted() {
     this.hook = Auth.hook(
-      { player: { cfmRoles: ["mod", "admin", "dev"] } },
+      { player: { cfmRoles: ["trainee", "mod", "admin", "dev"] } },
       {
         hook: () => {
           if (!this.player || this.playerName.toUpperCase() !== this.player?.name.toUpperCase()) {

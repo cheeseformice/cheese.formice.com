@@ -50,7 +50,7 @@ export type Pagination = {
   limit: number;
 };
 
-export type CfmRole = "dev" | "admin" | "mod" | "translator";
+export type CfmRole = "dev" | "admin" | "mod" | "translator" | "trainee";
 
 export type TfmRole =
   | "admin"
