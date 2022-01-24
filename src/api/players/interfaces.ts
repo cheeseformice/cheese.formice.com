@@ -9,6 +9,7 @@ export interface BasePlayer {
 
 export interface Player extends BasePlayer {
   registration: string;
+  lastLogin?: string;
   gender: "male" | "female" | null;
   title: number;
   tribe: Tribe | null;

@@ -101,6 +101,7 @@ export default {
 
   // For stats
   registration: "Registration date",
+  lastLogin: "Last login",
   date: "Date",
   level: "Level {level}",
   miceSavedNormal: "Mice Saved (Normal)",
