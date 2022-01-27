@@ -171,10 +171,7 @@ export default class PlayerProfile extends mixins(Images) {
 
   get sideItems() {
     const { name, tribe, soulmate } = this.player;
-
-    let registration = new Date(this.player.registration);
-    let userTimezone = registration.getTimezoneOffset() * 60000;
-    registration = new Date(registration.getTime() + userTimezone);
+    const [year, month] = this.player.registration.split("-");
 
     let lastLogin;
     if (this.player.lastLogin) {
@@ -184,7 +181,7 @@ export default class PlayerProfile extends mixins(Images) {
     return [
       {
         label: this.$t("registration"),
-        value: registration.toLocaleDateString(),
+        value: `${month}/${year}`,
         icon: "alarm",
       },
       {
