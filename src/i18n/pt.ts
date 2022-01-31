@@ -159,7 +159,7 @@ export default {
   preferences: "Preferências",
   privacySettings: "Configurações de Privacidade",
   logout: "Deslogar",
-  sanction: { btn: "Sanções", apply: "Aplicar", cancel: "Cancelas", edit: "Editar" },
+  sanction: { btn: "Sanções", apply: "Aplicar", cancel: "Cancelar", edit: "Editar" },
   registrationInfo:
     'Para registrar-se no CFM, primeiramente, faça o login no Transformice e abra a página de "Comunidade", conforme a imagem. A partir dela, clique em "CheeseForMice" e você será registrado.',
   staffTools: "Ferramentas da Staff",
