@@ -50,7 +50,7 @@
           @click="cancelSanction"
         />
         <q-btn
-          v-if="!sanctionInfoError"
+          v-if="!sanctionInfoError && !editing"
           outline
           no-caps
           :label="$t('sanction.edit')"
