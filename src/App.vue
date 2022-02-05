@@ -24,7 +24,7 @@ export default class App extends Vue {
   async useTicket(ticket: string) {
     const response = await Auth.authenticator.useTicket(ticket);
 
-    if (!response.hasPassword) {
+    if (!response.hasPassword && response.success) {
       controller.showNotice("info", "notices.missingPassword");
     }
   }
