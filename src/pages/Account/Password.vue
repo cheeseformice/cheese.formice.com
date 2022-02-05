@@ -125,7 +125,7 @@ export default class Password extends Vue {
           this.hasPassword = state.hasPassword;
         },
       },
-      ["missingPassword"]
+      ["hasPassword"]
     );
   }
 
