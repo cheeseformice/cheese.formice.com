@@ -52,6 +52,7 @@
             $router.push(e.route);
           }
         "
+        :onTyped="onSearchTyped.bind(this)"
       />
       <q-tabs stretch v-if="!$q.screen.xs && rightLinks.length > 0">
         <div style="width: 0.3rem" class="full-height"></div>
@@ -241,6 +242,13 @@ export default class AppHeader extends mixins(Images) {
         ],
       },
     ];
+  }
+
+  onSearchTyped(content: string) {
+    void this.$router.push({
+      name: "player",
+      params: { playerName: content },
+    });
   }
 
   mounted() {

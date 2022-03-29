@@ -70,6 +70,7 @@ export default class CEntitySearch extends mixins(Images) {
   @Prop({ required: true }) players!: boolean;
   @Prop({ required: true }) tribes!: boolean;
   @Prop({ required: true }) onSelect!: (e: SearchOption) => unknown;
+  @Prop({ required: false }) onTyped?: (e: string) => unknown;
   @Prop({ default: "white" }) color!: string;
 
   selectedSearch: SearchOption | null = null;
@@ -116,7 +117,10 @@ export default class CEntitySearch extends mixins(Images) {
   }
 
   onSearchSelect() {
-    if (!this.selectedSearch) return;
+    if (!this.selectedSearch) {
+      if (this.onTyped) this.onTyped(this.content);
+      return;
+    }
     this.onSelect(this.selectedSearch);
   }
 
