@@ -168,7 +168,6 @@ export default class PlayerPage extends mixins(Images) {
   }
 
   selectLeaderboard(type: LeaderboardType) {
-    console.log("test");
     window.localStorage.setItem("playerRank.sort", type);
     void this.fetchLeaderboard();
   }

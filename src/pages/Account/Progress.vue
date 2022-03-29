@@ -324,7 +324,6 @@ export default class AccountProgress extends Vue {
 
   async fetchPeriods() {
     const state = Auth.getState();
-    console.log(state);
     if (!state.logged) return; // should not happen
 
     let last: APIPeriod;
