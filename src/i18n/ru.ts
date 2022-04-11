@@ -138,8 +138,8 @@ export default {
     approximate: "(приблизительно)",
     disqualified: "Дисквалифицирован",
     cantQualify: "Не могу квалифицировать",
-    total: "из (всех)",
-    mobile: "<b>#{pos}</b> из <b>{всех}</b>",
+    total: "из {total}",
+    mobile: "<b>#{pos}</b> из <b>{total}</b>",
   },
   privacy: {
     information:
